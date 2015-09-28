@@ -1,0 +1,47 @@
+div.parent
+{
+	display: table;
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	margin-top: -300px;
+	margin-left: -477.5px;
+}
+div.image
+{
+	display: table-cell;
+	position: relative;
+}
+div.text
+{
+	display: table-cell;
+	position: relative;
+	height: 600px;
+	width: 235px;
+	vertical-align: middle;
+}
+body
+{
+	font-size: 100%;
+	font-style: normal;
+	text-align: center;
+}
+p
+{
+	font-family: 'Source Sans Pro', Arial, Helvetica, sans-serif;
+	font-size: 0.875em;
+	
+}
+h1
+{
+	font-family: "Arial Black", Arial, Helvetica, sans-serif;
+	font-size: 2.8em;
+	margin-bottom: 0;
+	text-align: center;
+}
+h2
+{
+	font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+	font-size: 2em;
+	margin-top: 0;
+}

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="3.4" type="template">
+	<name>SYO</name>
+	<creationDate>2015-08-10</creationDate>
+	<author>A Bradbury</author>
+	<authorEmail>john@example.com</authorEmail>
+	<authorUrl>http://www.southyorkshireorienteers.org.uk</authorUrl>
+	<copyright>South Yorkshire Orienteers 2015</copyright>
+	<license>GNU/GPL</license>
+	<version>1.0.0</version>
+	<description>SYO Template</description>
+
+	<files>
+		<filename>index.php</filename>
+		<filename>templateDetails.xml</filename>
+		<folder>images</folder>
+		<folder>css</folder>
+		<folder>js</folder>
+		<folder>html</folder>
+		<folder>fonts</folder>
+		<folder>language</folder>
+	</files>
+
+	<positions>
+		<position>breadcrumb</position>
+		<position>newsflash</position>
+		<position>login</position>
+		<position>logout</position>
+		<position>menu</position>
+		<position>banner</position>
+		<position>events</position>
+		<position>results</position>
+		<position>about_left</position>
+		<position>map-right</position>
+		<position>bottom_left</position>
+		<position>bottom_middle</position>
+		<position>bottom_right</position>
+		<position>footer</position>
+	</positions>
+
+	<languages folder="language">
+		<language tag="en-GB">en-GB/en-GB.tpl_syo.ini</language>
+		<language tag="en-GB">en-GB/en-GB.tpl_syo.sys.ini</language>
+	</languages>
+
+	<config>
+		<fields name="params">
+			<fieldset name="SYO_Social">
+				<field name="facebookURL" class="" type="url" default=""
+					label="TPL_SYO_FACEBOOK_LABEL"
+					description="TPL_SYO_FACEBOOK_DESC" />
+ 
+				<field name="twitterURL" class="" type="url" default=""
+					label="TPL_SYO_TWITTER_LABEL"
+					description="TPL_SYO_TWITTER_DESC" />
+ 
+				<field name="flickrURL" class="" type="url" default=""
+					label="TPL_SYO_FLICKR_LABEL"
+					description="TPL_SYO_FLICKR_DESC" />
+			</fieldset>
+		</fields>
+	</config>
+</extension>
