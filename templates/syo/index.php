@@ -203,17 +203,30 @@ $doc->addScript($this->baseurl.'/templates/'.$this->template.'/js/bootstrap.min.
             </div>
           </div>
 
+          <?php if ($this->countModules( 'newsflash' )): ?>
           <div class="row">
             <div class="col-sm-12">
               <jdoc:include type="modules" name="newsflash" style="xhtml" /> 
             </div>
           </div>
+          <?php endif; ?>
 
+          <?php $app = JFactory::getApplication();
+          if(count($app->getMessageQueue())) { ?>
+          <div class="row">
+            <div class="col-sm-12">
+              <jdoc:include type="message" />
+            </div>
+          </div>
+          <?php } ?>
+
+          <?php if ($this->countModules( 'breadcrumb' )): ?>
           <div class="row">
             <div class="col-sm-12">
               <jdoc:include type="modules" name="breadcrumb" style="xhtml" /> 
             </div>
           </div>
+          <?php endif; ?>
 
           <div class="row">
             <?php if ($this->countModules( 'events' )): ?>
@@ -260,6 +273,7 @@ $doc->addScript($this->baseurl.'/templates/'.$this->template.'/js/bootstrap.min.
             <?php endif; ?>
           </div>
 
+          <?php if (($this->countModules( 'bottom_left' )) || ($this->countModules( 'bottom_middle' )) || ($this->countModules( 'bottom_right' ))): ?>
           <div class="row">
             <?php if ($this->countModules( 'bottom_left' )): ?>
             <div class="col-sm-4">
@@ -279,6 +293,7 @@ $doc->addScript($this->baseurl.'/templates/'.$this->template.'/js/bootstrap.min.
             </div>
             <?php endif; ?>
           </div>
+          <?php endif; ?>
           
         </div>
       </div>

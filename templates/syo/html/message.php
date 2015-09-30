@@ -1,7 +1,7 @@
 <?php
 /**
  * @package     Joomla.Administrator
- * @subpackage  Template.Isis
+ * @subpackage  Template.SYO
  *
  * @copyright   Copyright (C) 2005 - 2014 Open Source Matters, Inc. All rights reserved.
  * @license     GNU General Public License version 2 or later; see LICENSE.txt
@@ -13,7 +13,7 @@ function renderMessage($msgList)
 {
 	$buffer  = null;
 	$buffer .= "\n<div id=\"system-message-container\">";
-	$alert = array('error' => 'alert-error', 'warning' => 'alert-warning', 'notice' => 'alert-info', 'message' => 'alert-success');
+	$alert = array('error' => 'alert-danger', 'warning' => 'alert-warning', 'notice' => 'alert-info', 'message' => 'alert-success');
 
 // 	<div class="alert alert-warning alert-dismissible" role="alert">
 //   <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
