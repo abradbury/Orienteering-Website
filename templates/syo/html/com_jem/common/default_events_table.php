@@ -25,9 +25,10 @@ defined('_JEXEC') or die;
 		<?php if ($this->settings->get('global_show_filter',1)) : ?>
 			<div class="pull-left">
 				<?php
-					echo '<label for="filter" class="control-label">'.JText::_('COM_JEM_FILTER').'</label>&nbsp;';
+					echo '<label for="filter_type" class="control-label">'.JText::_('COM_JEM_FILTER').'</label>&nbsp;';
 					echo $this->lists['filter'].'&nbsp;';
 				?>
+				<label class="sr-only" for="filter_search">Event search term</label>
 				<input type="text" name="filter_search" id="filter_search" value="<?php echo $this->lists['search'];?>" placeholder="Enter search term" class="form-control" onchange="document.adminForm.submit();" />
 				<button class="btn btn-primary" type="submit"><?php echo JText::_('JSEARCH_FILTER_SUBMIT'); ?></button>
 				<button class="btn btn-default" type="button" onclick="document.id('filter_search').value='';this.form.submit();"><?php echo JText::_('JSEARCH_FILTER_CLEAR'); ?></button>
