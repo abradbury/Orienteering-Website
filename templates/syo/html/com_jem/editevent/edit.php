@@ -239,6 +239,10 @@ $max_custom_fields = $this->settings->get('global_editevent_maxnumcustomfields',
 					<div class="col-sm-2"><?php echo $this->form->getInput('endtimes'); ?></div>
 				</div>
 
+				<div class="form-group">
+					<div class="col-sm-2 cantAccessLabel"><?php echo $this->form->getLabel('published'); ?></div>
+					<div class="col-sm-8"><?php echo $this->form->getInput('published'); ?></div>
+				</div>
 				
 				<!-- <div class="form-group">
 					<div class="col-sm-2 cantAccessLabel"><?php echo $this->form->getLabel('featured'); ?></div>
