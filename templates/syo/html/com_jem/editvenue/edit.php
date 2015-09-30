@@ -287,6 +287,7 @@ $location = JemHelper::defineCenterMap($this->form);
 					<div class="col-sm-8">
 						<?php echo $this->form->getInput('map'); ?>
 					</div>
+					<span id="findVenueCitHelpBlock" class="col-sm-2 help-block"><?php echo JText::_('TPL_SYO_JEM_VENUE_ADD_MAP_HELP_TEXT'); ?></span>
 				</div>
 
 				<div id="mapdiv">
@@ -296,15 +297,17 @@ $location = JemHelper::defineCenterMap($this->form);
 							<input id="geocomplete" type="text" size="55" placeholder="<?php echo JText::_( 'COM_JEM_VENUE_ADDRPLACEHOLDER' ); ?>" value="" />
 						</div>
 						<div class="col-sm-2">
-							<input id="find-left" class="btn btn-default btn-block" type="button" value="<?php echo JText::_('COM_JEM_VENUE_ADDR_FINDVENUEDATA');?>" />
+							<input id="find-left" class="btn btn-default btn-block" type="button" value="<?php echo JText::_('COM_JEM_VENUE_ADDR_FINDVENUEDATA');?>" aria-describedby="findVenueCitHelpBlock" />
 						</div>
+						<span id="findVenueCitHelpBlock" class="col-sm-2 help-block"><?php echo JText::_('TPL_SYO_JEM_VENUE_META_FIND_VENUE_HELP_TEXT'); ?></span>
 					</div>
 
 					<div class="form-group">
 						<label class="col-sm-2 control-label">Map</label>
 						<div class="col-sm-8">
-							<div class="map_canvas"></div>
+							<div class="map_canvas" aria-describedby="mapHelpBlock"></div>
 					 	</div>
+					 	<span id="mapHelpBlock" class="col-sm-2 help-block"><?php echo JText::_('TPL_SYO_JEM_VENUE_META_MAP_HELP_TEXT'); ?></span>
 					</div>
  
 					<div class="form-group">
@@ -372,6 +375,7 @@ $location = JemHelper::defineCenterMap($this->form);
 						<div class="col-sm-2"><input id="cp-address" class="btn btn-default btn-block" type="button" value="<?php echo JText::_('COM_JEM_VENUE_COPY_ADDRESS'); ?>" /></div>
 						<div class="col-sm-2"><input id="cp-venue" class="btn btn-default btn-block" type="button" value="<?php echo JText::_('COM_JEM_VENUE_COPY_VENUE'); ?>" /></div>
 						<div class="col-sm-2"><input id="cp-latlong" class="btn btn-default btn-block" type="button" value="<?php echo JText::_('COM_JEM_VENUE_COPY_COORDINATES'); ?>" /></div>
+						<span class="col-sm-2 help-block"><?php echo JText::_('TPL_SYO_JEM_VENUE_COPY_MAP_DATA_HELP_TEXT'); ?></span>
 					</div>
 				</div>
 			</fieldset>
@@ -382,8 +386,9 @@ $location = JemHelper::defineCenterMap($this->form);
 				<div class="form-group">
 					<label class="col-sm-2 control-label"><?php echo JText::_('COM_JEM_ADD_VENUE_CITY'); ?></label>
 					<div class="col-sm-8">
-						<input type="button" class="btn btn-default" value="<?php echo JText::_('COM_JEM_ADD_VENUE_CITY'); ?>" onclick="meta()" />
+						<input type="button" class="btn btn-default" value="<?php echo JText::_('COM_JEM_ADD_VENUE_CITY'); ?>" onclick="meta()" aria-describedby="addVenCitHelpBlock" />
 					</div>
+					<span id="addVenCitHelpBlock" class="col-sm-2 help-block"><?php echo JText::_('TPL_SYO_JEM_VENUE_META_VEN_CITY_HELP_TEXT'); ?></span>
 				</div>
 
 				<?php foreach($this->form->getFieldset('meta') as $field): ?>

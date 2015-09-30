@@ -23,6 +23,7 @@ defined('_JEXEC') or die;
 	<?php if ($this->params->get('show_page_heading', 1)) : ?>
 		<h1>
 			<span itemprop="name"><?php echo $this->escape($this->params->get('page_heading')); ?></span>
+			<?php echo JemOutput::editbutton($this->venue, $this->params, NULL, $this->allowedtoeditvenue, 'venue'); ?>
 		</h1>
 	<?php endif; ?>
 
@@ -37,18 +38,20 @@ defined('_JEXEC') or die;
 	}
 	?>
 
-	<!-- <?php if ($this->settings->get('global_show_mapserv')== 3) : ?>-->
-			<input type="hidden" id="latitude" value="<?php echo $this->venue->latitude;?>">
-			<input type="hidden" id="longitude" value="<?php echo $this->venue->longitude;?>">
+	<?php if ($this->settings->get('global_show_mapserv')== 3) : ?>
+		<input type="hidden" id="latitude" value="<?php echo $this->venue->latitude;?>">
+		<input type="hidden" id="longitude" value="<?php echo $this->venue->longitude;?>">
 
-			<input type="hidden" id="venue" value="<?php echo $this->venue->venue;?>">
-			<input type="hidden" id="street" value="<?php echo $this->venue->street;?>">
-			<input type="hidden" id="city" value="<?php echo $this->venue->city;?>">
-			<input type="hidden" id="state" value="<?php echo $this->venue->state;?>">
-			<input type="hidden" id="postalCode" value="<?php echo $this->venue->postalCode;?>">
+		<input type="hidden" id="venue" value="<?php echo $this->venue->venue;?>">
+		<input type="hidden" id="street" value="<?php echo $this->venue->street;?>">
+		<input type="hidden" id="city" value="<?php echo $this->venue->city;?>">
+		<input type="hidden" id="state" value="<?php echo $this->venue->state;?>">
+		<input type="hidden" id="postalCode" value="<?php echo $this->venue->postalCode;?>">
 		<?php echo JemOutput::mapicon($this->venue,null,$this->settings); ?>
-	<!--<?php endif; ?>-->
-
+		<?php if($this->venue->map == "1"): ?>
+		<p class="mapcaveat small">Please note the map above is just to give an indication of where the venue is, specific details should be given in an event's details.</p>
+		<?php endif; ?>
+	<?php endif; ?>
 
 	<?php if ($this->settings->get('global_show_locdescription',1) && $this->venuedescription != '' &&
 	          $this->venuedescription != '<br />') : ?>

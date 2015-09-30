@@ -258,7 +258,15 @@ table.eventtable {
   margin-top: 20px;
 }
 
- /***************************************/   
+div.jem_venue > div#map-canvas {
+  border: none;
+}
+
+p.mapcaveat {
+  color: #777;
+}
+
+/***************************************/   
 
 /***************** News ****************/
 
@@ -531,7 +539,7 @@ a[href $='.txt']:after, a[href $='.rtf']:after {
 }
 
 /* From: http://davidwalsh.name/external-links-css */
-a[href*="//"]:not([href*="localhost/syo"]):not([class="social-button"]):after {
+a[href*="//"]:not([href*="beta.southyorkshireorienteers.org.uk"]):not([class="social-button"]):after {
   font-family: FontAwesome;
   content: " \f08e";
 }
