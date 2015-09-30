@@ -53,9 +53,6 @@ defined('_JEXEC') or die;
 		<?php if ($this->jemsettings->showtitle == 1) : ?>
 			<col width="<?php echo $this->jemsettings->titlewidth; ?>" class="jem_col_title" />
 		<?php endif; ?>
-		<?php if ($this->jemsettings->showlocate == 1) : ?>
-			<col width="<?php echo $this->jemsettings->locationwidth; ?>" class="jem_col_venue" />
-		<?php endif; ?>
 		<?php if ($this->jemsettings->showcity == 1) : ?>
 			<col width="<?php echo $this->jemsettings->citywidth; ?>" class="jem_col_city" />
 		<?php endif; ?>
@@ -78,9 +75,6 @@ defined('_JEXEC') or die;
 				<th id="jem_date" class="sectiontableheader" align="left"><?php echo JHtml::_('grid.sort', 'COM_JEM_TABLE_DATE', 'a.dates', $this->lists['order_Dir'], $this->lists['order']); ?></th>
 			<?php if ($this->jemsettings->showtitle == 1) : ?>
 				<th id="jem_title" class="sectiontableheader" align="left"><?php echo JHtml::_('grid.sort', 'COM_JEM_TABLE_TITLE', 'a.title', $this->lists['order_Dir'], $this->lists['order']); ?></th>
-			<?php endif; ?>
-			<?php if ($this->jemsettings->showlocate == 1) : ?>
-				<th id="jem_location" class="sectiontableheader" align="left"><?php echo JHtml::_('grid.sort', 'COM_JEM_TABLE_LOCATION', 'l.venue', $this->lists['order_Dir'], $this->lists['order']); ?></th>
 			<?php endif; ?>
 			<?php if ($this->jemsettings->showcity == 1) : ?>
 				<th id="jem_city" class="sectiontableheader" align="left"><?php echo JHtml::_('grid.sort', 'COM_JEM_TABLE_CITY', 'l.city', $this->lists['order_Dir'], $this->lists['order']); ?></th>
@@ -140,16 +134,6 @@ defined('_JEXEC') or die;
 				<?php if (($this->jemsettings->showtitle == 1) && ($this->jemsettings->showdetails == 0)) : ?>
 					<td headers="jem_title" align="left" valign="top" itemprop="name">
 						<?php echo $this->escape($row->title) . JemOutput::recurrenceicon($row); ?>
-					</td>
-				<?php endif; ?>
-
-				<?php if ($this->jemsettings->showlocate == 1) : ?>
-					<td headers="jem_location" align="left" valign="top">
-						<?php if ($this->jemsettings->showlinkvenue == 1) : ?>
-							<?php echo !empty($row->locid) ? "<a href='".JRoute::_(JemHelperRoute::getVenueRoute($row->venueslug))."'>".$this->escape($row->venue)."</a>" : '-'; ?>
-						<?php else : ?>
-							<?php echo !empty($row->locid) ? $this->escape($row->venue) : '-'; ?>
-						<?php endif; ?>
 					</td>
 				<?php endif; ?>
 
