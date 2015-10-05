@@ -49,7 +49,7 @@ JHtml::_('behavior.modal', 'a.flyermodal');
 		
 		<div class="clr"> </div>
 
-		<p class="eventSubtitle">A <span>Local (Lv. D)</span> event at <span><?php echo $this->escape($this->item->venue); ?></span></p>
+		<p class="eventSubtitle">A <span><?php echo $this->escape($this->categories[0]->catname); ?></span> event at <span><?php echo $this->escape($this->item->venue); ?></span></p>
 		<p class="eventSubtitle">On <span>
 			<?php echo JemOutput::formatLongDateTime($this->item->dates, $this->item->times,$this->item->enddates, $this->item->endtimes);?>
 			<?php echo JemOutput::formatSchemaOrgDateTime($this->item->dates, $this->item->times,$this->item->enddates, $this->item->endtimes);?>
