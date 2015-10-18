@@ -200,7 +200,7 @@ $doc->addScript($this->baseurl.'/templates/'.$this->template.'/js/bootstrap.min.
     <footer class="footer container-fluid">
       
       <div class="footerImage">
-        <img class="img-responsive" src="<?php echo $this->baseurl.'/templates/'.$this->template ?>/images/SYO_Footer_Silhouette.svg" alt="">
+        <img class="img-responsive" src="<?php echo $this->baseurl.'/templates/'.$this->template ?>/images/SYO_Footer_Silhouette.gif" alt="">
       </div>
 
       <div class="footerBody">
@@ -210,10 +210,10 @@ $doc->addScript($this->baseurl.'/templates/'.$this->template.'/js/bootstrap.min.
               <h3>Sponsors</h3>
               <div class="row">
                 <div class="col-xs-6">
-                  <a class="no-external-link-icon" href="http://www.accelerateuk.com/"><img class="img-responsive" src="<?php echo $this->baseurl.'/templates/'.$this->template ?>/images/accelerate.png" alt="Accelerate Logo"></a>
+                  <a class="no-external-link-icon" href="http://www.accelerateuk.com/"><img class="img-responsive" src="<?php echo $this->baseurl.'/templates/'.$this->template ?>/images/accelerate.gif" alt="Accelerate Logo"></a>
                 </div>
                 <div class="col-xs-6">
-                  <a class="no-external-link-icon" href="http://www.smartwool.com/"><img class="img-responsive" src="<?php echo $this->baseurl.'/templates/'.$this->template ?>/images/smartwool.png" alt="Smartwool Logo"></a>
+                  <a class="no-external-link-icon" href="http://www.smartwool.com/"><img class="img-responsive" src="<?php echo $this->baseurl.'/templates/'.$this->template ?>/images/smartwool.gif" alt="Smartwool Logo"></a>
                 </div>
               </div>
             </div>
