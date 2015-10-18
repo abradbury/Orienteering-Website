@@ -13,17 +13,37 @@ defined('_JEXEC') or die;
 $document = JFactory::getDocument();
 
 $document->addScriptDeclaration("
+	// Show the loaded iframe contant when it has finished loading and hhide loading
+	function onEditModalShow() {
+	  jQuery('#loadingModal').hide();
+	  jQuery('iframe').show();
+	};
+
+	// When the modal is opened, make it taller (isn't done automatically due to iframe)
+	// and add onload call to be called when iframe content is loaded (can't do in HTML 
+	// as would be called twice - when the empty iframe is created in the DOM and this).
 	jQuery(document).on('click', '.openExampleModal', function () {
 	    var url = jQuery(this).data('url');
 	    var browserHeight = 0.75 * jQuery(window).height();
+	    
 	    jQuery('#editModal .modal-dialog .modal-content .modal-body').css({'max-height': browserHeight, 'height': browserHeight});
-
+	    jQuery('#loadingModal').show();
+	    
 	    jQuery('iframe').attr('src', url);
+	    jQuery('iframe').attr('onload', 'onEditModalShow();');
 	});
 
-	window.closeModal = function(){
+	// When the modal is hidden, hide the iframe and clear its content
+	jQuery(function(){
+	  jQuery('#editModal').on('hidden.bs.modal', function(){
 	    jQuery('#editModal').modal('hide');
-	};
+	    
+	    jQuery('iframe').hide();
+	    jQuery('iframe').attr('html', '');
+	    jQuery('iframe').attr('src', '');
+	    jQuery('iframe').attr('onload', '');
+	  });
+	});
 ");
 
 ?>
@@ -185,7 +205,11 @@ $document->addScriptDeclaration("
 	        <h4 class="modal-title" id="editModalLabel">Edit Item</h4>
 	      </div>
 	      <div class="modal-body">
-	      	<iframe id="editModalIframe" src=""></iframe>
+	      	<div class="text-center" id="loadingModal">
+	      	  <span class="fa fa-circle-o-notch fa-spin fa-5x"></span>
+	      	  <p>Loading...</p>
+	      	</div>
+	      	<iframe id="editModalIframe" src="about:blank" onload=""></iframe>
 	      </div>
 	      <div class="modal-footer">
 	        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>

@@ -2,7 +2,6 @@
 
 p, span, strong, i, nav, ul, li, ol, a, div, input, label, td {
   font-family: 'Source Sans Pro', sans-serif;
-  /*font-size: 14px;*/
 }
 
 h1, h2, h3, h4, h5, h1 > span, h2[style], legend {
@@ -272,6 +271,16 @@ iframe#editModalIframe {
   border: none;
   width: 100%;
   height: 100%;
+}
+
+#loadingModal {
+  margin-top: 15%;
+}
+
+#loadingModal p {
+  font-size: 3em;
+  margin-top: 1%;
+  font-weight: bold;
 }
 
 /***************************************/
