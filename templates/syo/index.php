@@ -59,19 +59,19 @@ $doc->addScript($this->baseurl.'/templates/'.$this->template.'/js/bootstrap.min.
                   $params = $this->params;
 
                   if ($params->get( 'facebookURL' )) {
-                    echo "<li><a class='social-button' href='". $params->get( 'facebookURL' ) ."' title='View SYOs Facebook Page'><span class='sr-only'>View S.Y.Os Facebook Page</span><span class='fa fa-facebook' aria-hidden='true'></span></a></li>\n                  ";
+                    echo "<li><a class='no-external-link-icon' href='". $params->get( 'facebookURL' ) ."' title='View SYOs Facebook Page'><span class='sr-only'>View S.Y.Os Facebook Page</span><span class='fa fa-facebook' aria-hidden='true'></span></a></li>\n                  ";
                   }
                   if ($params->get( 'twitterURL' )) {
-                    echo "<li><a class='social-button' href='". $params->get( 'twitterURL' ) ."' title='View SYOs Twitter Feed'><span class='sr-only'>View S.Y.Os Twitter Feed</span><span class='fa fa-twitter' aria-hidden='true'></span></a></li>\n                  ";
+                    echo "<li><a class='no-external-link-icon' href='". $params->get( 'twitterURL' ) ."' title='View SYOs Twitter Feed'><span class='sr-only'>View S.Y.Os Twitter Feed</span><span class='fa fa-twitter' aria-hidden='true'></span></a></li>\n                  ";
                   }
                   if ($params->get( 'flickrURL' )) {
-                    echo "<li><a class='social-button' href='". $params->get( 'flickrURL' ) ."' title='View SYOs Flickr Photo Pool'><span class='sr-only'>View S.Y.Os Flickr Photo Pool</span><span class='fa fa-flickr' aria-hidden='true'></span></a></li>\n";
+                    echo "<li><a class='no-external-link-icon' href='". $params->get( 'flickrURL' ) ."' title='View SYOs Flickr Photo Pool'><span class='sr-only'>View S.Y.Os Flickr Photo Pool</span><span class='fa fa-flickr' aria-hidden='true'></span></a></li>\n";
                   }
                   if ($this->countModules( 'logout' )): ?>
-                  <li><span class="fa fa-user login-button" aria-hidden="true"></span></li>
-                  <li class="login-text"><jdoc:include type="modules" name="logout" style="xhtml" /></li>
+                  <li><span id="login-btn" class="fa fa-user" aria-hidden="true"></span></li>
+                  <li><jdoc:include type="modules" name="logout" style="xhtml" /></li>
                   <?php else: ?>
-                  <li><a class="login-button" href="#" title="SYO Member Login" data-toggle="modal" data-target="#login"><span class="sr-only">S.Y.O Member Login</span><span class="fa fa-user" aria-hidden="true"></span></a></li>
+                  <li><a id="login-btn" href="#" title="SYO Member Login" data-toggle="modal" data-target="#login"><span class="sr-only">S.Y.O Member Login</span><span class="fa fa-user" aria-hidden="true"></span></a></li>
                   <?php endif; ?>
                 </ul>
 
@@ -197,26 +197,47 @@ $doc->addScript($this->baseurl.'/templates/'.$this->template.'/js/bootstrap.min.
     <jdoc:include type="modules" name="login" style="xhtml" />
     <?php } ?>
     
-    <!-- Ideally have the img in the footer, but get issues with footer background on different resolutions -->
-    <img class="img-responsive footer-image" src="<?php echo $this->baseurl.'/templates/'.$this->template ?>/images/SYO_Footer_Silhouette.svg" alt="">
+    <footer class="footer container-fluid">
+      
+      <div class="footerImage">
+        <img class="img-responsive" src="<?php echo $this->baseurl.'/templates/'.$this->template ?>/images/SYO_Footer_Silhouette.svg" alt="">
+      </div>
 
-    <footer class="footer">
-      <div class="container">
+      <div class="footerBody">
+        <div class="container">
+          <div class="row">
+            <div class="col-sm-6">
+              <h3>Sponsors</h3>
+              <div class="row">
+                <div class="col-xs-6">
+                  <a class="no-external-link-icon" href="http://www.accelerateuk.com/"><img class="img-responsive" src="<?php echo $this->baseurl.'/templates/'.$this->template ?>/images/accelerate.png" alt="Accelerate Logo"></a>
+                </div>
+                <div class="col-xs-6">
+                  <a class="no-external-link-icon" href="http://www.smartwool.com/"><img class="img-responsive" src="<?php echo $this->baseurl.'/templates/'.$this->template ?>/images/smartwool.png" alt="Smartwool Logo"></a>
+                </div>
+              </div>
+            </div>
+            <!-- <div class="col-sm-6">
+              <h3>Other</h3>
+            </div> -->
+          </div>
 
-        <div class="row">
-          <div class="col-sm-12">
-            Some other fancy stuff
+          <hr>
+
+          <div class="row finalFooterRow">
+            <div class="col-sm-12">
+              <jdoc:include type="modules" name="footer" />
+            </div>
           </div>
         </div>
-
-        <hr>
-
-        <div class="row finalFooterRow">
-          <div class="col-sm-12">
-            <jdoc:include type="modules" name="footer" />
-          </div> <!--.col-sm-12-->
-        </div> <!--.row-->
       </div>
+
+     <!--  <div class="container">
+
+        <img class="img-responsive footer-image" src="<?php echo $this->baseurl.'/templates/'.$this->template ?>/images/SYO_Footer_Silhouette.svg" alt="">
+
+        
+      </div> -->
     </footer>
 
   </body>

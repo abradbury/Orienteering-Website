@@ -32,7 +32,7 @@ JHtml::_('behavior.modal', 'a.flyermodal');
 
 <?php foreach ($list as $item) : ?>
   <tr>
-    <td valign="top">
+    <td>
       <?php if ($item->eventlink) : ?>
       <span class="event-title">
         <a href="<?php echo $item->eventlink; ?>" title="<?php echo $item->fulltitle; ?>"><?php echo $item->title; ?></a>

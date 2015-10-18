@@ -13,7 +13,7 @@ JHtml::_('behavior.keepalive');
 ?>
 
 <form action="<?php echo JRoute::_(JUri::getInstance()->toString(), true, $params->get('usesecure')); ?>" method="post" id="login-form" class="form-inline">
-	<span class="navbar-text">
+	<span>
 		<?php if ($params->get('greeting')) : ?>
 		<?php if ($params->get('name') == 0) : {
 			echo JText::sprintf('MOD_LOGIN_HINAME', htmlspecialchars($user->get('name')));

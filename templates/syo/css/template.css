@@ -2,6 +2,7 @@
 
 p, span, strong, i, nav, ul, li, ol, a, div, input, label, td {
   font-family: 'Source Sans Pro', sans-serif;
+  /*font-size: 14px;*/
 }
 
 h1, h2, h3, h4, h5, h1 > span, h2[style], legend {
@@ -17,14 +18,15 @@ p > span[style], p > span[style] > *:not(sup), ul > li > span[style], article > 
 
 /*************** Nav Bar ***************/
 
+/*------------ Nav Bar Logo -----------*/
 .navbar-brand {
-	padding: 0;
-	height: 100px;
+  padding: 0;
+  height: 100px;
 }
 
 .navbar-brand > div {
-	display: inline-block;
-	vertical-align: middle;
+  display: inline-block;
+  vertical-align: middle;
   padding-left: 0.5em;
 }
 
@@ -32,12 +34,6 @@ p > span[style], p > span[style] > *:not(sup), ul > li > span[style], article > 
   max-width: 100%;
   max-height: 100%;
   display: inline-block;
-}
-
-.navbar-brand > span, ul.social li, ul.social li a {
-  display: -webkit-inline-box;    /* OLD - iOS 6-, Safari 3.1-6 */
-  display: -ms-inline-flexbox;    /* TWEENER - IE 10 */
-  display: inline-flex;           /* NEW, Spec - Opera 12.1, Firefox 20+ */
 }
 
 .navbar-brand span.name-top, .navbar-brand span.name-bottom {
@@ -48,24 +44,7 @@ p > span[style], p > span[style] > *:not(sup), ul > li > span[style], article > 
   font-size: 27px;
 }
 
-.navbar-default {
-	background: white;
-	border-style: none;
-	border-bottom: 3px;
-	margin-top: 20px;
-}
-
-.navbar-default .navbar-nav > li > a {
-	font-size: 1em;
-	text-transform: uppercase;
-  display: block;
-  padding-top: 0;
-  padding-bottom: 0;
-}
-
-.navbar-default .navbar-nav > li > a.endNavItem {
-  padding-right: 0;
-}
+/*------------ Main Nav Bar -----------*/
 
 .navbar-collapse {
   padding-right: 0;
@@ -73,7 +52,6 @@ p > span[style], p > span[style] > *:not(sup), ul > li > span[style], article > 
 
 .mainNav li a {
   line-height: 50px;
-
 }
 
 .navbar-toggle {
@@ -101,12 +79,20 @@ p > span[style], p > span[style] > *:not(sup), ul > li > span[style], article > 
   margin-top: 25px;
 }
 
-.firstEventPanel {
-  margin-top: 69px;
+ul.mainNav li:last-child a {
+  padding-right: 0;
 }
 
-ul.eventPanel > li {
-  margin-bottom: 5px;
+.navbar-default .navbar-nav > li > a {
+  font-size: 1em;
+  text-transform: uppercase;
+  display: block;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+.navbar-default .navbar-nav > li > a.endNavItem {
+  padding-right: 0;
 }
 
 .navbar-default .navbar-nav > li > a:focus, 
@@ -122,31 +108,14 @@ ul.eventPanel > li {
     box-shadow: 0em 3.3em 0em #FFFFFF inset, 0em 3.6em 0em #ffd65e inset;
 }
 
-form#login-form input#logout-btn {
-  margin-top: -3px;
-  margin-left: 5px;
-}
-
-div ul.social li > .login-button {
-  border-left: 1px solid;
-  padding: 0 0 0 15px;
-}
-
-.login-text, .login-text * {
-  margin: 0 0 0 2.5px;
-  padding: 0;
-}
-
-ul.mainNav li:last-child a {
-  padding-right: 0;
-}
+/*----------- Social Nav Bar ----------*/
 
 div ul.social {
   position: absolute;
   right: 0;
 }
 
-div ul.social li a, ul.social li > .login-button {
+div ul.social li a, div ul.social li span {
   color: #777;
   padding-top: 0;
   padding-bottom: 0;
@@ -157,26 +126,52 @@ div ul.social li a:hover, div ul.social li a:focus {
   color: #333;
 }
 
+#logout-btn {
+  padding: 0 0 0 5px;
+  margin: 0;
+  border: none;
+
+}
+
+#login-btn {
+  border-left: 1px solid;
+  padding: 0 8px 0 15px;
+  position: relative;
+}
+
+/*----------- Nav Bar Common ----------*/
+
+.navbar-default {
+  background: white;
+  border-style: none;
+  border-bottom: 3px;
+  margin-top: 20px;
+}
+
+.navbar-brand > span, ul.social li, ul.social li *, div ul.social li.login-text div form span {
+  display: -webkit-inline-box;    /* OLD - iOS 6-, Safari 3.1-6 */
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;    /* TWEENER - IE 10 */
+  display: inline-flex;           /* NEW, Spec - Opera 12.1, Firefox 20+ */
+}
+
 /***************************************/
 
 /**************** Footer ***************/
 
-body, html {
+/*body, html {
   height: 100%;
 }
 
 #wrap {
   min-height: 100%;
   height: auto;
-  /* Negative indent footer by its height */
   margin: 0 auto -200px;
-  /* Pad bottom by footer height */
   padding: 0 0 200px;
 }
 
 footer {
   width: 100%;
-  /*height: 200px;*/
   background-color: #333;
   color: #DDD;
 }
@@ -184,6 +179,50 @@ footer {
 .footer-image {
   padding-top: 50px;
   margin: auto;
+}
+
+.finalFooterRow {
+  margin-bottom: 40px;
+}
+*/
+
+body, html {
+  height: 100%;
+}
+
+/* Wrapper for page content to push down footer */
+#wrap {
+  min-height: 100%;
+  height: auto;
+  /* Negative indent footer by its height */
+  margin: 0 auto -300px;
+  /* Pad bottom by footer height */
+  padding: 0 0 300px;
+}
+
+footer.footer {
+  /*background: #999 url("../images/SYO_Footer_Silhouette.svg") no-repeat top;*/
+  color: #DDD;
+  padding-right: 0;
+  padding-left: 0;
+  margin-top: 50px;
+
+  height: 300px;
+}
+
+.footerImage {
+  /*height: auto;*/
+  /*background: #999 url("../images/SYO_Footer_Silhouette.svg") no-repeat top;*/
+}
+
+.footerImage .img-responsive {
+  width: 100% \9;
+  width: auto;
+}
+
+.footerBody {
+  height: auto;
+  background-color: #333;
 }
 
 .finalFooterRow {
@@ -217,7 +256,7 @@ footer {
 
 /*************** com_users *************/
 
-.reset, .remind, .login, .logout, .profile {
+div.reset, div.remind, div.login, div.logout, div.profile {
   margin-top: 10px;
 }
 
@@ -462,6 +501,8 @@ table>tbody>tr.year, table>tbody>tr.year:hover {
 
 /***************************************/
 
+/*************** Banner ****************/
+
 /* From http://stackoverflow.com/a/17353785 */
 
 .banner {
@@ -482,6 +523,8 @@ table>tbody>tr.year, table>tbody>tr.year:hover {
 #carousel-top>div {
   height:250px !important;
 }
+
+/***************************************/
 
 /************* Breadcrumbs **************/
 
@@ -540,9 +583,21 @@ a[href $='.txt']:after, a[href $='.rtf']:after {
 }
 
 /* From: http://davidwalsh.name/external-links-css */
-a[href*="//"]:not([href*="beta.southyorkshireorienteers.org.uk"]):not([class="social-button"]):after {
+a[href*="//"]:not([href*="beta.southyorkshireorienteers.org.uk"]):not([class="no-external-link-icon"]):after {
   font-family: FontAwesome;
   content: " \f08e";
+}
+
+/***************************************/
+
+/************ Other/Unknown ************/
+
+.firstEventPanel {
+  margin-top: 69px;
+}
+
+ul.eventPanel > li {
+  margin-bottom: 5px;
 }
 
 /***************************************/
