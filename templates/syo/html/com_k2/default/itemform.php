@@ -37,7 +37,6 @@ $document->addScriptDeclaration("
 			if(validation === true) {
 				\$K2('#selectedTags option').attr('selected', 'selected');
 				submitform( pressbutton );
-				parent.location.reload();
 			}
 		}
 	};

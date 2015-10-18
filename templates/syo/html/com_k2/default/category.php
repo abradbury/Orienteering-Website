@@ -19,6 +19,17 @@ $document->addScriptDeclaration("
 	  jQuery('iframe').show();
 	};
 
+	// Initialise a global flag for if an article was edited
+	var savedArticle = 0;
+
+	// Called when the 'save and close' modal button is pressed. Triggers the 
+	// edit view save method and closes the modal. 
+	function saveAndCloseEditModal() {
+		jQuery('#editModalIframe').contents().find('#saveEdit').trigger('click');
+		savedArticle = 1;
+		jQuery('#editModal').modal('hide');
+	};
+
 	// When the modal is opened, make it taller (isn't done automatically due to iframe)
 	// and add onload call to be called when iframe content is loaded (can't do in HTML 
 	// as would be called twice - when the empty iframe is created in the DOM and this).
@@ -33,10 +44,14 @@ $document->addScriptDeclaration("
 	    jQuery('iframe').attr('onload', 'onEditModalShow();');
 	});
 
-	// When the modal is hidden, hide the iframe and clear its content
+	// When the modal is hidden, hide the iframe and clear its content. If the 
+	// modal was closed due to saving, reload the page. 
 	jQuery(function(){
 	  jQuery('#editModal').on('hidden.bs.modal', function(){
-	    jQuery('#editModal').modal('hide');
+	    if (savedArticle == 1) {
+	    	window.location.reload();
+	    	savedArticle = 0;
+	    }
 	    
 	    jQuery('iframe').hide();
 	    jQuery('iframe').attr('html', '');
@@ -297,7 +312,7 @@ $document->addScriptDeclaration("
 	      </div>
 	      <div class="modal-footer">
 	        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-	        <button type="button" class="btn btn-primary" onclick="jQuery('#editModalIframe').contents().find('#saveEdit').trigger('click');">Save and Close</button>
+	        <button type="button" class="btn btn-primary" onclick="saveAndCloseEditModal();">Save and Close</button>
 	      </div>
 	    </div>
 	  </div>
