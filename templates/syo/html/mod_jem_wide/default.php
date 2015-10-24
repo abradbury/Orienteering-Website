@@ -15,7 +15,7 @@ JHtml::_('behavior.modal', 'a.flyermodal');
 
 <div id="jemmodulewide">
 
-<table class="table eventset" summary="mod_jem_wide">
+<table class="table" summary="mod_jem_wide">
   <colgroup>
     <col class="jemmodw_col_title" />
     <col class="jemmodw_col_category" />
@@ -34,29 +34,29 @@ JHtml::_('behavior.modal', 'a.flyermodal');
   <tr>
     <td>
       <?php if ($item->eventlink) : ?>
-      <span class="event-title">
+      <span class="eventTitle">
         <a href="<?php echo $item->eventlink; ?>" title="<?php echo $item->fulltitle; ?>"><?php echo $item->title; ?></a>
       </span>
       <?php else : ?>
-      <span class="event-title">
+      <span class="eventTitle">
         <?php echo $item->title; ?>
       </span>
       <?php endif; ?>
     </td>
     <td>
-      <span class="date" title="<?php echo strip_tags($item->dateinfo); ?>"><?php echo $item->date; ?></span>
+      <span class="eventDate" title="<?php echo strip_tags($item->dateinfo); ?>"><?php echo $item->date; ?></span>
       <?php
-      if ($item->time && $params->get('datemethod', 1) == 1) :
+      if (false): // ($item->time && $params->get('datemethod', 1) == 1) :
       ?>
-      <span class="time" title="<?php echo strip_tags($item->dateinfo); ?>"><?php echo $item->time; ?></span>
+      <span class="eventTime" title="<?php echo strip_tags($item->dateinfo); ?>"><?php echo $item->time; ?></span>
       <?php endif; ?>
     </td>
     <td>
     <?php if ($item->venue) : ?>
       <?php if ($item->venuelink) : ?>
-      <span class="venue-title"><a href="<?php echo $item->venuelink; ?>" title="<?php echo $item->venue; ?>"><?php echo $item->venue; ?></a></span>
+      <span class="eventVenue"><a href="<?php echo $item->venuelink; ?>" title="<?php echo $item->venue; ?>"><?php echo $item->venue; ?></a></span>
       <?php else : ?>
-      <span class="venue-title"><?php echo $item->venue; ?></span>
+      <span class="eventVenue"><?php echo $item->venue; ?></span>
       <?php endif; ?>
     <?php endif; ?>
     </td>
