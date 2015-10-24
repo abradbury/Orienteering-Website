@@ -15,7 +15,7 @@ defined('_JEXEC') or die;
 		<?php
 			echo JemOutput::submitbutton($this->dellink, $this->params);
 			echo JemOutput::archivebutton($this->params, $this->task);
-			// echo JemOutput::printbutton($this->print_link, $this->params);
+			echo JemOutput::printbutton($this->print_link, $this->params);
 		?>
 	</div>
 
