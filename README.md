@@ -2,7 +2,7 @@
 
 A redesign of a Joomla-based orienteering website that utilises Bootstrap 3 for mobile device support. Also includes improvements in accessibility through use of HTML5 semantic elements and (attempted) following of WCAG 2.0.
 
-The new site design is currently undergoing testing, but will be deployed on completion of testing. A static prototype of the new design can be found at <http://abradbury.github.io/Orienteering-Website-Static/>.
+The new site design is now in use and can be seen at <http://www.southyorkshireorienteers.org.uk/>.
 
 The files included in this repository are primarily those needed to create a Joomla template following the new design. The output of many Joomla components needed to be overriden to follow the new design.
 
