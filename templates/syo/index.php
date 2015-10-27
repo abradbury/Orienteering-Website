@@ -83,11 +83,10 @@ $doc->addScript($this->baseurl.'/templates/'.$this->template.'/js/bootstrap.min.
                 </button>
               </div>
 
-              <!-- Collect the nav links, forms, and other content for toggling -->
               <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <jdoc:include type="modules" name="menu" />
-              </div> <!-- /.navbar-collapse -->
-            </div> <!-- /.container-fluid -->
+              </div>
+            </div>
           </nav>
 
           <div class="row">
@@ -193,7 +192,6 @@ $doc->addScript($this->baseurl.'/templates/'.$this->template.'/js/bootstrap.min.
 
     <?php $user = JFactory::getUser();
     if ($user->guest) { ?>
-    <!-- Login modal -->
     <jdoc:include type="modules" name="login" style="xhtml" />
     <?php } ?>
     
@@ -217,9 +215,6 @@ $doc->addScript($this->baseurl.'/templates/'.$this->template.'/js/bootstrap.min.
                 </div>
               </div>
             </div>
-            <!-- <div class="col-sm-6">
-              <h3>Other</h3>
-            </div> -->
           </div>
 
           <hr>
@@ -231,14 +226,17 @@ $doc->addScript($this->baseurl.'/templates/'.$this->template.'/js/bootstrap.min.
           </div>
         </div>
       </div>
-
-     <!--  <div class="container">
-
-        <img class="img-responsive footer-image" src="<?php echo $this->baseurl.'/templates/'.$this->template ?>/images/SYO_Footer_Silhouette.svg" alt="">
-
-        
-      </div> -->
     </footer>
+
+    <script>
+    // Submit the login form - JavaScript workaround for IE's lack of support for the form attribute of the button element
+    jQuery('#login').on('show.bs.modal', function (event) {
+      var modal = jQuery(this);
+      modal.find('#login-form-submit-button').on('click', function() {
+        modal.find('#login-form').submit();
+      });
+    });
+    </script>
 
   </body>
 </html>

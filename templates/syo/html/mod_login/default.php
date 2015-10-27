@@ -130,7 +130,7 @@ JHtml::_('bootstrap.tooltip');
 
 			<div class="modal-footer">
 				<button type="button" class="btn btn-default" data-dismiss="modal"><?php echo JText::_('TPL_SYO_LOGIN_CLOSE') ?></button>
-				<button type="submit" class="btn btn-primary" form="login-form" name="Submit"><?php echo JText::_('JLOGIN') ?></button>
+				<button type="submit" id="login-form-submit-button" class="btn btn-primary" name="Submit"><?php echo JText::_('JLOGIN') ?></button>
 			</div>
 		</div>
 	</div>
