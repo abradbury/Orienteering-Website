@@ -47,7 +47,7 @@ $doc->addScript($this->baseurl.'/templates/'.$this->template.'/js/bootstrap.min.
             <div class="container-fluid">
               <div class="navbar-header">
                 <a class="navbar-brand" href="<?php echo $this->baseurl; ?>">
-                  <img alt="South Yorkshire Orienteers Logo" src="<?php echo $this->baseurl.'/templates/'.$this->template ?>/images/logo.png">
+                  <img alt="South Yorkshire Orienteers Logo" src="<?php echo $this->baseurl.'/templates/'.$this->template ?>/images/logo.gif">
                   <div>
                     <span class="name-top">South Yorkshire</span>
                     <span class="name-bottom">Orienteers</span>
@@ -59,13 +59,13 @@ $doc->addScript($this->baseurl.'/templates/'.$this->template.'/js/bootstrap.min.
                   $params = $this->params;
 
                   if ($params->get( 'facebookURL' )) {
-                    echo "<li><a class='no-external-link-icon' href='". $params->get( 'facebookURL' ) ."' title='View SYOs Facebook Page'><span class='sr-only'>View S.Y.Os Facebook Page</span><span class='fa fa-facebook' aria-hidden='true'></span></a></li>\n                  ";
+                    echo "<li><a class='no-external-link-icon' target='_blank' href='". $params->get( 'facebookURL' ) ."' title='View SYOs Facebook Page'><span class='sr-only'>View S.Y.Os Facebook Page</span><span class='fa fa-facebook' aria-hidden='true'></span></a></li>\n                  ";
                   }
                   if ($params->get( 'twitterURL' )) {
-                    echo "<li><a class='no-external-link-icon' href='". $params->get( 'twitterURL' ) ."' title='View SYOs Twitter Feed'><span class='sr-only'>View S.Y.Os Twitter Feed</span><span class='fa fa-twitter' aria-hidden='true'></span></a></li>\n                  ";
+                    echo "<li><a class='no-external-link-icon' target='_blank' href='". $params->get( 'twitterURL' ) ."' title='View SYOs Twitter Feed'><span class='sr-only'>View S.Y.Os Twitter Feed</span><span class='fa fa-twitter' aria-hidden='true'></span></a></li>\n                  ";
                   }
                   if ($params->get( 'flickrURL' )) {
-                    echo "<li><a class='no-external-link-icon' href='". $params->get( 'flickrURL' ) ."' title='View SYOs Flickr Photo Pool'><span class='sr-only'>View S.Y.Os Flickr Photo Pool</span><span class='fa fa-flickr' aria-hidden='true'></span></a></li>\n";
+                    echo "<li><a class='no-external-link-icon' target='_blank' href='". $params->get( 'flickrURL' ) ."' title='View SYOs Flickr Photo Pool'><span class='sr-only'>View S.Y.Os Flickr Photo Pool</span><span class='fa fa-flickr' aria-hidden='true'></span></a></li>\n";
                   }
                   if ($this->countModules( 'logout' )): ?>
                   <li><span id="login-btn" class="fa fa-user" aria-hidden="true"></span></li>
