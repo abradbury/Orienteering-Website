@@ -272,7 +272,7 @@ K2HelperUtilities::setDefaultImage($this->item, 'itemlist', $this->params);
 	</div>
 	<?php endif; ?>
 
-	<?php if ($this->item->params->get('catItemReadMore')): ?>
+	<?php if ($this->item->params->get('catItemReadMore') && $this->item->fulltext): ?>
 	<!-- Item "read more..." link -->
 	<div class="catItemReadMore">
 		<a class="k2ReadMore" href="<?php echo $this->item->link; ?>">

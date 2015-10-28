@@ -151,7 +151,7 @@ defined('_JEXEC') or die;
 	</div>
 	<?php endif; ?>
 
-	<?php if ($this->item->params->get('latestItemReadMore')): ?>
+	<?php if ($this->item->params->get('latestItemReadMore') && $this->item->fulltext): ?>
 	<!-- Item "read more..." link -->
 	<div class="latestItemReadMore">
 		<a class="k2ReadMore" href="<?php echo $this->item->link; ?>">
