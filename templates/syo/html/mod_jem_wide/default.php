@@ -54,7 +54,7 @@ JHtml::_('behavior.modal', 'a.flyermodal');
     <td>
     <?php if ($item->venue) : ?>
       <?php if ($item->venuelink) : ?>
-      <span class="eventVenue"><a href="<?php echo $item->venuelink; ?>" title="<?php echo $item->venue; ?>"><?php echo $item->venue; ?></a></span>
+      <span class="eventVenue"><a href="<?php echo $item->venuelink; ?>" title="<?php echo $item->fullvenue; ?>"><?php echo $item->venue; ?></a></span>
       <?php else : ?>
       <span class="eventVenue"><?php echo $item->venue; ?></span>
       <?php endif; ?>
