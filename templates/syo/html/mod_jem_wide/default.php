@@ -13,54 +13,48 @@ defined('_JEXEC') or die;
 JHtml::_('behavior.modal', 'a.flyermodal');
 ?>
 
-<div id="jemmodulewide">
-
-<table class="table" summary="mod_jem_wide">
-  <colgroup>
-    <col class="jemmodw_col_title" />
-    <col class="jemmodw_col_category" />
-    <col class="jemmodw_col_venue" />
-  </colgroup>
-
-  <thead>
+<div>
+  <table class="table">
+    <colgroup>
+      <col class="jemmodw_col_title" />
+      <col class="jemmodw_col_category" />
+      <col class="jemmodw_col_venue" />
+    </colgroup>
+    <thead>
+      <tr>
+         <th>Event</th>
+         <th>Date</th>
+         <th>Venue</th>
+      </tr>
+    </thead>
+    <tbody>
+    <?php foreach ($list as $item) : ?>
     <tr>
-       <th>Event</th>
-       <th>Date</th>
-       <th>Venue</th>
+      <td>
+        <?php if ($item->eventlink) : ?>
+        <span class="eventTitle">
+          <a href="<?php echo $item->eventlink; ?>" title="<?php echo $item->fulltitle; ?>"><?php echo $item->title; ?></a>
+        </span>
+        <?php else : ?>
+        <span class="eventTitle">
+          <?php echo $item->title; ?>
+        </span>
+        <?php endif; ?>
+      </td>
+      <td>
+        <span class="eventDate" title="<?php echo strip_tags($item->dateinfo); ?>"><?php echo $item->date; ?></span>
+      </td>
+      <td>
+      <?php if ($item->venue) : ?>
+        <?php if ($item->venuelink) : ?>
+        <span class="eventVenue"><a href="<?php echo $item->venuelink; ?>" title="<?php echo $item->fullvenue; ?>"><?php echo $item->venue; ?></a></span>
+        <?php else : ?>
+        <span class="eventVenue"><?php echo $item->venue; ?></span>
+        <?php endif; ?>
+      <?php endif; ?>
+      </td>
     </tr>
-  </thead>
-
-<?php foreach ($list as $item) : ?>
-  <tr>
-    <td>
-      <?php if ($item->eventlink) : ?>
-      <span class="eventTitle">
-        <a href="<?php echo $item->eventlink; ?>" title="<?php echo $item->fulltitle; ?>"><?php echo $item->title; ?></a>
-      </span>
-      <?php else : ?>
-      <span class="eventTitle">
-        <?php echo $item->title; ?>
-      </span>
-      <?php endif; ?>
-    </td>
-    <td>
-      <span class="eventDate" title="<?php echo strip_tags($item->dateinfo); ?>"><?php echo $item->date; ?></span>
-      <?php
-      if (false): // ($item->time && $params->get('datemethod', 1) == 1) :
-      ?>
-      <span class="eventTime" title="<?php echo strip_tags($item->dateinfo); ?>"><?php echo $item->time; ?></span>
-      <?php endif; ?>
-    </td>
-    <td>
-    <?php if ($item->venue) : ?>
-      <?php if ($item->venuelink) : ?>
-      <span class="eventVenue"><a href="<?php echo $item->venuelink; ?>" title="<?php echo $item->fullvenue; ?>"><?php echo $item->venue; ?></a></span>
-      <?php else : ?>
-      <span class="eventVenue"><?php echo $item->venue; ?></span>
-      <?php endif; ?>
-    <?php endif; ?>
-    </td>
-  </tr>
-<?php endforeach; ?>
-</table>
+    <?php endforeach; ?>
+    </tbody>
+  </table>
 </div>

@@ -94,7 +94,7 @@ $document->addScriptDeclaration("
 			<?php if($this->params->get('categoryFeed')): ?>
 			<span class="k2FeedIcon">
 				<a href="<?php echo $category->feed; ?>" title="<?php echo JText::_('K2_SUBSCRIBE_TO_THIS_RSS_FEED'); ?>">
-					<i class="fa fa-rss"></i>
+					<span class="fa fa-rss"></span>
 				</a>
 			</span>
 			<?php endif; ?>
