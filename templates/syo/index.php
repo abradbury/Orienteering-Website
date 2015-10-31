@@ -93,8 +93,10 @@ $doc->addCustomTag('<!--[if lt IE 9]><script src="https://oss.maxcdn.com/html5sh
           </nav>
 
           <div class="row">
-            <div class="col-sm-12 hidden-xs" id="carousel-top">
-              <div class="banner" style="background-image:url('<?php echo $this->baseurl.'/templates/'.$this->template ?>/images/header/P1020182.jpg')"></div>
+            <div class="col-sm-12 hidden-xs">
+              <div class="banner" style="background-image:url('<?php echo $this->baseurl.'/templates/'.$this->template ?>/images/header/P1020182.jpg')">
+                <small class="caption">World Orienteering Championships 2015 - Nairn, Scotland</small>
+              </div>
             </div>
           </div>
 

@@ -348,7 +348,7 @@ span.k2FeedIcon {
   margin-left: 10px;
 }
 
-span.k2FeedIcon > a > i {
+span.k2FeedIcon > a > span {
   margin-bottom: 7px;
   vertical-align: middle;
 }
@@ -520,6 +520,21 @@ table>tbody>tr.year, table>tbody>tr.year:hover {
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
+  position: relative;
+}
+
+.banner > .caption {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  display: none;
+  background-color: #FFD65E;
+  color: #333;
+  padding: 0 5px;
+}
+
+.banner:hover > .caption {
+  display: inline-block;
 }
 
 /* Fix for Joomla carousel shrinking on even images
