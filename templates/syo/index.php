@@ -7,6 +7,15 @@ $doc = JFactory::getDocument();
 $user = JFactory::getUser();
 $template = 'templates/' . $this->template;
 
+// Get menu alias for different banners
+$app = JFactory::getApplication();
+$menu = $app->getMenu()->getActive();
+$menuAlias = '';
+
+if (is_object($menu)) {
+  $menuAlias = $menu->alias;
+}
+
 // Remove deprecated meta-data (HTML5)
 $head = $doc->getHeadData();
 unset($head['metaTags']['http-equiv']);
@@ -94,8 +103,8 @@ $doc->addCustomTag('<!--[if lt IE 9]><script src="https://oss.maxcdn.com/html5sh
 
           <div class="row">
             <div class="col-sm-12 hidden-xs">
-              <div class="banner" style="background-image:url('<?php echo $this->baseurl.'/templates/'.$this->template ?>/images/header/P1020182.jpg')">
-                <small class="caption">World Orienteering Championships 2015 - Nairn, Scotland</small>
+              <div class="banner" id="<?php echo $menuAlias; ?>">
+                <small class="caption"></small>
               </div>
             </div>
           </div>

@@ -517,11 +517,19 @@ table>tbody>tr.year, table>tbody>tr.year:hover {
 .banner {
   width:  100%; /*or 70%, or what you want*/
   height: 250px; /*or 70%, or what you want*/
+  background-image: url("../images/header/P1020182.jpg");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
   position: relative;
 }
+
+.banner > .caption:after {
+  content: "World Orienteering Championships 2015 - Nairn, Scotland";
+}
+
+/*#schools.banner {background-image:url("../images/header/csc2011.jpg");}*/
+/*#schools.banner > .caption:after {content: "SYO - winners of the CompassSport Cup 2011";}*/
 
 .banner > .caption {
   position: absolute;
