@@ -162,13 +162,13 @@ $doc->addCustomTag('<!--[if lt IE 9]><script src="https://oss.maxcdn.com/html5sh
             <div class="col-sm-8 news">
               <jdoc:include type="component" />
             </div>
-            
-            <?php elseif ($this->countModules( 'map_right' )): ?>
-            <div class="col-sm-7">
+
+            <?php elseif ($this->countModules( 'schools_right' )): ?>
+            <div class="col-sm-9">
               <jdoc:include type="component" />
             </div>
-            <div class="col-sm-5">
-              <jdoc:include type="modules" name="map_right" style="xhtml" /> 
+            <div class="col-sm-3">
+              <jdoc:include type="modules" name="schools_right" style="xhtml" /> 
             </div>
 
             <?php else : ?>

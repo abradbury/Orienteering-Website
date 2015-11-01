@@ -156,6 +156,18 @@ div ul.social li a:hover, div ul.social li a:focus {
 
 /***************************************/
 
+/************ Text Selction ************/
+
+::-moz-selection {
+  background: #ffd65e;
+}
+
+::selection:not(th) {
+  background: #ffd65e;
+} 
+
+/***************************************/
+
 /**************** Footer ***************/
 
 /*body, html {
@@ -249,6 +261,10 @@ footer.footer {
 
 .eventsHeader > a {
   line-height: 24px;
+}
+
+.inner-events > .list-group > a.list-group-item {
+  border-radius: 0;
 }
 
 /***************************************/
