@@ -23,7 +23,7 @@ if (isset($this->error)) : ?>
 		<fieldset>
 			<legend><?php echo JText::_('COM_CONTACT_FORM_LABEL'); ?></legend>
 			<div class="form-group">
-				<div class="col-sm-2">
+				<div class="col-sm-2 cantAccessLabel">
 					<?php echo $this->form->getLabel('contact_name'); ?>
 				</div>
 				<div class="col-sm-10">
@@ -31,7 +31,7 @@ if (isset($this->error)) : ?>
 				</div>
 			</div>
 			<div class="form-group">
-				<div class="col-sm-2">
+				<div class="col-sm-2 cantAccessLabel">
 					<?php echo $this->form->getLabel('contact_email'); ?>
 				</div>
 				<div class="col-sm-10">
@@ -39,7 +39,7 @@ if (isset($this->error)) : ?>
 				</div>
 			</div>
 			<div class="form-group">
-				<div class="col-sm-2">
+				<div class="col-sm-2 cantAccessLabel">
 					<?php echo $this->form->getLabel('contact_subject'); ?>
 				</div>
 				<div class="col-sm-10">
@@ -47,7 +47,7 @@ if (isset($this->error)) : ?>
 				</div>
 			</div>
 			<div class="form-group">
-				<div class="col-sm-2">
+				<div class="col-sm-2 cantAccessLabel">
 					<?php echo $this->form->getLabel('contact_message'); ?>
 				</div>
 				<div class="col-sm-10">
@@ -56,7 +56,7 @@ if (isset($this->error)) : ?>
 			</div>
 			<?php if ($this->params->get('show_email_copy')) : ?>
 				<div class="form-group">
-					<div class="col-sm-2">
+					<div class="col-sm-2 cantAccessLabel">
 						<?php echo $this->form->getLabel('contact_email_copy'); ?>
 					</div>
 					<div class="col-sm-10">
@@ -71,12 +71,12 @@ if (isset($this->error)) : ?>
 					<?php foreach ($fields as $field) : ?>
 						<div class="form-group">
 							<?php if ($field->hidden) : ?>
-								<div class="col-sm-2"></div>
+								<div class="col-sm-2 cantAccessLabel"></div>
 								<div class="col-sm-10">
 									<?php echo $field->input; ?>
 								</div>
 							<?php else: ?>
-								<div class="col-sm-2">
+								<div class="col-sm-2 cantAccessLabel">
 									<?php echo $field->label; ?>
 									<?php if (!$field->required && $field->type != "Spacer") : ?>
 										<span class="optional"><?php echo JText::_('COM_CONTACT_OPTIONAL'); ?></span>

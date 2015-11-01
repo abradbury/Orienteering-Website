@@ -43,6 +43,9 @@ JHtml::_('behavior.modal', 'a.flyermodal');
       </td>
       <td>
         <span class="eventDate" title="<?php echo strip_tags($item->dateinfo); ?>"><?php echo $item->date; ?></span>
+        <?php if ($item->time && $params->get('datemethod', 1) == 1) : ?>
+        <span class="eventTime" title="<?php echo strip_tags($item->dateinfo); ?>">(<?php echo $item->time; ?>)</span>
+        <?php endif; ?>
       </td>
       <td>
       <?php if ($item->venue) : ?>
