@@ -168,7 +168,7 @@ defined('_JEXEC') or die;
 
 				<?php if ($this->jemsettings->showcat == 1) : ?>
 					<td headers="jem_category" align="left" valign="top">
-						<?php echo implode(", ", JemOutput::getCategoryList($row->categories, $this->jemsettings->catlinklist)); ?>
+						<?php echo /*implode(", ",*/ JemOutput::getCategoryList($row->categories, $this->jemsettings->catlinklist)[0]/*)*/; ?>
 					</td>
 				<?php endif; ?>
 

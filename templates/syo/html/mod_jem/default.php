@@ -29,8 +29,8 @@ defined('_JEXEC') or die;
       <tr>
         <td>
           <?php if ($params->get('linkdet') == 1) : ?>
-          <a href="<?php echo $item->link; ?>"><?php echo $item->dateinfo; ?></a>
-          <?php else : echo $item->dateinfo; endif; ?>
+          <a href="<?php echo $item->link; ?>"><?php echo $item->date; ?></a>
+          <?php else : echo $item->date; endif; ?>
         </td>
 
         <td>

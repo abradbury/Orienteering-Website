@@ -264,7 +264,12 @@ footer.footer {
 }
 
 .inner-events > .list-group > a.list-group-item {
+  color: #337AB7;
   border-radius: 0;
+}
+
+.inner-events > .list-group > a.list-group-item:hover {
+  text-decoration: underline;
 }
 
 /***************************************/
