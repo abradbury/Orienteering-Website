@@ -31,7 +31,8 @@
 		<position>events</position>
 		<position>results</position>
 		<position>about_left</position>
-		<position>schools_right</position>
+		<position>right</position>
+		<position>right_mobile</position>
 		<position>bottom_left</position>
 		<position>bottom_middle</position>
 		<position>bottom_right</position>

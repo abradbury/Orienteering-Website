@@ -138,18 +138,14 @@ $doc->addCustomTag('<!--[if lt IE 9]><script src="https://oss.maxcdn.com/html5sh
         <main id="content">
           <div class="row">
             <?php if ($this->countModules( 'events' )): ?>
-            <div class="col-sm-6 events">
-              <div class="inner-events">
-                <jdoc:include type="modules" name="events" style="events" /> 
-              </div>
+            <div class="col-sm-6">
+              <jdoc:include type="modules" name="events" style="events" /> 
             </div>
             <?php endif; ?>
 
             <?php if ($this->countModules( 'results' )): ?>
-            <div class="col-sm-6 events">
-              <div class="inner-events">
-                <jdoc:include type="modules" name="results" style="events" /> 
-              </div>
+            <div class="col-sm-6">
+              <jdoc:include type="modules" name="results" style="events" /> 
             </div>
             <?php endif; ?>
           </div>
@@ -163,13 +159,13 @@ $doc->addCustomTag('<!--[if lt IE 9]><script src="https://oss.maxcdn.com/html5sh
               <jdoc:include type="component" />
             </div>
 
-            <?php elseif ($this->countModules( 'schools_right' )): ?>
-            <div class="col-sm-9">
+            <?php elseif ($this->countModules( 'right' )): ?>
+            <div class="col-sm-7 col-md-8">
               <jdoc:include type="component" />
             </div>
-            <div class="col-sm-3">
-              <jdoc:include type="modules" name="schools_right" style="xhtml" /> 
-            </div>
+            <div class="col-sm-5 col-md-4">
+              <jdoc:include type="modules" name="right" style="module" /> 
+            </div>       
 
             <?php else : ?>
             <div class="col-sm-12">

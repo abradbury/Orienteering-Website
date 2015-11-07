@@ -124,6 +124,16 @@ $document->addScriptDeclaration("
 	</div>
   </div>
 
+  <?php if ($document->countModules( 'right_mobile' )):
+  	// Include modules under page header
+  	$renderer = $document->loadRenderer('modules');
+	$position = "right_mobile";
+	$options = array('style' => 'module');
+	echo "<div class='hidden-sm hidden-md hidden-lg'>";
+	echo $renderer->render($position, $options, null);
+	echo "</div>";
+  endif; ?>
+
   <!-- Plugins: AfterDisplayTitle -->
   <?php echo $this->item->event->AfterDisplayTitle; ?>
 
