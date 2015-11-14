@@ -272,6 +272,14 @@ footer.footer {
   text-decoration: underline;
 }
 
+#also_on_this_page.inner-events {
+  margin-bottom: 20px;
+}
+
+.syo-module{
+  margin: 20px 0;
+}
+
 /***************************************/
 
 /*************** com_users *************/

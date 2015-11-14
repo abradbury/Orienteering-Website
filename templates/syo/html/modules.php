@@ -17,7 +17,7 @@
 
 	function modChrome_module($module, &$params, &$attribs) 
 	{
-		echo "<div class='inner-events' id='". str_replace(' ', '_', strtolower($module->title)) . "'>";
+		echo "<div class='inner-events syo-module' id='". str_replace(' ', '_', strtolower($module->title)) . "'>";
 
 		if ($module->showtitle) 
 		{

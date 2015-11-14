@@ -8,7 +8,7 @@
  */
 defined('_JEXEC') or die;
 
-
+$document = JFactory::getDocument();
 ?>
 <div id="jem" class="jem_eventslist<?php echo $this->pageclass_sfx;?>">
 	<div class="buttons">
@@ -25,7 +25,15 @@ defined('_JEXEC') or die;
 		</h1>
 	<?php endif; ?>
 
-	<div class="clr"></div>
+	<?php if ($document->countModules( 'right_mobile' )):
+  	// Include modules under page header
+  	$renderer = $document->loadRenderer('modules');
+	$position = "right_mobile";
+	$options = array('style' => 'module');
+	echo "<div class='hidden-sm hidden-md hidden-lg'>";
+	echo $renderer->render($position, $options, null);
+	echo "</div>";
+	endif; ?>
 
 	<?php if ($this->params->get('showintrotext')) : ?>
 		<div class="description no_space floattext">
