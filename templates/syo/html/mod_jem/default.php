@@ -9,9 +9,9 @@
  */
 
 defined('_JEXEC') or die;
+
 ?>
 
-<?php if (count($items)): ?>
 <table class="table">
   <thead>
     <tr>
@@ -20,6 +20,7 @@ defined('_JEXEC') or die;
     </tr>
   </thead>
   <tbody>
+    <?php if (count($list)): ?>
     <?php foreach ($list as $item) : ?>
     <tr>
       <td>
@@ -37,8 +38,14 @@ defined('_JEXEC') or die;
       </td>
     </tr>
   <?php endforeach; ?>
+  <?php else:
+    $eventType = "";
+    if($params->get('type') == 2) {
+      $eventType = "past";
+    } elseif ($params->get('type') == 0) {
+      $eventType = "future";
+    } ?>
+    <tr><td colspan="2">No <?php echo $eventType; ?> events found for this category</td></tr>
+  <?php endif; ?>
   </tbody>
 </table>
-<?php else: ?>
-  <p>No future schools events found</p>
-<?php endif; ?>

@@ -70,23 +70,28 @@ abstract class modJEMHelper
 		// TODO: Add parameter to specify start and end dates for showing events
 		// (used for schools league)
 
-		// # archived events
-		// if ($type == 2) {
-		// 	$model->setState('filter.published',2);
-		// 	$model->setState('filter.orderby',array('a.dates DESC','a.times DESC'));
-		// 	$cal_from = "";
-		// }
+		// All events, default order
+		if ($type == 3) {
+			$cal_from = "";
+		}
 
-		// # upcoming or running events, on mistake default to upcoming events
-		// else {
-		// 	$model->setState('filter.published',1);
-		// 	$model->setState('filter.orderby',array('a.dates ASC','a.times ASC'));
+		# archived events
+		elseif ($type == 2) {
+			$model->setState('filter.published',2);
+			$model->setState('filter.orderby',array('a.dates DESC','a.times DESC'));
+			$cal_from = "";
+		}
 
-		// 	$offset_minutes = 60 * $params->get('offset_hours', 0);
+		# upcoming or running events, on mistake default to upcoming events
+		else {
+			$model->setState('filter.published',1);
+			$model->setState('filter.orderby',array('a.dates ASC','a.times ASC'));
 
-		// 	$cal_from = "((TIMESTAMPDIFF(MINUTE, NOW(), CONCAT(a.dates,' ',IFNULL(a.times,'00:00:00'))) > $offset_minutes) ";
-		// 	$cal_from .= ($type == 1) ? " OR (TIMESTAMPDIFF(MINUTE, NOW(), CONCAT(IFNULL(a.enddates,a.dates),' ',IFNULL(a.endtimes,'23:59:59'))) > $offset_minutes)) " : ") ";
-		// }
+			$offset_minutes = 60 * $params->get('offset_hours', 0);
+
+			$cal_from = "((TIMESTAMPDIFF(MINUTE, NOW(), CONCAT(a.dates,' ',IFNULL(a.times,'00:00:00'))) > $offset_minutes) ";
+			$cal_from .= ($type == 1) ? " OR (TIMESTAMPDIFF(MINUTE, NOW(), CONCAT(IFNULL(a.enddates,a.dates),' ',IFNULL(a.endtimes,'23:59:59'))) > $offset_minutes)) " : ") ";
+		}
 
 		$model->setState('filter.calendar_from',$cal_from);
 		$model->setState('filter.groupby','a.id');
