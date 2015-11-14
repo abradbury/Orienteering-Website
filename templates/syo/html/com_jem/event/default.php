@@ -21,8 +21,7 @@ $attribs 	= json_decode($this->item->attribs);
 JHtml::_('behavior.modal', 'a.flyermodal');
 ?>
 <?php if ($params->get('access-view')) { /* This will show nothings otherwise - ??? */ ?>
-<div id="jem" class="row event_id<?php echo $this->item->did; ?> jem_event<?php echo $this->pageclass_sfx;?>"
-	itemscope="itemscope" itemtype="http://schema.org/Event">
+<div id="jem" class="row event_id<?php echo $this->item->did; ?> jem_event<?php echo $this->pageclass_sfx;?>" itemscope="itemscope" itemtype="http://schema.org/SportsEvent">
 	<div class="buttons">
 		<?php
 		if ($params->get('event_show_email_icon',1)) {
@@ -40,16 +39,12 @@ JHtml::_('behavior.modal', 'a.flyermodal');
 	<div class="clr"> </div>
 
 	<div class="col-sm-9">
-		<h1>
-			<?php echo $this->escape($this->params->get('page_heading')); ?>
-			<?php echo JemOutput::editbutton($this->item, $params, $attribs, $this->allowedtoeditevent, 'editevent'); ?>
-
-		</h1>
-
+		<h1 itemprop="name"><?php echo $this->escape($this->params->get('page_heading')); ?></h1>
+		<?php echo JemOutput::editbutton($this->item, $params, $attribs, $this->allowedtoeditevent, 'editevent'); ?>
 		
 		<div class="clr"> </div>
 
-		<p class="eventSubtitle">A <span><?php echo $this->escape($this->categories[0]->catname); ?></span> event at <span><?php echo $this->escape($this->item->venue); ?></span></p>
+		<p class="eventSubtitle">A <span><?php echo $this->escape($this->categories[0]->catname); ?></span> event at <span itemprop="location"><?php echo $this->escape($this->item->venue); ?></span></p>
 		<p class="eventSubtitle">On <span>
 			<?php echo JemOutput::formatLongDateTime($this->item->dates, $this->item->times,$this->item->enddates, $this->item->endtimes);?>
 			<?php echo JemOutput::formatSchemaOrgDateTime($this->item->dates, $this->item->times,$this->item->enddates, $this->item->endtimes);?>
