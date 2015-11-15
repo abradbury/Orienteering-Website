@@ -59,7 +59,7 @@ $doc->addCustomTag('<!--[if lt IE 9]><script src="https://oss.maxcdn.com/html5sh
             <div class="container-fluid">
               <div class="navbar-header">
                 <a class="navbar-brand" href="<?php echo $this->baseurl; ?>">
-                  <img alt="South Yorkshire Orienteers Logo" src="<?php echo $this->baseurl.'/templates/'.$this->template ?>/images/logo.gif">
+                  <img class="noCaption" alt="South Yorkshire Orienteers Logo" src="<?php echo $this->baseurl.'/templates/'.$this->template ?>/images/logo.gif">
                   <div>
                     <span class="name-top">South Yorkshire</span>
                     <span class="name-bottom">Orienteers</span>
@@ -208,7 +208,7 @@ $doc->addCustomTag('<!--[if lt IE 9]><script src="https://oss.maxcdn.com/html5sh
     <footer class="footer container-fluid">
       
       <div class="footerImage">
-        <img class="img-responsive" src="<?php echo $this->baseurl.'/templates/'.$this->template ?>/images/SYO_Footer_Silhouette.gif" alt="">
+        <img class="img-responsive noCaption" src="<?php echo $this->baseurl.'/templates/'.$this->template ?>/images/SYO_Footer_Silhouette.gif" alt="">
       </div>
 
       <div class="footerBody">
@@ -218,10 +218,10 @@ $doc->addCustomTag('<!--[if lt IE 9]><script src="https://oss.maxcdn.com/html5sh
               <h3>Sponsors</h3>
               <div class="row">
                 <div class="col-xs-6">
-                  <a class="no-external-link-icon" href="http://www.accelerateuk.com/"><img class="img-responsive" src="<?php echo $this->baseurl.'/templates/'.$this->template ?>/images/accelerate.gif" alt="Accelerate Logo"></a>
+                  <a class="no-external-link-icon" href="http://www.accelerateuk.com/"><img class="img-responsive noCaption" src="<?php echo $this->baseurl.'/templates/'.$this->template ?>/images/accelerate.gif" alt="Accelerate Logo"></a>
                 </div>
                 <div class="col-xs-6">
-                  <a class="no-external-link-icon" href="http://www.smartwool.com/"><img class="img-responsive" src="<?php echo $this->baseurl.'/templates/'.$this->template ?>/images/smartwool.gif" alt="Smartwool Logo"></a>
+                  <a class="no-external-link-icon" href="http://www.smartwool.com/"><img class="img-responsive noCaption" src="<?php echo $this->baseurl.'/templates/'.$this->template ?>/images/smartwool.gif" alt="Smartwool Logo"></a>
                 </div>
               </div>
             </div>
@@ -237,16 +237,6 @@ $doc->addCustomTag('<!--[if lt IE 9]><script src="https://oss.maxcdn.com/html5sh
         </div>
       </div>
     </footer>
-
-    <script>
-    // Submit the login form - JavaScript workaround for IE's lack of support for the form attribute of the button element
-    jQuery('#login').on('show.bs.modal', function (event) {
-      var modal = jQuery(this);
-      modal.find('#login-form-submit-button').on('click', function() {
-        modal.find('#login-form').submit();
-      });
-    });
-    </script>
-
+    <script src="<?php echo ($this->baseurl.'/templates/'.$this->template); ?>/js/syo.js"></script>
   </body>
 </html>

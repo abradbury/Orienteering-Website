@@ -539,7 +539,7 @@ table>tbody>tr.year, table>tbody>tr.year:hover {
 
 /***************************************/
 
-/*************** Banner ****************/
+/********** Banner and Images **********/
 
 /* From http://stackoverflow.com/a/17353785 */
 
@@ -560,7 +560,7 @@ table>tbody>tr.year, table>tbody>tr.year:hover {
 /*#schools.banner {background-image:url("../images/header/csc2011.jpg");}*/
 /*#schools.banner > .caption:after {content: "SYO - winners of the CompassSport Cup 2011";}*/
 
-.banner > .caption {
+.caption {
   position: absolute;
   bottom: 0;
   right: 0;
@@ -570,19 +570,12 @@ table>tbody>tr.year, table>tbody>tr.year:hover {
   padding: 0 5px;
 }
 
-.banner:hover > .caption {
+.imgWrap {
+  position: relative;
+}
+
+.banner:hover > .caption, .imgWrap:hover > .caption {
   display: inline-block;
-}
-
-/* Fix for Joomla carousel shrinking on even images
-  http://stackoverflow.com/a/24291854 */
-
-#carousel-example-generic {
-  margin:0px !important;
-}
-
-#carousel-top>div {
-  height:250px !important;
 }
 
 /***************************************/
