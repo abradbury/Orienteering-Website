@@ -572,7 +572,10 @@ table>tbody>tr.year, table>tbody>tr.year:hover {
 
 .imgWrap {
   position: relative;
+  display: table-cell;
 }
+
+.img-responsive{width:100%;}
 
 .banner:hover > .caption, .imgWrap:hover > .caption {
   display: inline-block;
