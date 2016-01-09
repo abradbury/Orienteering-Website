@@ -35,10 +35,14 @@ $max_custom_fields = $this->settings->get('global_editevent_maxnumcustomfields',
 	{
 		jQuery('.uploadifyfile').uploadify(
 		{
+			'buttonClass'   : 'btn btn-default btn-block',
+			'hideButton'	: true,
+  			'transparent'   : true,
 			'swf'			: '<?php echo $this->baseurl; ?>/templates/syo/uploadify/uploadify.swf',
 			'uploader'		: '<?php echo $this->baseurl; ?>/templates/syo/uploadify/uploadify.php',
 			'auto'			: true,		// automatically upload files when added to the queue
-			'height'		: 15,
+  			'height'     	: '34',
+  			'width'			: '100',
 			'fileSizeLimit'	: '20MB',
 			'fileTypeExts'	: '*.pdf; *.jpg; *.jpeg; *.txt; *.rtf; *.doc; *.docx; *.xlsx; *.xls; *.htm; *.html;',
 			'fileTypeDesc'	: 'Upload only the following files: \n .pdf, .jpg, .jpeg, .txt, .rtf, .doc(x), .xls(x), .htm, .html',
@@ -171,9 +175,13 @@ $max_custom_fields = $this->settings->get('global_editevent_maxnumcustomfields',
 		<?php endif; ?>
 
 		<form enctype="multipart/form-data" action="<?php echo JRoute::_('index.php?option=com_jem&a_id='.(int) $this->item->id); ?>" method="post" name="adminForm" id="adminForm" class="form-horizontal form-validate">
-			<div class="event-buttons pull-right">
-				<button type="button" class="btn btn-success" onclick="Joomla.submitbutton('event.save')"><?php echo JText::_('JSAVE') ?></button>
-				<button type="button" class="btn btn-danger" onclick="Joomla.submitbutton('event.cancel')"><?php echo JText::_('JCANCEL') ?></button>
+			<div class="row event-buttons">
+				<div class="col-sm-offset-2 col-sm-4 col-xs-6">
+					<button type="button" class="btn btn-success btn-block" onclick="Joomla.submitbutton('event.save')"><?php echo JText::_('JSAVE') ?></button>
+				</div>
+				<div class="col-sm-4 col-xs-6">
+					<button type="button" class="btn btn-danger btn-block" onclick="Joomla.submitbutton('event.cancel')"><?php echo JText::_('JCANCEL') ?></button>
+				</div>
 			</div>
 
 			<?php if ($this->item->recurrence_type > 0) : ?>
@@ -210,7 +218,7 @@ $max_custom_fields = $this->settings->get('global_editevent_maxnumcustomfields',
 
 				<div class="form-group">
 					<div class="col-sm-2 cantAccessLabel"><?php echo $this->form->getLabel('locid'); ?></div>
-					<div class="col-sm-8"><?php echo $this->form->getInput('locid'); ?></div>
+					<div class="col-sm-6 col-xs-9"><?php echo $this->form->getInput('locid'); ?></div>
 				</div>
 
 				<div class="form-group">
@@ -221,33 +229,28 @@ $max_custom_fields = $this->settings->get('global_editevent_maxnumcustomfields',
 				<!--Calendar icon issue in html.php - core file...-->
 				<div class="form-group">
 					<div class="col-sm-2 cantAccessLabel"><?php echo $this->form->getLabel('dates'); ?></div>
-					<div class="col-sm-6"><?php echo $this->form->getInput('dates'); ?></div>
+					<div class="col-sm-6 col-xs-9"><?php echo $this->form->getInput('dates'); ?></div>
 				</div>
 
 				<div class="form-group">
 					<div class="col-sm-2 cantAccessLabel"><?php echo $this->form->getLabel('enddates'); ?></div>
-					<div class="col-sm-6"><?php echo $this->form->getInput('enddates'); ?></div>
+					<div class="col-sm-6 col-xs-9"><?php echo $this->form->getInput('enddates'); ?></div>
 				</div>
 
 				<div class="form-group">
 					<div class="col-sm-2 cantAccessLabel"><?php echo $this->form->getLabel('times'); ?></div>
-					<div class="col-sm-2"><?php echo $this->form->getInput('times'); ?></div>
+					<div class="col-sm-4 col-xs-6"><?php echo $this->form->getInput('times'); ?></div>
 				</div>
 
 				<div class="form-group">
 					<div class="col-sm-2 cantAccessLabel"><?php echo $this->form->getLabel('endtimes'); ?></div>
-					<div class="col-sm-2"><?php echo $this->form->getInput('endtimes'); ?></div>
+					<div class="col-sm-4 col-xs-6"><?php echo $this->form->getInput('endtimes'); ?></div>
 				</div>
 
 				<div class="form-group">
 					<div class="col-sm-2 cantAccessLabel"><?php echo $this->form->getLabel('published'); ?></div>
 					<div class="col-sm-8"><?php echo $this->form->getInput('published'); ?></div>
 				</div>
-				
-				<!-- <div class="form-group">
-					<div class="col-sm-2 cantAccessLabel"><?php echo $this->form->getLabel('featured'); ?></div>
-					<div class="col-sm-8"><?php echo $this->form->getInput('featured'); ?></div>
-				</div> -->
 
 				<?php if ($max_custom_fields != 0) :
 				$custom_file_fields =array(1, 2, 3, 4, 8, 10);
@@ -263,10 +266,10 @@ $max_custom_fields = $this->settings->get('global_editevent_maxnumcustomfields',
 
 				<div class="form-group">
 					<div class="col-sm-2 cantAccessLabel"><?php echo $field->label; ?></div>
-					<div class="col-sm-8"><?php echo $field->input; ?></div>
+					<div class="col-sm-8 col-xs-10"><?php echo $field->input; ?></div>
 
 				<?php if (in_array($cnt, $custom_file_fields)) : ?>
-					<input type="file" name="file_upload" id="file_upload<?php echo $cnt; ?>" class="col-sm-2 uploadifyfile" />
+					<input type="file" name="file_upload" id="file_upload<?php echo $cnt; ?>" class="col-sm-2 col-xs-2 uploadifyfile" />
 				<?php endif; ?>
 
 				</div>
@@ -278,7 +281,7 @@ $max_custom_fields = $this->settings->get('global_editevent_maxnumcustomfields',
 				</div>
 			</fieldset>
 		
-			<?php echo $this->loadTemplate('other'); ?>
+			<?php //echo $this->loadTemplate('other'); ?>
 					
 			<input type="hidden" name="task" value="" />
 			<input type="hidden" name="return" value="<?php echo $this->return_page;?>" />

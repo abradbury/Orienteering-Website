@@ -525,7 +525,8 @@ textarea[id^="jform"], select[id^="jform"][multiple], select.inputbox[multiple] 
 }
 
 form#venue-form > div.event-buttons, form#adminForm > div.event-buttons {
-  margin-top: -46px;
+  margin-top: 30px;
+  margin-bottom: 20px;
 }
 
 /*select, textarea, input:focus, .form-control:focus {

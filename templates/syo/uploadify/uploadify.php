@@ -13,8 +13,12 @@ $targetFolder = '/event'; // Relative to the root
 //$preTargetFolder = '/Applications/XAMPP/xamppfiles/htdocs';
 //$targetFolder = '/syo/event'; // Relative to the root
 
+// TODO: Catch warnings and throw as error
+// These will trigger an error response
+// 	header("HTTP/1.1 405"); //any 4XX error will work
+//  exit();
+
 if (!empty($_FILES)) {
-	
 	$eventVenue = $_POST['eventVenue'];
 	$eventDate = $_POST['eventDate'];
 	$documentType = $_POST['fileType'];

@@ -19,22 +19,22 @@ defined('_JEXEC') or die; ?>
 		endif;
 		?>
 		<div class="form-group">
-			<label for="userfile" class="col-sm-2 control-label">
+			<label for="userfile" class="col-sm-2 col-xs-12 control-label">
 				<?php echo JText::_('COM_JEM_IMAGE'); ?>
-				<small <?php echo JEMOutput::tooltip(JText::_('COM_JEM_NOTES'), JText::_('COM_JEM_MAX_IMAGE_FILE_SIZE').' '.$this->jemsettings->sizelimit.' kb', 'editlinktip'); ?>>
-					<?php echo $this->infoimage; ?>
-				</small>
 			</label>
-			<div class="col-sm-6">
-				<input class="inputbox <?php echo $this->jemsettings->imageenabled == 2 ? 'required' : ''; ?> form-control" name="userfile" id="userfile" type="file" />
+			<div class="col-sm-6 col-xs-9">
+				<input class="inputbox <?php echo $this->jemsettings->imageenabled == 2 ? 'required' : ''; ?> form-control" name="userfile" id="userfile" type="file" aria-describedby="pictureHelp" />
 			</div>
-			<div class="col-sm-2">
+			<div class="col-sm-2 col-xs-3">
 				<button type="button" class="btn btn-default btn-block" onclick="document.getElementById('userfile').value = ''"><?php echo JText::_('JSEARCH_FILTER_CLEAR') ?></button>
 				<?php
 				if ($this->item->datimage) :
 					echo JHtml::image('media/com_jem/images/publish_r.png', null, array('id' => 'userfile-remove', 'data-id' => $this->item->id, 'data-type' => 'events', 'title' => JText::_('COM_JEM_REMOVE_IMAGE')));
 				endif;
 				?>
+			</div>
+			<div class="col-sm-2 col-xs-12">
+				<span id="pictureHelp" class="help-block"><?php echo JText::_('COM_JEM_MAX_IMAGE_FILE_SIZE').' '.$this->jemsettings->sizelimit.' kb'?></span>
 			</div>
 		</div>
 		<input type="hidden" name="removeimage" id="removeimage" value="0" />
