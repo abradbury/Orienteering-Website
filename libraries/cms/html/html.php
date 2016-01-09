@@ -1014,13 +1014,15 @@ abstract class JHtml
 
 		// Hide button using inline styles for readonly/disabled fields
 		$btn_style = ($readonly || $disabled) ? ' style="display:none;"' : '';
-		$div_class = (!$readonly && !$disabled) ? ' class="input-append"' : '';
+		$div_class = (!$readonly && !$disabled) ? ' class="input-group"' : '';
 
 		return '<div' . $div_class . '>'
 				. '<input type="text" title="' . ($inputvalue ? static::_('date', $value, null, null) : '')
-				. '" name="' . $name . '" id="' . $id . '" value="' . htmlspecialchars($inputvalue, ENT_COMPAT, 'UTF-8') . '" ' . $attribs . ' /></div></div>'
-				. '<div class="col-sm-2 col-xs-3"><button type="button" class="btn btn-default btn-block" id="' . $id . '_img"' . $btn_style . '><span class="icon-calendar"></span></button>'
-			/*. '</div>'*/;
+				. '" name="' . $name . '" id="' . $id . '" value="' . htmlspecialchars($inputvalue, ENT_COMPAT, 'UTF-8') . '" ' . $attribs . ' />'
+				. '<span class="input-group-btn">'
+				  . '<button type="button" class="btn btn-default btn-block" id="' . $id . '_img"' . $btn_style . '><span class="icon-calendar"></span></button>'
+				. '</span>'
+			. '</div>';
 	}
 
 	/**
