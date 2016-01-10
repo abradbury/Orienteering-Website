@@ -20,7 +20,7 @@ defined('_JEXEC') or die;
 	}
 </script>
 
-<?php if (!$this->params->get('showintrotext')) /* Hack that stops table filter on eventlist pages */ /* ($this->settings->get('global_show_filter',1) || $this->settings->get('global_display',1))*/ : ?>
+<?php if ($this->params->get('pageclass_sfx') === 'results') /* Hack that stops table filter on eventlist pages */ /* ($this->settings->get('global_show_filter',1) || $this->settings->get('global_display',1))*/ : ?>
 	<div id="jem_filter" class="floattext">
 		<?php if ($this->settings->get('global_show_filter',1)) : ?>
 			<div class="pull-left">
