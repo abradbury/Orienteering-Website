@@ -23,6 +23,7 @@ defined('_JEXEC') or die;
 	<?php if ($this->params->get('show_page_heading', 1)) : ?>
 		<h1>
 			<span itemprop="name"><?php echo $this->escape($this->params->get('page_heading')); ?></span>
+			<?php echo JText::_('TPL_SYO_COM_K2_EDIT_SEP'); ?>
 			<?php echo JemOutput::editbutton($this->venue, $this->params, NULL, $this->allowedtoeditvenue, 'venue'); ?>
 		</h1>
 	<?php endif; ?>

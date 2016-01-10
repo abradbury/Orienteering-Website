@@ -39,8 +39,11 @@ JHtml::_('behavior.modal', 'a.flyermodal');
 	<div class="clr"> </div>
 
 	<div class="col-sm-9">
-		<h1 itemprop="name"><?php echo $this->escape($this->params->get('page_heading')); ?></h1>
-		<?php echo JemOutput::editbutton($this->item, $params, $attribs, $this->allowedtoeditevent, 'editevent'); ?>
+		<h1>
+			<span itemprop="name"><?php echo $this->escape($this->params->get('page_heading')); ?></span>
+			<?php echo JText::_('TPL_SYO_COM_K2_EDIT_SEP'); ?>
+			<?php echo JemOutput::editbutton($this->item, $params, $attribs, $this->allowedtoeditevent, 'editevent'); ?>
+		</h1>
 		
 		<div class="clr"> </div>
 
