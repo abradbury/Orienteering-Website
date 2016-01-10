@@ -59,7 +59,7 @@ $doc->addCustomTag('<!--[if lt IE 9]><script src="https://oss.maxcdn.com/html5sh
             <div class="container-fluid">
               <div class="navbar-header">
                 <a class="navbar-brand" href="<?php echo $this->baseurl; ?>">
-                  <img class="noCaption" alt="South Yorkshire Orienteers Logo" src="<?php echo $this->baseurl.'/templates/'.$this->template ?>/images/logo.gif">
+                  <img class="noCaption" height="100" width="100" alt="South Yorkshire Orienteers Logo" src="<?php echo $this->baseurl.'/templates/'.$this->template ?>/images/logo.gif">
                   <div>
                     <span class="name-top">South Yorkshire</span>
                     <span class="name-bottom">Orienteers</span>

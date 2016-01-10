@@ -41,7 +41,6 @@ JHtml::_('behavior.modal', 'a.flyermodal');
 	<div class="col-sm-9">
 		<h1>
 			<span itemprop="name"><?php echo $this->escape($this->params->get('page_heading')); ?></span>
-			<?php echo JText::_('TPL_SYO_COM_K2_EDIT_SEP'); ?>
 			<?php echo JemOutput::editbutton($this->item, $params, $attribs, $this->allowedtoeditevent, 'editevent'); ?>
 		</h1>
 		
@@ -133,14 +132,12 @@ JHtml::_('behavior.modal', 'a.flyermodal');
 	<div class="col-sm-3">
 		<?php if ($this->item->locid != 0) : ?>
 
-		<div class="panel panel-default firstEventPanel">
-		  <div class="panel-heading">
+		<div class="inner-events syo-module">
+		  <div class="eventsHeader">
 		    <h3 class="panel-title"><?php echo JText::_('TPL_SYO_JEM_VENUE_DESC'); ?></h3> 
 		  </div>
-		  <div class="panel-body" itemprop="description">
 			<?php echo $this->item->locdescription; ?>
-		    <a href="<?php echo JRoute::_(JemHelperRoute::getVenueRoute($this->item->venueslug)); ?>">More details...</a>
-		  </div>
+			<a href="<?php echo JRoute::_(JemHelperRoute::getVenueRoute($this->item->venueslug)); ?>">More details about <?php echo $this->escape($this->item->venue); ?>...</a>
 		</div>
 
 		<?php $this->attachments = $this->item->vattachments; ?>
