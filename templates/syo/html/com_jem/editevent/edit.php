@@ -229,12 +229,12 @@ $max_custom_fields = $this->settings->get('global_editevent_maxnumcustomfields',
 				<!--Calendar icon issue in html.php - core file...-->
 				<div class="form-group">
 					<div class="col-sm-2 cantAccessLabel"><?php echo $this->form->getLabel('dates'); ?></div>
-					<div class="col-sm-8 col-xs-9"><?php echo $this->form->getInput('dates'); ?></div>
+					<div class="col-sm-8 col-xs-12"><?php echo $this->form->getInput('dates'); ?></div>
 				</div>
 
 				<div class="form-group">
 					<div class="col-sm-2 cantAccessLabel"><?php echo $this->form->getLabel('enddates'); ?></div>
-					<div class="col-sm-8 col-xs-9"><?php echo $this->form->getInput('enddates'); ?></div>
+					<div class="col-sm-8 col-xs-12"><?php echo $this->form->getInput('enddates'); ?></div>
 				</div>
 
 				<div class="form-group">

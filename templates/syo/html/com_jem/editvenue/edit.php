@@ -205,9 +205,13 @@ $location = JemHelper::defineCenterMap($this->form);
 		<?php endif; ?>
 
 		<form action="<?php echo JRoute::_('index.php?option=com_jem&a_id='.(int) $this->item->id); ?>" class="form-horizontal form-validate" method="post" name="adminForm" id="venue-form" enctype="multipart/form-data">
-			<div class="event-buttons pull-right">
-				<button type="button" class="btn btn-success" onclick="Joomla.submitbutton('venue.save')"><?php echo JText::_('JSAVE') ?></button>
-				<button type="button" class="btn btn-danger" onclick="Joomla.submitbutton('venue.cancel')"><?php echo JText::_('JCANCEL') ?></button>
+			<div class="row event-buttons">
+				<div class="col-sm-offset-2 col-sm-4 col-xs-6">
+					<button type="button" class="btn btn-success btn-block" onclick="Joomla.submitbutton('venue.save')"><?php echo JText::_('JSAVE') ?></button>
+				</div>
+				<div class="col-sm-4 col-xs-6">
+					<button type="button" class="btn btn-danger btn-block" onclick="Joomla.submitbutton('venue.cancel')"><?php echo JText::_('JCANCEL') ?></button>
+				</div>
 			</div>
 
 			<?php if ($this->params->get('showintrotext')) : ?>
