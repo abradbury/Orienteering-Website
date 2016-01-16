@@ -27,11 +27,6 @@ defined('_JEXEC') or die;
 		</h1>
 	<?php endif; ?>
 
-	<div class="clr"> </div>
-
-	<!--Venue-->
-	<?php echo JemOutput::flyer($this->venue, $this->limage, 'venue'); ?>
-
 	<?php
 	if ($this->settings->get('global_show_mapserv')== 2) {
 		echo JemOutput::mapicon($this->venue,null,$this->settings);
@@ -65,7 +60,6 @@ defined('_JEXEC') or die;
 	<?php $this->attachments = $this->venue->attachments; ?>
 	<?php echo $this->loadTemplate('attachments'); ?>
 
-	<!--table-->
 	<form action="<?php echo $this->action; ?>" method="post" id="adminForm" class="form-inline">
 		<?php echo $this->loadTemplate('table'); ?>
 
@@ -78,7 +72,6 @@ defined('_JEXEC') or die;
 		</p>
 	</form>
 
-	<!--pagination-->
 	<div class="pagination">
 		<?php echo $this->pagination->getPagesLinks(); ?>
 	</div>
