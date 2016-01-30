@@ -14,4 +14,10 @@ jQuery(document).ready(function() {
     image.wrap("<div class='imgWrap'></div>");
     image.after("<small class='caption'>"+image.attr("alt")+"</small>");
   });
+
+  // Header image
+  jQuery('.banner').each(function(i, obj) {
+    var banner = jQuery(this);
+    banner.css('background-image', 'url(templates/syo/images/header/' + banner.attr('data-img-name') + ')');
+  });
 });

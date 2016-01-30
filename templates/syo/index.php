@@ -103,8 +103,13 @@ $doc->addCustomTag('<!--[if lt IE 9]><script src="https://oss.maxcdn.com/html5sh
 
           <div class="row">
             <div class="col-sm-12 hidden-xs">
-              <div class="banner" id="<?php echo $menuAlias; ?>">
-                <small class="caption"></small>
+              <?php 
+                $imageNames = array('P1020182.jpg', 'BOC_2015_RL.JPG', 'JIRCS_2014_RL.JPG');
+                $imageCapts = array('World Orienteering Championships 2015 - Nairn, Scotland', 'British Sprint Orienteering Championships 2015 - Aldershot Garrison, Hampshire (&copy; Robert Lines)', 'Junior Inter-Regional Championships 2014 - Roanhead, Cumbria (&copy; Robert Lines)');
+               	$randIndex  = array_rand($imageNames);
+               ?>
+              <div class="banner" id="<?php echo $menuAlias; ?>" data-img-name="<?php echo $imageNames[$randIndex]; ?>">
+                <small class="caption" data-img-desc="<?php echo $imageCapts[$randIndex]; ?>"></small>
               </div>
             </div>
           </div>
