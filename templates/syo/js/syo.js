@@ -18,6 +18,6 @@ jQuery(document).ready(function() {
   // Header image
   jQuery('.banner').each(function(i, obj) {
     var banner = jQuery(this);
-    banner.css('background-image', 'url(templates/syo/images/header/' + banner.attr('data-img-name') + ')');
+    banner.css('background-image', 'url(' + banner.attr('data-img-name') + ')');
   });
 });
