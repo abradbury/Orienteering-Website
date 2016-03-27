@@ -37,6 +37,28 @@ $doc->addStyleSheet($this->baseurl.'/templates/'.$this->template.'/css/bootstrap
 $doc->addStyleSheet($this->baseurl.'/templates/'.$this->template.'/css/template.css');
 $doc->addStyleSheet($this->baseurl.'/templates/'.$this->template.'/css/font-awesome.min.css');
 
+// Add favicon stuff
+$doc->addCustomTag('<link rel="apple-touch-icon" sizes="57x57" href="/apple-touch-icon-57x57.png?v=rMMm7jX0jo">');
+$doc->addCustomTag('<link rel="apple-touch-icon" sizes="60x60" href="/apple-touch-icon-60x60.png?v=rMMm7jX0jo">');
+$doc->addCustomTag('<link rel="apple-touch-icon" sizes="72x72" href="/apple-touch-icon-72x72.png?v=rMMm7jX0jo">');
+$doc->addCustomTag('<link rel="apple-touch-icon" sizes="76x76" href="/apple-touch-icon-76x76.png?v=rMMm7jX0jo">');
+$doc->addCustomTag('<link rel="apple-touch-icon" sizes="114x114" href="/apple-touch-icon-114x114.png?v=rMMm7jX0jo">');
+$doc->addCustomTag('<link rel="apple-touch-icon" sizes="120x120" href="/apple-touch-icon-120x120.png?v=rMMm7jX0jo">');
+$doc->addCustomTag('<link rel="apple-touch-icon" sizes="144x144" href="/apple-touch-icon-144x144.png?v=rMMm7jX0jo">');
+$doc->addCustomTag('<link rel="apple-touch-icon" sizes="152x152" href="/apple-touch-icon-152x152.png?v=rMMm7jX0jo">');
+$doc->addCustomTag('<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon-180x180.png?v=rMMm7jX0jo">');
+$doc->addCustomTag('<link rel="icon" type="image/png" href="/favicon-32x32.png?v=rMMm7jX0jo" sizes="32x32">');
+$doc->addCustomTag('<link rel="icon" type="image/png" href="/favicon-194x194.png?v=rMMm7jX0jo" sizes="194x194">');
+$doc->addCustomTag('<link rel="icon" type="image/png" href="/favicon-96x96.png?v=rMMm7jX0jo" sizes="96x96">');
+$doc->addCustomTag('<link rel="icon" type="image/png" href="/android-chrome-192x192.png?v=rMMm7jX0jo" sizes="192x192">');
+$doc->addCustomTag('<link rel="icon" type="image/png" href="/favicon-16x16.png?v=rMMm7jX0jo" sizes="16x16">');
+$doc->addCustomTag('<link rel="manifest" href="/manifest.json?v=rMMm7jX0jo">');
+$doc->addCustomTag('<link rel="mask-icon" href="/safari-pinned-tab.svg?v=rMMm7jX0jo" color="#5bbad5">');
+$doc->addCustomTag('<link rel="shortcut icon" href="/favicon.ico?v=rMMm7jX0jo">');
+$doc->setMetadata('msapplication-TileColor', '#2b5797');
+$doc->setMetadata('msapplication-TileImage', '/mstile-144x144.png?v=rMMm7jX0jo');
+$doc->setMetadata('theme-color', '#ffd65e');
+
 // Add JS
 $doc->addScript($this->baseurl.'/templates/'.$this->template.'/js/bootstrap.min.js');
 
