@@ -15,7 +15,7 @@ The files included in this repository are primarily those needed to create a Joo
 * Extending and customising the Joomla Event Manager (JEM) component such that it is better suited for managing orienteering events.  
 
 ## Screenshots
-The image below shows a side-by-side comparison of the new and old designs for the orienteering website.
+The image below shows a side-by-side comparison of the new and old designs for the orienteering website. The old site is shown on the right and the new site on the left. 
 
-![A screenshot of the new orienteering website design](images/new_old_comparison.png)
+![A screenshot comparing the new and old orienteering website designs](images/new_old_comparison.png)
 
