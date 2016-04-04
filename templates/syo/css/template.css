@@ -529,6 +529,27 @@ form#venue-form > div.event-buttons, form#adminForm > div.event-buttons {
   margin-bottom: 20px;
 }
 
+.invalid {
+  color: #a94442;
+}
+
+.invalid.inputbox {
+  border-color: #a94442;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+          box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+}
+.invalid.inputbox:focus {
+  border-color: #843534;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 6px #ce8483;
+          box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 6px #ce8483;
+}
+
+.invalid.inputbox + span.input-group-btn button {
+  color: #a94442;
+  background-color: #f2dede;
+  border-color: #a94442;
+}
+
 /*select, textarea, input:focus, .form-control:focus {
   border-color: #ffd65e;
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(255,187,3, 0.6);
