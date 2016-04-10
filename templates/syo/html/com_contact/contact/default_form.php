@@ -21,12 +21,11 @@ if (isset($this->error)) : ?>
 <div class="contact-form">
 	<form id="contact-form" action="<?php echo JRoute::_('index.php'); ?>" method="post" class="form-validate form-horizontal">
 		<fieldset>
-			<legend><?php echo JText::_('COM_CONTACT_FORM_LABEL'); ?></legend>
 			<div class="form-group">
 				<div class="col-sm-2 cantAccessLabel">
 					<?php echo $this->form->getLabel('contact_name'); ?>
 				</div>
-				<div class="col-sm-10">
+				<div class="col-sm-8">
 					<?php echo $this->form->getInput('contact_name'); ?>
 				</div>
 			</div>
@@ -34,7 +33,7 @@ if (isset($this->error)) : ?>
 				<div class="col-sm-2 cantAccessLabel">
 					<?php echo $this->form->getLabel('contact_email'); ?>
 				</div>
-				<div class="col-sm-10">
+				<div class="col-sm-8">
 					<?php echo $this->form->getInput('contact_email'); ?>
 				</div>
 			</div>
@@ -42,7 +41,7 @@ if (isset($this->error)) : ?>
 				<div class="col-sm-2 cantAccessLabel">
 					<?php echo $this->form->getLabel('contact_subject'); ?>
 				</div>
-				<div class="col-sm-10">
+				<div class="col-sm-8">
 					<?php echo $this->form->getInput('contact_subject'); ?>
 				</div>
 			</div>
@@ -50,7 +49,7 @@ if (isset($this->error)) : ?>
 				<div class="col-sm-2 cantAccessLabel">
 					<?php echo $this->form->getLabel('contact_message'); ?>
 				</div>
-				<div class="col-sm-10">
+				<div class="col-sm-8">
 					<?php echo $this->form->getInput('contact_message'); ?>
 				</div>
 			</div>
@@ -59,7 +58,7 @@ if (isset($this->error)) : ?>
 					<div class="col-sm-2 cantAccessLabel">
 						<?php echo $this->form->getLabel('contact_email_copy'); ?>
 					</div>
-					<div class="col-sm-10">
+					<div class="col-sm-8">
 						<?php echo $this->form->getInput('contact_email_copy'); ?>
 					</div>
 				</div>
@@ -72,7 +71,7 @@ if (isset($this->error)) : ?>
 						<div class="form-group">
 							<?php if ($field->hidden) : ?>
 								<div class="col-sm-2 cantAccessLabel"></div>
-								<div class="col-sm-10">
+								<div class="col-sm-8">
 									<?php echo $field->input; ?>
 								</div>
 							<?php else: ?>
@@ -82,16 +81,23 @@ if (isset($this->error)) : ?>
 										<span class="optional"><?php echo JText::_('COM_CONTACT_OPTIONAL'); ?></span>
 									<?php endif; ?>
 								</div>
-								<div class="col-sm-10">
+								<div class="col-sm-8">
 									<?php echo $field->input; ?></div>
+								<?php if($field->type == "Captcha") : ?>
+								<div class="col-sm-2">
+									<span id="helpBlock" class="help-block"><?php echo JText::_('COM_CONTACT_CAPTCHA_DESC'); ?></span>
+								</div>
+							<?php endif; ?>
 								</div>
 							<?php endif; ?>
 						</div>
 					<?php endforeach; ?>
 				<?php endif; ?>
 			<?php endforeach; ?>
-			<div class="form-actions">
-				<button class="btn btn-primary validate" type="submit"><?php echo JText::_('COM_CONTACT_CONTACT_SEND'); ?></button>
+			<div class="form-actions row">
+				<div class="col-sm-offset-2 col-sm-8">
+					<button class="btn btn-primary btn-block validate" type="submit"><?php echo JText::_('COM_CONTACT_CONTACT_SEND'); ?></button>
+				</div>
 				<input type="hidden" name="option" value="com_contact" />
 				<input type="hidden" name="task" value="contact.submit" />
 				<input type="hidden" name="return" value="<?php echo $this->return_page; ?>" />
