@@ -32,7 +32,7 @@ $doc->setMetadata('viewport', 'width=device-width, initial-scale=1.0');
 $doc->setGenerator('');
 
 // Add CSS
-$doc->addStyleSheet('http://fonts.googleapis.com/css?family=Source+Sans+Pro%7COxygen:700');
+$doc->addStyleSheet('https://fonts.googleapis.com/css?family=Source+Sans+Pro%7COxygen:700');
 $doc->addStyleSheet($this->baseurl.'/templates/'.$this->template.'/css/bootstrap.min.css');
 $doc->addStyleSheet($this->baseurl.'/templates/'.$this->template.'/css/template.css');
 $doc->addStyleSheet($this->baseurl.'/templates/'.$this->template.'/css/font-awesome.min.css');
