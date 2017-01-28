@@ -10,8 +10,8 @@ $preTargetFolder = '/home/j14sout/public_html';
 $targetFolder = '/event'; // Relative to the root
 
 // Paths for localhost testing
-//$preTargetFolder = '/Applications/XAMPP/xamppfiles/htdocs';
-//$targetFolder = '/syo/event'; // Relative to the root
+// $preTargetFolder = '/Applications/XAMPP/xamppfiles/htdocs';
+// $targetFolder = '/syo/event'; // Relative to the root
 
 // TODO: Catch warnings and throw as error
 // These will trigger an error response
@@ -22,12 +22,12 @@ if (!empty($_FILES)) {
 	$eventVenue = $_POST['eventVenue'];
 	$eventDate = $_POST['eventDate'];
 	$documentType = $_POST['fileType'];
-	
+
 	$targetFolder = $targetFolder.'/'.$eventDate.'-'.$eventVenue;
 
-	$tempFile = $_FILES['Filedata']['tmp_name'];
+	$tempFile = $_FILES['upload_file']['tmp_name'];
 	$targetPath = $_SERVER['DOCUMENT_ROOT'] . $targetFolder;
-	$targetFile = rtrim($targetPath,'/') . '/' . $_FILES['Filedata']['name'];
+	$targetFile = rtrim($targetPath,'/') . '/' . $_FILES['upload_file']['name'];
 
 	// If the folder does not exist, create one
 	if(!file_exists($targetPath)) {
@@ -36,18 +36,20 @@ if (!empty($_FILES)) {
 	
 	// Validate the file type
 	$fileTypes = array('pdf', 'jpg', 'jpeg', 'txt', 'rtf', 'doc', 'docx', 'xlsx', 'xls', 'htm', 'html'); // File extensions
-	$fileParts = pathinfo($_FILES['Filedata']['name']);
+	$fileParts = pathinfo($_FILES['upload_file']['name']);
 
 	// If the 'extension' file part is in the fileTypes array
-	if (in_array($fileParts['extension'],$fileTypes)) {
-
-		$existingVerions = glob(rtrim($targetPath,'/') . '/' . $documentType . '_v[0-9].' . $fileParts['extension']);
+	if (in_array(strtolower($fileParts['extension']), $fileTypes)) {
+		$regex = rtrim($targetPath,'/') . '/' . $documentType . '_v[0-9]*.' . $fileParts['extension'];
+		$existingVerions = glob($regex);
 		$newFile =  $targetFolder . '/' . $documentType . '_v1.' . $fileParts['extension'];
 				
+		// var_dump($regex);
+
 		// If there are no existing versions
 		if(empty($existingVerions)) {
 			move_uploaded_file($tempFile,$targetFile);
-			rename($preTargetFolder . $targetFolder . '/' . $_FILES['Filedata']['name'], $preTargetFolder . $newFile);
+			rename($preTargetFolder . $targetFolder . '/' . $_FILES['upload_file']['name'], $preTargetFolder . $newFile);
 		} else {
 			// If there are existing versions
 			// Splits into '/home/j14sout/../flyer_v3' and 'pdf'
@@ -62,7 +64,7 @@ if (!empty($_FILES)) {
 			$newFile = $targetFolder . '/' . $documentType . '_v' . $index . '.' . $ext;
 
 			move_uploaded_file($tempFile,$targetFile);
-			rename($preTargetFolder . $targetFolder . '/' . $_FILES['Filedata']['name'], $preTargetFolder . $newFile);
+			rename($preTargetFolder . $targetFolder . '/' . $_FILES['upload_file']['name'], $preTargetFolder . $newFile);
 		}
 		echo $newFile;		// E.g. /home/j14sout/../2011-11-01-limb-valley/flyer_v4.pdf
 	} else {
