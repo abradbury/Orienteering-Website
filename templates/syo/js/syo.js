@@ -36,8 +36,6 @@ function handleFiles(input) {
   var customFieldIndex = input.id.replace('file_upload', '');
   var fileType = camelise(document.getElementById('jform_custom' + customFieldIndex + '-lbl').innerHTML.trim());
 
-  console.log(fileType);
-
   // Based on https://www.webcodegeeks.com/html5/html5-file-upload-example/
   var url = '/templates/syo/upload.php';
   var xhr = new XMLHttpRequest();
@@ -52,31 +50,31 @@ function handleFiles(input) {
   var progressBar = document.getElementById('progressbar' + customFieldIndex);
   var inputField = document.getElementById('jform_custom' + customFieldIndex);
   var errorMessage = document.getElementById('helpBlock' + customFieldIndex);
+  var fileUpload = document.getElementById('file_upload' + customFieldIndex);
 
   if (file.size > 20971520) {
-    errorState(inputField, progressBar, errorMessage, "Error, file greater than limit of 20 MB");
+    errorState(inputField, progressBar, errorMessage, fileUpload, "Error, file greater than limit of 20 MB");
     return;
   }
 
   xhr.upload.addEventListener("progress", function(e) {
-    var pc = parseInt(100 - (e.loaded / e.total * 100));
+    var pc = parseInt(e.loaded / e.total * 100);
     progressBar.style.width = pc + "%";
     progressBar.childNodes[1].innerHTML = pc + "% Complete (in progress)"
   }, false);
 
   xhr.onloadstart = function() {
-    console.log('upload started');
-    resetState(inputField, progressBar, errorMessage)
+    resetState(inputField, progressBar, fileUpload, errorMessage)
   };
 
   xhr.onreadystatechange = function() {
     if (xhr.readyState == 4) {
       if ((xhr.status == 200) && !(xhr.responseText.includes("error"))) {
         // The file uploaded ok
-        successState(inputField, progressBar, xhr.responseText);
+        successState(inputField, progressBar, fileUpload, xhr.responseText);
       } else {
         // The file did not upload ok
-        errorState(inputField, progressBar, errorMessage, xhr.responseText);
+        errorState(inputField, progressBar, errorMessage, fileUpload, xhr.responseText);
       }
     }
   };
@@ -85,7 +83,7 @@ function handleFiles(input) {
   xhr.send(formData);
 }
 
-function errorState(inputField, progressBar, errorMessage, response) {
+function errorState(inputField, progressBar, errorMessage, fileUpload, response) {
   console.error('The file did not upload successfully. If this problem persists please contact the website administrator.');
 
   inputField.parentNode.parentNode.setAttribute('class', 'form-group has-error');
@@ -96,7 +94,7 @@ function errorState(inputField, progressBar, errorMessage, response) {
   inputField.setAttribute('aria-invalid', 'true');
 
   // Button -------------------------------------------------------------------
-   
+  fileUpload.value = ''
   
   // Progress -----------------------------------------------------------------
   progressBar.setAttribute('aria-valuenow', '100');
@@ -110,8 +108,7 @@ function errorState(inputField, progressBar, errorMessage, response) {
   // FIXME: Remove empty br tags
 }
 
-function successState(inputField, progressBar, response) {
-  console.log(response); // handle response.
+function successState(inputField, progressBar, fileUpload, response) {
   console.log('The file was successfully uploaded with a response of: ' + response);
 
   // Label --------------------------------------------------------------------
@@ -121,7 +118,8 @@ function successState(inputField, progressBar, response) {
   inputField.setAttribute('aria-invalid', 'false');
 
   // Button -------------------------------------------------------------------
-  
+  fileUpload.value = ''
+
   // Progress -----------------------------------------------------------------
   progressBar.setAttribute('aria-valuenow', '100');
   progressBar.setAttribute('style', 'width: 100%');
@@ -132,7 +130,7 @@ function successState(inputField, progressBar, response) {
 
 }
 
-function resetState(inputField, progressBar, errorMessage) {
+function resetState(inputField, progressBar, fileUpload, errorMessage) {
   inputField.parentNode.parentNode.setAttribute('class', 'form-group');
   
   // Label --------------------------------------------------------------------
@@ -141,7 +139,8 @@ function resetState(inputField, progressBar, errorMessage) {
   inputField.setAttribute('aria-invalid', 'false');
 
   // Button -------------------------------------------------------------------
-  
+  fileUpload.value = ''
+
   // Progress -----------------------------------------------------------------
   progressBar.parentNode.style.display = 'initial';
   progressBar.setAttribute('aria-hidden', 'false');

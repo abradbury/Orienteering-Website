@@ -40,9 +40,9 @@ if (!empty($_FILES)) {
 
 	// If the 'extension' file part is in the fileTypes array
 	if (in_array(strtolower($fileParts['extension']), $fileTypes)) {
-		$regex = rtrim($targetPath,'/') . '/' . $documentType . '_v[0-9]*.' . $fileParts['extension'];
+		$regex = rtrim($targetPath,'/') . '/' . $documentType . '_v[0-9]*.' . strtolower($fileParts['extension']);
 		$existingVerions = glob($regex);
-		$newFile =  $targetFolder . '/' . $documentType . '_v1.' . $fileParts['extension'];
+		$newFile =  $targetFolder . '/' . $documentType . '_v1.' . strtolower($fileParts['extension']);
 				
 		// var_dump($regex);
 
@@ -61,7 +61,7 @@ if (!empty($_FILES)) {
 			// Increment the index
 			$index++; 
 
-			$newFile = $targetFolder . '/' . $documentType . '_v' . $index . '.' . $ext;
+			$newFile = $targetFolder . '/' . $documentType . '_v' . $index . '.' . strtolower($ext);
 
 			move_uploaded_file($tempFile,$targetFile);
 			rename($preTargetFolder . $targetFolder . '/' . $_FILES['upload_file']['name'], $preTargetFolder . $newFile);
