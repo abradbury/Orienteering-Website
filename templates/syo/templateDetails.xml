@@ -37,6 +37,7 @@
 		<position>bottom_middle</position>
 		<position>bottom_right</position>
 		<position>footer</position>
+		<position>sitemap</position>
 	</positions>
 
 	<languages folder="language">

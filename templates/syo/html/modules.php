@@ -29,4 +29,17 @@
 		echo $module->content;
 		echo "</div>";
 	}
+
+	function modChrome_footer($module, &$params, &$attribs) 
+	{
+		echo "<div class='footer-module'>";
+
+		if ($module->showtitle) 
+		{
+			echo '<h3 class="footerHeader">' .$module->title .'</h3>';
+		}
+
+		echo $module->content;
+		echo "</div>";
+	}
 ?>

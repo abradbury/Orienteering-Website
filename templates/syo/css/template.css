@@ -39,6 +39,8 @@ div ul.social li a:hover, div ul.social li a:focus{background-color:initial;colo
 body, html{height:100%;}
 #wrap{min-height:100%;height:auto;margin:0 auto -300px;padding:0 0 300px;}
 footer.footer{color:#DDD;padding-right:0;padding-left:0;margin-top:50px;height:300px;}
+footer a{color:#FFD300;}
+footer a:hover, footer a:focus {color:#d4af00;}
 .footerHeader{color: #DDD;}
 .footerImage .img-responsive{width:100% \9;width:auto;}
 .footerBody{height:auto;background-color:#333;}

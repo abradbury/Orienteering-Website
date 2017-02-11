@@ -242,7 +242,7 @@ $doc->addCustomTag('<!--[if lt IE 9]><script src="https://oss.maxcdn.com/html5sh
         <div class="container">
           <div class="row">
             <div class="col-sm-6">
-              <h3>Sponsors</h3>
+              <h3 class="footerHeader">Sponsors</h3>
               <div class="row">
                 <div class="col-xs-6">
                   <a class="no-external-link-icon" href="http://www.accelerateuk.com/"><img class="img-responsive noCaption" src="<?php echo $this->baseurl.'/templates/'.$this->template ?>/images/accelerate.gif" alt="Accelerate Logo"></a>
@@ -251,6 +251,9 @@ $doc->addCustomTag('<!--[if lt IE 9]><script src="https://oss.maxcdn.com/html5sh
                   <a class="no-external-link-icon" href="http://www.smartwool.com/"><img class="img-responsive noCaption" src="<?php echo $this->baseurl.'/templates/'.$this->template ?>/images/smartwool.gif" alt="Smartwool Logo"></a>
                 </div>
               </div>
+            </div>
+            <div class="col-sm-6">
+              <jdoc:include type="modules" name="sitemap" style="footer" />
             </div>
           </div>
 
