@@ -8,6 +8,14 @@ jQuery('#login').on('show.bs.modal', function (event) {
   });
 });
 
+// Submit the login form on enter key press
+jQuery("#login-form input").keypress(function(event) {
+    if (event.which == 13) {
+        event.preventDefault();
+        jQuery("#login-form").submit();
+    }
+});
+
 jQuery(document).ready(function() {
   "use strict";
   // Add HTML content for image caption
