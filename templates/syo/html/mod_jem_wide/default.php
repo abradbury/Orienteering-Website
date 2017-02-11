@@ -43,8 +43,8 @@ JHtml::_('behavior.modal', 'a.flyermodal');
       </td>
       <td>
         <span class="eventDate" title="<?php echo strip_tags($item->dateinfo); ?>"><?php echo $item->date; ?></span>
-        <?php if ($item->time && $params->get('datemethod', 1) == 1) : ?>
-        <span class="eventTime" title="<?php echo strip_tags($item->dateinfo); ?>">(<?php echo $item->time; ?>)</span>
+        <?php if ($item->time && $params->get('datemethod', 1) == 1 && !($params->get('formattime') === NULL)) : ?>
+        <span class="eventTime" data-some="<?php echo $params->get('formattime'); ?>" title="<?php echo strip_tags($item->dateinfo); ?>"><?php echo $item->time; ?></span>
         <?php endif; ?>
       </td>
       <td>
