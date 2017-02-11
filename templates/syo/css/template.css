@@ -35,6 +35,7 @@ div ul.social li a:hover, div ul.social li a:focus{background-color:initial;colo
 .navbar-brand > span, ul.social li, ul.social li *, div ul.social li.login-text div form span{display:-webkit-inline-box;display:-webkit-inline-flex;display:-ms-inline-flexbox;display:inline-flex;}
 ::-moz-selection{background: #FFD300;}
 ::selection{background: #FFD300;}
+.alert-syo{background-color: #FFD300;border-color: #ddd;}
 body, html{height:100%;}
 #wrap{min-height:100%;height:auto;margin:0 auto -300px;padding:0 0 300px;}
 footer.footer{color:#DDD;padding-right:0;padding-left:0;margin-top:50px;height:300px;}
