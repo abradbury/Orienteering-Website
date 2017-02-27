@@ -34,7 +34,7 @@ $doc->setGenerator('');
 // Add CSS
 $doc->addStyleSheet('https://fonts.googleapis.com/css?family=Source+Sans+Pro%7COxygen:700');
 $doc->addStyleSheet($this->baseurl.'/templates/'.$this->template.'/css/bootstrap.min.css');
-$doc->addStyleSheet($this->baseurl.'/templates/'.$this->template.'/css/template.css');
+$doc->addStyleSheet($this->baseurl.'/templates/'.$this->template.'/css/template.css?v=24');
 $doc->addStyleSheet($this->baseurl.'/templates/'.$this->template.'/css/font-awesome.min.css');
 
 // Add favicon stuff
@@ -77,59 +77,47 @@ $doc->addCustomTag('<!--[if lt IE 9]><script src="https://oss.maxcdn.com/html5sh
     <div id="wrap">
       <div class="container">
         <header>
-          <nav class="navbar navbar-default">
-            <div class="container-fluid">
-              <div class="navbar-header">
-                <a class="navbar-brand" href="<?php echo $this->baseurl; ?>">
-                  <img class="noCaption" height="100" width="100" alt="South Yorkshire Orienteers Logo" src="<?php echo $this->baseurl.'/templates/'.$this->template ?>/images/logo.gif">
-                  <div>
-                    <span class="name-top">South Yorkshire</span>
-                    <span class="name-bottom">Orienteers</span>
-                  </div>
+          <div id="navWrapper">
+             <nav id="socialNav">
+              <ul class="nav social">
+                <?php 
+                $params = $this->params;
+
+                if ($params->get( 'facebookURL' )) {
+                  echo "<li><a class='no-external-link-icon' target='_blank' href='". $params->get( 'facebookURL' ) ."' title='View SYOs Facebook Page'><span class='sr-only'>View S.Y.Os Facebook Page</span><span class='fa my-fa-facebook' aria-hidden='true'></span></a></li>\n                  ";
+                }
+                if ($params->get( 'twitterURL' )) {
+                  echo "<li><a class='no-external-link-icon' target='_blank' href='". $params->get( 'twitterURL' ) ."' title='View SYOs Twitter Feed'><span class='sr-only'>View S.Y.Os Twitter Feed</span><span class='fa my-fa-twitter' aria-hidden='true'></span></a></li>\n                  ";
+                }
+                if ($params->get( 'flickrURL' )) {
+                  echo "<li><a class='no-external-link-icon' target='_blank' href='". $params->get( 'flickrURL' ) ."' title='View SYOs Flickr Photo Pool'><span class='sr-only'>View S.Y.Os Flickr Photo Pool</span><span class='fa my-fa-flickr' aria-hidden='true'></span></a></li>\n";
+                }
+                if ($this->countModules( 'logout' )): ?>
+                <li><span id="login-btn" class="fa fa-user" aria-hidden="true"></span></li>
+                <li><jdoc:include type="modules" name="logout" style="xhtml" /></li>
+                <?php else: ?>
+                <li><a id="login-btn" href="#" title="SYO Member Login" data-toggle="modal" data-target="#login"><span class="sr-only">S.Y.O Member Login</span><span class="fa fa-user" aria-hidden="true"></span></a></li>
+                <?php endif; ?>
+              </ul>
+            </nav>
+
+            <nav class="row" id="mainNav">
+              <div class="col-xs-12 col-sm-6 col-md-4">
+                <a id="mainNavLogo" href="<?php echo $this->baseurl; ?>">
+                  <object type="image/svg+xml" data="<?php echo $this->baseurl.'/templates/'.$this->template ?>/images/syo_logo_and_text_crop.svg">
+                    Your browser does not support SVGs
+                  </object>
                 </a>
-
-                <ul class="nav social">
-                  <?php 
-                  $params = $this->params;
-
-                  if ($params->get( 'facebookURL' )) {
-                    echo "<li><a class='no-external-link-icon' target='_blank' href='". $params->get( 'facebookURL' ) ."' title='View SYOs Facebook Page'><span class='sr-only'>View S.Y.Os Facebook Page</span><span class='fa my-fa-facebook' aria-hidden='true'></span></a></li>\n                  ";
-                  }
-                  if ($params->get( 'twitterURL' )) {
-                    echo "<li><a class='no-external-link-icon' target='_blank' href='". $params->get( 'twitterURL' ) ."' title='View SYOs Twitter Feed'><span class='sr-only'>View S.Y.Os Twitter Feed</span><span class='fa my-fa-twitter' aria-hidden='true'></span></a></li>\n                  ";
-                  }
-                  if ($params->get( 'flickrURL' )) {
-                    echo "<li><a class='no-external-link-icon' target='_blank' href='". $params->get( 'flickrURL' ) ."' title='View SYOs Flickr Photo Pool'><span class='sr-only'>View S.Y.Os Flickr Photo Pool</span><span class='fa my-fa-flickr' aria-hidden='true'></span></a></li>\n";
-                  }
-                  if ($this->countModules( 'logout' )): ?>
-                  <li><span id="login-btn" class="fa fa-user" aria-hidden="true"></span></li>
-                  <li><jdoc:include type="modules" name="logout" style="xhtml" /></li>
-                  <?php else: ?>
-                  <li><a id="login-btn" href="#" title="SYO Member Login" data-toggle="modal" data-target="#login"><span class="sr-only">S.Y.O Member Login</span><span class="fa fa-user" aria-hidden="true"></span></a></li>
-                  <?php endif; ?>
-                </ul>
-
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                  <span class="sr-only">Toggle navigation</span>
-                  <span class="icon-bar"></span>
-                  <span class="icon-bar"></span>
-                  <span class="icon-bar"></span>
-                </button>
               </div>
 
-              <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+              <div class="col-xs-12 col-sm-6 col-md-8">
                 <jdoc:include type="modules" name="menu" />
               </div>
-            </div>
-          </nav>
+            </nav>
+          </div>
 
           <div class="row">
             <div class="col-sm-12 hidden-xs">
-              <?php 
-                $imageNames = array('P1020182.jpg', 'BOC_2015_RL.jpg', 'BRC_2012_MW.jpg');// 'JIRCS_2014_RL.jpg');
-                $imageCapts = array('World Orienteering Championships 2015 - Nairn, Scotland', 'British Sprint Orienteering Championships 2015 - Aldershot Garrison, Hampshire (&copy; Robert Lines)', 'British Relay Championships 2012 - Helsington Barrows, Cumbria (&copy; Martin Ward)');// 'Junior Inter-Regional Championships 2014 - Roanhead, Cumbria (&copy; Robert Lines)');
-               	$randIndex  = array_rand($imageNames);
-               ?>
               <div class="banner" id="<?php echo $menuAlias; ?>" data-img-name="<?php echo $this->baseurl.'/templates/'.$this->template.'/images/header/'.$imageNames[$randIndex]; ?>">
                 <small class="caption" data-img-desc="<?php echo $imageCapts[$randIndex]; ?>"></small>
               </div>

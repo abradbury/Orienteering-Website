@@ -12,7 +12,7 @@ defined('_JEXEC') or die;
 // Note. It is important to remove spaces between elements.
 ?>
 <?php // The menu class is deprecated. Use nav instead. ?>
-<ul class="nav navbar-nav navbar-right mainNav"<?php
+<ul id="mainNavLinks"<?php
 	$tag = '';
 
 	if ($params->get('tag_id') != null)
@@ -99,7 +99,8 @@ foreach ($list as $i => &$item)
 	else
 	{
 		// The next item is on the same level.
-		echo '</li>';
+		echo '</li>
+		';
 	}
 }
 ?></ul>
