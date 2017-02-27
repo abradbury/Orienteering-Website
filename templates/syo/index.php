@@ -16,6 +16,11 @@ if (is_object($menu)) {
   $menuAlias = $menu->alias;
 }
 
+// Get the image used for the banner
+$imageNames = array('P1020182.jpg', 'BOC_2015_RL.jpg', 'BRC_2012_MW.jpg');// 'JIRCS_2014_RL.jpg');
+$imageCapts = array('World Orienteering Championships 2015 - Nairn, Scotland', 'British Sprint Orienteering Championships 2015 - Aldershot Garrison, Hampshire (&copy; Robert Lines)', 'British Relay Championships 2012 - Helsington Barrows, Cumbria (&copy; Martin Ward)');// 'Junior Inter-Regional Championships 2014 - Roanhead, Cumbria (&copy; Robert Lines)');
+$randIndex  = array_rand($imageNames);
+
 // Remove deprecated meta-data (HTML5)
 $head = $doc->getHeadData();
 unset($head['metaTags']['http-equiv']);
@@ -32,32 +37,25 @@ $doc->setMetadata('viewport', 'width=device-width, initial-scale=1.0');
 $doc->setGenerator('');
 
 // Add CSS
-$doc->addStyleSheet('https://fonts.googleapis.com/css?family=Source+Sans+Pro%7COxygen:700');
 $doc->addStyleSheet($this->baseurl.'/templates/'.$this->template.'/css/bootstrap.min.css');
 $doc->addStyleSheet($this->baseurl.'/templates/'.$this->template.'/css/template.css?v=24');
 $doc->addStyleSheet($this->baseurl.'/templates/'.$this->template.'/css/font-awesome.min.css');
 
 // Add favicon stuff
-$doc->addCustomTag('<link rel="apple-touch-icon" sizes="57x57" href="/apple-touch-icon-57x57.png?v=rMMm7jX0jo">');
-$doc->addCustomTag('<link rel="apple-touch-icon" sizes="60x60" href="/apple-touch-icon-60x60.png?v=rMMm7jX0jo">');
-$doc->addCustomTag('<link rel="apple-touch-icon" sizes="72x72" href="/apple-touch-icon-72x72.png?v=rMMm7jX0jo">');
-$doc->addCustomTag('<link rel="apple-touch-icon" sizes="76x76" href="/apple-touch-icon-76x76.png?v=rMMm7jX0jo">');
-$doc->addCustomTag('<link rel="apple-touch-icon" sizes="114x114" href="/apple-touch-icon-114x114.png?v=rMMm7jX0jo">');
-$doc->addCustomTag('<link rel="apple-touch-icon" sizes="120x120" href="/apple-touch-icon-120x120.png?v=rMMm7jX0jo">');
-$doc->addCustomTag('<link rel="apple-touch-icon" sizes="144x144" href="/apple-touch-icon-144x144.png?v=rMMm7jX0jo">');
-$doc->addCustomTag('<link rel="apple-touch-icon" sizes="152x152" href="/apple-touch-icon-152x152.png?v=rMMm7jX0jo">');
-$doc->addCustomTag('<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon-180x180.png?v=rMMm7jX0jo">');
-$doc->addCustomTag('<link rel="icon" type="image/png" href="/favicon-32x32.png?v=rMMm7jX0jo" sizes="32x32">');
-$doc->addCustomTag('<link rel="icon" type="image/png" href="/favicon-194x194.png?v=rMMm7jX0jo" sizes="194x194">');
-$doc->addCustomTag('<link rel="icon" type="image/png" href="/favicon-96x96.png?v=rMMm7jX0jo" sizes="96x96">');
-$doc->addCustomTag('<link rel="icon" type="image/png" href="/android-chrome-192x192.png?v=rMMm7jX0jo" sizes="192x192">');
-$doc->addCustomTag('<link rel="icon" type="image/png" href="/favicon-16x16.png?v=rMMm7jX0jo" sizes="16x16">');
-$doc->addCustomTag('<link rel="manifest" href="/manifest.json?v=rMMm7jX0jo">');
-$doc->addCustomTag('<link rel="mask-icon" href="/safari-pinned-tab.svg?v=rMMm7jX0jo" color="#5bbad5">');
-$doc->addCustomTag('<link rel="shortcut icon" href="/favicon.ico?v=rMMm7jX0jo">');
-$doc->setMetadata('msapplication-TileColor', '#2b5797');
-$doc->setMetadata('msapplication-TileImage', '/mstile-144x144.png?v=rMMm7jX0jo');
-$doc->setMetadata('theme-color', '#ffd65e');
+$doc->addCustomTag('<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=lkgazBwG6d">');
+$doc->addCustomTag('<link rel="icon" type="image/png" href="/favicon-32x32.png?v=lkgazBwG6d" sizes="32x32">');
+$doc->addCustomTag('<link rel="icon" type="image/png" href="/favicon-16x16.png?v=lkgazBwG6d" sizes="16x16">');
+$doc->addCustomTag('<link rel="manifest" href="/manifest.json?v=lkgazBwG6d">');
+$doc->addCustomTag('<link rel="mask-icon" href="/safari-pinned-tab.svg?v=lkgazBwG6d" color="#5bbad5">');
+$doc->addCustomTag('<link rel="shortcut icon" href="/favicon.ico?v=lkgazBwG6d">');
+$doc->setMetadata('apple-mobile-web-app-title', 'content="SYO">');
+$doc->setMetadata('application-name', 'content="SYO">');
+$doc->setMetadata('msapplication-TileColor', 'content="#ffc40d">');
+$doc->setMetadata('msapplication-TileImage', 'content="/mstile-144x144.png?v=lkgazBwG6d">');
+$doc->setMetadata('theme-color', 'content="#ffffff">');
+
+// Add open graph details
+$doc->setMetadata('og:image', JURI::base().'templates/'.$this->template.'/images/header/'.$imageNames[$randIndex]);
 
 // Add JS
 $doc->addScript($this->baseurl.'/templates/'.$this->template.'/js/bootstrap.min.js');
@@ -233,10 +231,10 @@ $doc->addCustomTag('<!--[if lt IE 9]><script src="https://oss.maxcdn.com/html5sh
               <h3 class="footerHeader">Sponsors</h3>
               <div class="row">
                 <div class="col-xs-6">
-                  <a class="no-external-link-icon" href="http://www.accelerateuk.com/"><img class="img-responsive noCaption" src="<?php echo $this->baseurl.'/templates/'.$this->template ?>/images/accelerate.gif" alt="Accelerate Logo"></a>
+                  <a class="no-external-link-icon" href="http://www.accelerateuk.com/"><img class="img-responsive footerLogo noCaption" src="<?php echo $this->baseurl.'/templates/'.$this->template ?>/images/accelerate.gif" alt="Accelerate Logo"></a>
                 </div>
                 <div class="col-xs-6">
-                  <a class="no-external-link-icon" href="http://www.smartwool.com/"><img class="img-responsive noCaption" src="<?php echo $this->baseurl.'/templates/'.$this->template ?>/images/smartwool.gif" alt="Smartwool Logo"></a>
+                  <a class="no-external-link-icon" href="http://www.smartwool.com/"><img class="img-responsive footerLogo noCaption" src="<?php echo $this->baseurl.'/templates/'.$this->template ?>/images/smartwool.gif" alt="Smartwool Logo"></a>
                 </div>
               </div>
             </div>

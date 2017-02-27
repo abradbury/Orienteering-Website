@@ -250,12 +250,40 @@ $document->addScriptDeclaration("
 		<?php if(isset($this->links) && count($this->links)): ?>
 		<!-- Link items -->
 		<div class="row link-grid">
-			<?php foreach($this->links as $key=>$item): 
-				// Load category_item_links.php by default
-				$this->item=$item;
-				echo $this->loadTemplate('item_links');
+			<?php 
+
+			// foreach($this->links as $key=>$item): 
+			// 	// Load category_item_links.php by default
+			// 	$this->item=$item;
+			// 	echo $this->loadTemplate('item_links');
+			// endforeach; 
+
+			// Build item list
+			foreach($this->links as $key=>$item): 
+				$items[] = $item;
+			endforeach; 
+
+			// Group into categories
+			foreach($items as $item):
+				$grouped_items[$item->category->name][] = $item;
+			endforeach;
+
+			// Write out item link
+			while($category = current($grouped_items)) {
+				echo "<div class='col-sm-6'>";
+				echo "<h2>" . key($grouped_items) . "</h2>";
+				echo "<ul class='list-unstyled'>";
+				foreach($category as $item) {
+					// Load category_item_links.php by default
+					$this->item=$item;
+					echo $this->loadTemplate('item_links');
+				}
+				echo "</ul>";
+				echo "</div>";
+				next($grouped_items);
+			}
+
 			?>
-			<?php endforeach; ?>
 		</div>
 		<?php endif; ?>
 

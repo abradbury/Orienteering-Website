@@ -101,7 +101,7 @@ $this->direction = $doc->direction;
 			<p>You may find it useful to relocate to our homepage.</p>
 			<?php } ?>
 
-			<p><a href="<?php echo $this->baseurl; ?>"><?php echo $this->baseurl; ?></a></p>
+			<p><a href="<?php echo JURI::base(); ?>"><?php echo JURI::base(); ?></a></p>
 
 			<?php if ($this->debug) : ?>
 				<p><?php echo $this->renderBacktrace(); ?></p>
