@@ -13,7 +13,6 @@ defined('_JEXEC') or die;
 $document = JFactory::getDocument();
 
 // For some reason none of the usual CCS gets included in modal windows
-$document->addStyleSheet('http://fonts.googleapis.com/css?family=Source+Sans+Pro%7COxygen:700');
 $document->addStyleSheet($this->baseurl.'/templates/syo/css/bootstrap.min.css');
 $document->addStyleSheet($this->baseurl.'/templates/syo/css/template.css');
 $document->addStyleSheet($this->baseurl.'/templates/syo/css/font-awesome.min.css');

@@ -13,7 +13,6 @@ $function = JFactory::getApplication()->input->getCmd('function', 'jSelectVenue'
 // For some reason none of the usual CCS gets included in modal windows
 $doc = JFactory::getDocument();
 
-$doc->addStyleSheet('http://fonts.googleapis.com/css?family=Source+Sans+Pro%7COxygen:700');
 $doc->addStyleSheet($this->baseurl.'/templates/syo/css/bootstrap.min.css');
 $doc->addStyleSheet($this->baseurl.'/templates/syo/css/template.css');
 ?>
