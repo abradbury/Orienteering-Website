@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+	<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>404 - Page not found</title>
+	<link rel="stylesheet" href="templates/syo/css/error.css?v=2">
+
+	<script type="text/javascript">
+		var imageNames = [
+			"error1",
+			"error2",
+			"error3",
+			"error4",
+			"error5"];
+
+		function get_random_404_image() {
+			var img = '<img src=\"templates/syo/images/errors/';
+			var randomIndex = Math.floor(Math.random() * imageNames.length);
+			img += imageNames[randomIndex];
+			img += '.jpg\" />';
+			return img;
+		}
+	</script>
+</head>
+<body>
+	<div class="container">
+		<div class="text">
+			<div class="header">
+				<h1>Error 404</h1>
+				<h2>Page not found</h2>
+			</div>
+
+			<div class="description">
+				<p>Oh dear, it seems our server was unable to find the page you requested.</p>
+				<p>Try relocating to our homepage to see if you can find it.</p>
+				<p><a href="https://www.southyorkshireorienteers.org.uk/">https://www.southyorkshireorienteers.org.uk/</a></p>
+			</div>
+		</div>
+		<div class="image">
+			<script type="text/javascript">
+				document.write(get_random_404_image());
+			</script>
+		</div>
+	</div>
+</body>
+</html>

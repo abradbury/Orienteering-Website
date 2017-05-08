@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+	<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>500 - Internal Server Error</title>
+	<link rel="stylesheet" href="templates/syo/css/error.css?v=2">
+</head>
+<body>
+	<div class="container">
+		<div class="text">
+			<div class="header">
+				<h1>Error 500</h1>
+				<h2>Internal Server Error</h2>
+			</div>
+
+			<div class="description">
+				<p>Oops, it looks like our server got a bit confused when it tried to find the page you requested.</p>
+				<p>See if reloading the page or relocating to our homepage helps.</p>
+				<p><a href="https://www.southyorkshireorienteers.org.uk/">https://www.southyorkshireorienteers.org.uk/</a></p>
+			</div>
+		</div>
+		<div class="image">
+			<img src="templates/syo/images/errors/error6.jpg" />
+		</div>
+	</div>
+</body>
+</html>

@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+	<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>403 - Forbidden</title>
+	<link rel="stylesheet" href="templates/syo/css/error.css?v=2">
+</head>
+<body>
+	<div class="container">
+		<div class="text">
+			<div class="header">
+				<h1>Error 403</h1>
+				<h2>Forbidden</h2>
+			</div>
+
+			<div class="description">
+				<p>Sorry, but you are not allowed to view the page you requested.</p>
+				<p>You may find it useful to relocate to our homepage.</p>
+				<p><a href="https://www.southyorkshireorienteers.org.uk/">https://www.southyorkshireorienteers.org.uk/</a></p>
+			</div>
+		</div>
+		<div class="image">
+			<img src="templates/syo/images/errors/error7.jpg" />
+		</div>
+	</div>
+</body>
+</html>
