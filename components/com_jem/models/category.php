@@ -1,8 +1,8 @@
 <?php
 /**
- * @version 2.1.2
+ * @version 2.2.1
  * @package JEM
- * @copyright (C) 2013-2015 joomlaeventmanager.net
+ * @copyright (C) 2013-2017 joomlaeventmanager.net
  * @copyright (C) 2005-2009 Christoph Lukes
  * @license http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL
  */
@@ -11,7 +11,7 @@ defined('_JEXEC') or die;
 require_once dirname(__FILE__) . '/eventslist.php';
 
 /**
- * Model-Category
+ * Model: Category
  */
 class JemModelCategory extends JemModelEventslist
 {
@@ -31,12 +31,9 @@ class JemModelCategory extends JemModelEventslist
 	 */
 	public function __construct()
 	{
-		$app			= JFactory::getApplication();
-		$jemsettings	= JEMHelper::config();
-		$itemid			= $app->input->getInt('id', 0) . ':' . $app->input->getInt('Itemid', 0);
-
+		$app    = JFactory::getApplication();
 		// Get the parameters of the active menu item
-		$params 	= $app->getParams();
+		$params = $app->getParams();
 
 		$id = $app->input->getInt('id', 0);
 		if (empty($id)) {
@@ -72,7 +69,7 @@ class JemModelCategory extends JemModelEventslist
 	 */
 	function setLimit($value)
 	{
-		$this->setState('limit', (int) $value);
+		$this->setState('list.limit', (int) $value);
 	}
 
 	/**
@@ -81,7 +78,7 @@ class JemModelCategory extends JemModelEventslist
 	 */
 	function setLimitStart($value)
 	{
-		$this->setState('limitstart', (int) $value);
+		$this->setState('list.start', (int) $value);
 	}
 
 
@@ -91,16 +88,15 @@ class JemModelCategory extends JemModelEventslist
 	protected function populateState($ordering = null, $direction = null)
 	{
 		// Initiliase variables.
-		$app			= JFactory::getApplication('site');
-		$jemsettings	= JemHelper::config();
-		$jinput         = JFactory::getApplication()->input;
-		$task           = $jinput->get('task','','cmd');
-		$itemid			= $app->input->getInt('id', 0) . ':' . $app->input->getInt('Itemid', 0);
-		$pk				= $app->input->getInt('id', 0);
+		$app         = JFactory::getApplication('site');
+		$jemsettings = JemHelper::config();
+		$task        = $app->input->getCmd('task','');
+		$format      = $app->input->getCmd('format',false);
+		$pk          = $app->input->getInt('id', 0);
+		$itemid      = $pk . ':' . $app->input->getInt('Itemid', 0);
 
 		$this->setState('category.id', $pk);
-
-		$this->setState('filter.req_catid',$pk);
+		$this->setState('filter.req_catid', $pk);
 
 		// Load the parameters. Merge Global and Menu Item params into new object
 		$params = $app->getParams();
@@ -114,11 +110,6 @@ class JemModelCategory extends JemModelEventslist
 		$mergedParams->merge($params);
 
 		$this->setState('params', $mergedParams);
-		$user		= JFactory::getUser();
-		// Create a new query object.
-		$db		= $this->getDbo();
-		$query	= $db->getQuery(true);
-		$groups	= implode(',', $user->getAuthorisedViewLevels());
 
 		# limit/start
 
@@ -127,28 +118,31 @@ class JemModelCategory extends JemModelEventslist
 			$app->setUserState('com_jem.category.'.$itemid.'.limitstart', 0);
 		}
 
-		$limit = $app->getUserStateFromRequest('com_jem.category.'.$itemid.'.limit', 'limit', $jemsettings->display_num, 'int');
-		$this->setState('list.limit', $limit);
+		if (empty($format) || ($format == 'html')) {
+			$limit = $app->getUserStateFromRequest('com_jem.category.'.$itemid.'.limit', 'limit', $jemsettings->display_num, 'int');
+			$this->setState('list.limit', $limit);
 
-		$limitstart = $app->getUserStateFromRequest('com_jem.category.'.$itemid.'.limitstart', 'limitstart', 0, 'int');
-		// correct start value if required
-		$limitstart = $limit ? (int)(floor($limitstart / $limit) * $limit) : 0;
-		$this->setState('list.start', $limitstart);
+			$limitstart = $app->getUserStateFromRequest('com_jem.category.'.$itemid.'.limitstart', 'limitstart', 0, 'int');
+			// correct start value if required
+			$limitstart = $limit ? (int)(floor($limitstart / $limit) * $limit) : 0;
+			$this->setState('list.start', $limitstart);
+		}
 
 		# Search - variables
 		$search = $app->getUserStateFromRequest('com_jem.category.'.$itemid.'.filter_search', 'filter_search', '', 'string');
 		$this->setState('filter.filter_search', $search);
 
-		$filtertype = $app->getUserStateFromRequest('com_jem.category.'.$itemid.'.filter_type', 'filter_type', '', 'int');
+		$filtertype = $app->getUserStateFromRequest('com_jem.category.'.$itemid.'.filter_type', 'filter_type', 0, 'int');
 		$this->setState('filter.filter_type', $filtertype);
 
-		# Comment out the below so as to retrive all events (past and future)
-		// # publish state
-		// if ($task == 'archive') {
-		// 	$this->setState('filter.published',2);
-		// } else {
-		// 	$this->setState('filter.published',1);
-		// }
+		# show open date events
+		# (there is no menu item option yet so show all events)
+		$this->setState('filter.opendates', 1);
+
+		# publish state
+		$this->_populatePublishState($task);
+		# Get all events
+		$this->setState('filter.published', [1, 2]);
 
 		###########
 		## ORDER ##
@@ -164,14 +158,17 @@ class JemModelCategory extends JemModelEventslist
 		$filter_order		= JFilterInput::getInstance()->clean($filter_order, 'cmd');
 		$filter_order_Dir	= JFilterInput::getInstance()->clean($filter_order_Dir, 'word');
 
+		$default_order_Dir = ($task == 'archive') ? 'DESC' : 'ASC';
 		if ($filter_order == 'a.dates') {
-			$orderby = array('a.dates '.$filter_order_Dir,'a.times '.$filter_order_Dir);
+			$orderby = array('a.dates ' . $filter_order_Dir, 'a.times ' . $filter_order_Dir, 'a.created ' . $filter_order_Dir);
 		} else {
-			$orderby = $filter_order . ' ' . $filter_order_Dir;
+			$orderby = array($filter_order . ' ' . $filter_order_Dir,
+			                 'a.dates ' . $default_order_Dir, 'a.times ' . $default_order_Dir, 'a.created ' . $default_order_Dir);
 		}
 
 		$this->setState('filter.orderby',$orderby);
 	}
+
 
 	/**
 	 * Get the events in the category
@@ -199,7 +196,7 @@ class JemModelCategory extends JemModelEventslist
 		if (!is_object($this->_item)) {
 			$options = array();
 
-			if( isset( $this->state->params ) ) {
+			if (isset($this->state->params)) {
 				$params = $this->state->params;
 				$options['countItems'] = ($params->get('show_cat_num_articles', 1) || !$params->get('show_empty_categories_cat', 0)) ? 1 : 0;
 			}
@@ -207,33 +204,30 @@ class JemModelCategory extends JemModelEventslist
 				$options['countItems'] = 0;
 			}
 
-			if (isset($this->state->task) && ($this->state->task == 'archive')) {
-				$options['published'] = 2; // archived
+			$where_pub = $this->_getPublishWhere('i');
+			if (!empty($where_pub)) {
+				$options['published_where'] = '(' . implode(' OR ', $where_pub) . ')';
 			} else {
-				$options['published'] = 1; // published
+				// something wrong - fallback to published events
+				$options['published_where'] = 'i.published = 1';
 			}
 
-			$categories = new JEMCategories($this->getState('category.id', 'root'), $options);
-			$this->_item = $categories->get($this->getState('category.id', 'root'));
+			$catId = $this->getState('category.id', 'root');
+			$categories = new JemCategories($catId, $options);
+			$this->_item = $categories->get($catId);
 
 			// Compute selected asset permissions.
-			if (is_object($this->_item)) {
-				$user	= JFactory::getUser();
-				$userId	= $user->get('id');
-				$asset	= 'com_jem.category.'.$this->_item->id;
+			if (is_object($this->_item)) { // a JemCategoryNode object
+				$user = JemFactory::getUser();
 
-				// Check general create permission.
-				if ($user->authorise('core.create', $asset)) {
-					$this->_item->getParams()->set('access-create', true);
-				}
-
+				// Check general or category specific create permission.
+				$this->_item->getParams()->set('access-create', $user->can('add', 'event', false, false, $this->_item->id));
 
 				$this->_children = $this->_item->getChildren();
 
-				$this->_parent = false;
-
-				if ($this->_item->getParent()) {
-					$this->_parent = $this->_item->getParent();
+				$this->_parent = $this->_item->getParent();
+				if (empty($this->_parent)) {
+					$this->_parent = false;
 				}
 
 				$this->_rightsibling = $this->_item->getSibling();
@@ -254,9 +248,9 @@ class JemModelCategory extends JemModelEventslist
 	 */
 	function getListQuery()
 	{
-		$params  = $this->state->params;
-		$jinput  = JFactory::getApplication()->input;
-		$task    = $jinput->get('task','','cmd');
+		//$params  = $this->state->params;
+		//$jinput  = JFactory::getApplication()->input;
+		//$task    = $jinput->get('task','','cmd');
 
 		// Create a new query object.
 		$query = parent::getListQuery();

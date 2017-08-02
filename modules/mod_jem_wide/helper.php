@@ -1,9 +1,9 @@
 <?php
 /**
- * @version 2.1.4
+ * @version 2.2.1
  * @package JEM
  * @subpackage JEM Wide Module
- * @copyright (C) 2013-2015 joomlaeventmanager.net
+ * @copyright (C) 2013-2017 joomlaeventmanager.net
  * @copyright (C) 2005-2009 Christoph Lukes
  * @license http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL
  */
@@ -27,7 +27,7 @@ abstract class ModJemWideHelper
 		mb_internal_encoding('UTF-8');
 
 		$db     = JFactory::getDBO();
-		$user   = JFactory::getUser();
+		$user   = JemFactory::getUser();
 		$levels = $user->getAuthorisedViewLevels();
 
 		# Retrieve Eventslist model for the data
@@ -56,16 +56,16 @@ abstract class ModJemWideHelper
 			$offset_minutes = $offset_hours * 60;
 
 			$model->setState('filter.published',1);
-			$model->setState('filter.orderby',array('a.dates ASC','a.times ASC'));
+			$model->setState('filter.orderby',array('a.dates ASC', 'a.times ASC', 'a.created ASC'));
 
-			$cal_from = "((DATEDIFF(NOW(), CONCAT(a.dates,' ',IFNULL(a.times,'00:00:00'))) <= $offset_minutes) ";
+			$cal_from = "((TIMESTAMPDIFF(MINUTE, NOW(), CONCAT(a.dates,' ',IFNULL(a.times,'00:00:00'))) > $offset_minutes) ";
 			$cal_from .= ($type == 1) ? " OR (TIMESTAMPDIFF(MINUTE, NOW(), CONCAT(IFNULL(a.enddates,a.dates),' ',IFNULL(a.endtimes,'23:59:59'))) > $offset_minutes)) " : ") ";
 		}
 
 		# archived events only
 		elseif ($type == 2) {
 			$model->setState('filter.published',2);
-			$model->setState('filter.orderby',array('a.dates DESC','a.times DESC'));
+			$model->setState('filter.orderby',array('a.dates DESC', 'a.times DESC', 'a.created DESC'));
 			$cal_from = "";
 		}
 
@@ -74,7 +74,7 @@ abstract class ModJemWideHelper
 			$offset_days = (int)round($offset_hours / 24);
 
 			$model->setState('filter.published',1);
-			$model->setState('filter.orderby',array('a.dates ASC','a.times ASC'));
+			$model->setState('filter.orderby',array('a.dates ASC', 'a.times ASC', 'a.created ASC'));
 
 			$cal_from = " ((DATEDIFF(a.dates, CURDATE()) <= $offset_days) AND (DATEDIFF(IFNULL(a.enddates,a.dates), CURDATE()) >= $offset_days))";
 		}
@@ -145,7 +145,7 @@ abstract class ModJemWideHelper
 			$lists[$i]->title       = $title;
 			$lists[$i]->fulltitle   = $fulltitle;
 			$lists[$i]->venue       = $venue;
-			$lists[$i]->fullvenue 	= $fullvenuename;
+			$lists[$i]->fullvenue   = $fullvenuename;
 			$lists[$i]->catname     = implode(", ", JemOutput::getCategoryList($row->categories, $params->get('linkcategory', 1)));
 			$lists[$i]->state       = htmlspecialchars($row->state, ENT_COMPAT, 'UTF-8');
 			$lists[$i]->city        = htmlspecialchars($row->city, ENT_COMPAT, 'UTF-8');

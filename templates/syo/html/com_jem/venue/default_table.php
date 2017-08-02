@@ -1,8 +1,8 @@
 <?php
 /**
- * @version 2.0.0
+ * @version 2.1.6
  * @package JEM
- * @copyright (C) 2013-2014 joomlaeventmanager.net
+ * @copyright (C) 2013-2016 joomlaeventmanager.net
  * @copyright (C) 2005-2009 Christoph Lukes
  * @license http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL
  */
@@ -44,7 +44,7 @@ defined('_JEXEC') or die;
 	</div>
 <?php endif; ?>
 
-<table class="table eventtable" style="width:<?php echo $this->jemsettings->tablewidth; ?>;" summary="jem">
+<table class="table table-hover table-bordered eventtable" style="width:<?php echo $this->jemsettings->tablewidth; ?>;" summary="jem">
 	<colgroup>
 		<?php if ($this->jemsettings->showeventimage == 1) : ?>
 			<col width="<?php echo $this->jemsettings->tableeventimagewidth; ?>" class="jem_col_event_image" />
@@ -105,19 +105,19 @@ defined('_JEXEC') or die;
 
 				<?php if ($this->jemsettings->showeventimage == 1) : ?>
 					<td headers="jem_eventimage" align="left" valign="top">
-						<?php if (!empty($row->datimage)) : ?>
-							<?php
+						<?php
+						if (!empty($row->datimage)) :
 							$dimage = JemImage::flyercreator($row->datimage, 'event');
 							echo JemOutput::flyer($row, $dimage, 'event');
-							?>
-						<?php endif; ?>
+						endif;
+						?>
 					</td>
 				<?php endif; ?>
 
 				<td headers="jem_date" align="left">
 					<?php
 						echo JemOutput::formatShortDateTime($row->dates, $row->times,
-							$row->enddates, $row->endtimes);
+							$row->enddates, $row->endtimes, $this->jemsettings->showtime);
 						echo JemOutput::formatSchemaOrgDateTime($row->dates, $row->times,
 							$row->enddates, $row->endtimes);
 					?>
@@ -127,13 +127,13 @@ defined('_JEXEC') or die;
 					<td headers="jem_title" align="left" valign="top">
 						<a href="<?php echo JRoute::_(JemHelperRoute::getEventRoute($row->slug)); ?>" itemprop="url">
 							<span itemprop="name"><?php echo $this->escape($row->title) . JemOutput::recurrenceicon($row); ?></span>
-						</a>
+					</a><?php echo JemOutput::publishstateicon($row); ?>
 					</td>
 				<?php endif; ?>
 
 				<?php if (($this->jemsettings->showtitle == 1) && ($this->jemsettings->showdetails == 0)) : ?>
 					<td headers="jem_title" align="left" valign="top" itemprop="name">
-						<?php echo $this->escape($row->title) . JemOutput::recurrenceicon($row); ?>
+					<?php echo $this->escape($row->title) . JemOutput::recurrenceicon($row) . JemOutput::publishstateicon($row); ?>
 					</td>
 				<?php endif; ?>
 

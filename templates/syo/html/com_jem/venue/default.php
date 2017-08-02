@@ -1,8 +1,8 @@
 <?php
 /**
- * @version 2.1.4
+ * @version 2.1.7
  * @package JEM
- * @copyright (C) 2013-2015 joomlaeventmanager.net
+ * @copyright (C) 2013-2016 joomlaeventmanager.net
  * @copyright (C) 2005-2009 Christoph Lukes
  * @license http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL
  */
@@ -12,18 +12,15 @@ defined('_JEXEC') or die;
 <div id="jem" class="jem_venue<?php echo $this->pageclass_sfx;?>" itemscope="itemscope" itemtype="http://schema.org/Place">
 	<div class="buttons">
 		<?php
-			echo JemOutput::addvenuebutton($this->addvenuelink, $this->params, $this->jemsettings);
-			echo JemOutput::submitbutton($this->addeventlink, $this->params);
-			echo JemOutput::archivebutton($this->params, $this->task, $this->venue->slug);
-			echo JemOutput::mailbutton($this->venue->slug, 'venue', $this->params);
-			echo JemOutput::printbutton($this->print_link, $this->params);
-		?>
+		$btn_params = array('id' => $this->venue->slug, 'slug' => $this->venue->slug, 'task' => $this->task, 'print_link' => $this->print_link);
+		echo JemOutput::createButtonBar($this->getName(), $this->permissions, $btn_params);
+?>
 	</div>
 
 	<?php if ($this->params->get('show_page_heading', 1)) : ?>
 		<h1>
 			<span itemprop="name"><?php echo $this->escape($this->params->get('page_heading')); ?></span>
-			<?php echo JemOutput::editbutton($this->venue, $this->params, NULL, $this->allowedtoeditvenue, 'venue'); ?>
+			<?php echo JemOutput::editbutton($this->venue, $this->params, NULL, $this->permissions->canEditVenue, 'venue'); ?>
 		</h1>
 	<?php endif; ?>
 
@@ -32,6 +29,20 @@ defined('_JEXEC') or die;
 		echo JemOutput::mapicon($this->venue,null,$this->settings);
 	}
 	?>
+		<?php $this->show_status = false; if (isset($this->venue->published) && !empty($this->show_status)) : ?>
+	<!-- PUBLISHING STATE -->
+		<dl>
+			<dt class="published"><?php echo JText::_('JSTATUS'); ?>:</dt>
+			<dd class="published">
+				<?php switch ($this->venue->published) {
+				case  1: echo JText::_('JPUBLISHED');   break;
+				case  0: echo JText::_('JUNPUBLISHED'); break;
+				case  2: echo JText::_('JARCHIVED');    break;
+				case -2: echo JText::_('JTRASHED');     break;
+				} ?>
+			</dd>
+		</dl>
+	<?php endif; ?>
 
 	<?php if ($this->settings->get('global_show_mapserv')== 3) : ?>
 		<input type="hidden" id="latitude" value="<?php echo $this->venue->latitude;?>">
@@ -48,6 +59,7 @@ defined('_JEXEC') or die;
 		<?php endif; ?>
 	<?php endif; ?>
 
+
 	<?php if ($this->settings->get('global_show_locdescription',1) && $this->venuedescription != '' &&
 	          $this->venuedescription != '<br />') : ?>
 
@@ -60,7 +72,8 @@ defined('_JEXEC') or die;
 	<?php $this->attachments = $this->venue->attachments; ?>
 	<?php echo $this->loadTemplate('attachments'); ?>
 
-	<form action="<?php echo $this->action; ?>" method="post" id="adminForm" class="form-inline">
+	<!--table-->
+	<form action="<?php echo htmlspecialchars($this->action); ?>" method="post" id="adminForm" class="form-inline">
 		<?php echo $this->loadTemplate('table'); ?>
 
 		<p>
@@ -72,6 +85,7 @@ defined('_JEXEC') or die;
 		</p>
 	</form>
 
+	<!--pagination-->
 	<div class="pagination">
 		<?php echo $this->pagination->getPagesLinks(); ?>
 	</div>

@@ -1,8 +1,8 @@
 <?php
 /**
- * @version 2.1.4
+ * @version 2.2.1 (OLD)
  * @package JEM
- * @copyright (C) 2013-2015 joomlaeventmanager.net
+ * @copyright (C) 2013-2017 joomlaeventmanager.net
  * @copyright (C) 2005-2009 Christoph Lukes
  * @license http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL
  */
@@ -11,12 +11,10 @@ defined('_JEXEC') or die;
 JHtml::addIncludePath(JPATH_COMPONENT . '/helpers');
 
 // Create shortcuts to some parameters.
-$params		= $this->item->params;
-
-$images 	= json_decode($this->item->datimage);
-$canEdit	= $this->item->params->get('access-edit');
-$user		= JFactory::getUser();
-$attribs 	= json_decode($this->item->attribs);
+$params  = $this->item->params;
+$images  = json_decode($this->item->datimage);
+$attribs = json_decode($this->item->attribs);
+$user    = JemFactory::getUser();
 
 JHtml::_('behavior.modal', 'a.flyermodal');
 ?>
@@ -24,32 +22,54 @@ JHtml::_('behavior.modal', 'a.flyermodal');
 <div id="jem" class="row event_id<?php echo $this->item->did; ?> jem_event<?php echo $this->pageclass_sfx;?>" itemscope="itemscope" itemtype="http://schema.org/SportsEvent">
 	<div class="buttons">
 		<?php
-		if ($params->get('event_show_email_icon',1)) {
-		echo JemOutput::mailbutton($this->item->slug, 'event', $this->params);
-		}
-		if ($params->get('event_show_print_icon',1)) {
-		echo JemOutput::printbutton($this->print_link, $this->params);
-		}
-		if ($params->get('event_show_ical_icon',1)) {
-		echo JemOutput::icalbutton($this->item->slug, 'event');
-		}
+		$btn_params = array('slug' => $this->item->slug, 'print_link' => $this->print_link);
+		echo JemOutput::createButtonBar($this->getName(), $this->permissions, $btn_params);
 		?>
 	</div>
 
 	<div class="clr"> </div>
 
 	<div class="col-sm-9">
-		<h1>
-			<span itemprop="name"><?php echo $this->escape($this->params->get('page_heading')); ?></span>
-			<?php echo JemOutput::editbutton($this->item, $params, $attribs, $this->allowedtoeditevent, 'editevent'); ?>
-		</h1>
+		<?php if ($this->params->get('show_page_heading', 1)) : ?>
+			<h1>
+				<span itemprop="name"><?php echo $this->escape($this->params->get('page_heading')); ?></span>
+				<?php echo JemOutput::editbutton($this->item, $params, $attribs, $this->permissions->canEditEvent, 'editevent'); ?>
+			</h1>
+		<?php endif; ?>
 		
 		<div class="clr"> </div>
 
-		<p class="eventSubtitle">A <span><?php echo $this->escape($this->categories[0]->catname); ?></span> event at <span itemprop="location"><?php echo $this->escape($this->item->venue); ?></span></p>
-		<p class="eventSubtitle">On <span>
-			<?php echo JemOutput::formatLongDateTime($this->item->dates, $this->item->times,$this->item->enddates, $this->item->endtimes);?>
-			<?php echo JemOutput::formatSchemaOrgDateTime($this->item->dates, $this->item->times,$this->item->enddates, $this->item->endtimes);?>
+		<?php 
+		// Handle multiple categories with comma separation with 'and' for last category
+		$category_count = count($this->categories);
+		$category_names = array_map(function($category) {
+			return "<span>" . $this->escape($category->catname) . "</span>";
+		}, $this->categories);
+		$last_category = array_pop($category_names);
+
+		if ($category_count > 1) {
+			$category_text = implode(', ', $category_names);
+			if ($category_text) {
+				$category_text .= ' and ';
+			}
+			$category_text .= $last_category;
+		} else {
+			$category_text = $last_category;
+		}
+		?>
+		<p class="eventSubtitle">A <?php echo $category_text; ?> event at <span itemprop="location"><?php echo $this->escape($this->item->venue); ?></span></p>		
+		<p class="eventSubtitle"><?php $is_multiday_event = strlen($this->item->enddates) > 0;
+			echo $is_multiday_event ? JText::_('COM_JEM_SEARCH_FROM') : JText::_('COM_JEM_EVENT_ON'); ?> <span>
+			<?php 
+				$date_time_string = str_replace(" - ", "</span> " . strtolower(JText::_('COM_JEM_UNTIL')) . " <span>",  JemOutput::formatLongDateTime($this->item->dates, $this->item->times,$this->item->enddates, $this->item->endtimes));
+				if ($is_multiday_event) {
+					$date_time_string = str_replace(", ", "</span> at <span>",  $date_time_string);
+				} else {
+					$date_time_string = str_replace(", ", "</span> " . strtolower(JText::_('COM_JEM_SEARCH_FROM')) . " <span>",  $date_time_string);					
+				}
+				echo $date_time_string;
+				echo JemOutput::formatSchemaOrgDateTime($this->item->dates, $this->item->times,$this->item->enddates, $this->item->endtimes);
+			?>
 		</span></p>
 
 		<!-- Event -->
@@ -80,6 +100,36 @@ JHtml::_('behavior.modal', 'a.flyermodal');
 			<dd class="hits"><?php echo JText::sprintf('COM_JEM_EVENT_HITS', $this->item->hits); ?></dd>
 			<?php endif; ?>
 
+			<!-- AUTHOR -->
+			<?php if ($params->get('event_show_author') && !empty($this->item->author)) : ?>
+			<dt class="createdby"><?php echo JText::_('COM_JEM_EVENT_CREATED_BY_LABEL'); ?>:</dt>
+			<dd class="createdby">
+				<?php $author = $this->item->created_by_alias ? $this->item->created_by_alias : $this->item->author; ?>
+				<?php if (!empty($this->item->contactid2) && $params->get('event_link_author') == true) :
+					$needle = 'index.php?option=com_contact&view=contact&id=' . $this->item->contactid2;
+					$menu = JFactory::getApplication()->getMenu();
+					$item = $menu->getItems('link', $needle, true);
+					$cntlink = !empty($item) ? $needle . '&Itemid=' . $item->id : $needle;
+					echo JText::sprintf('COM_JEM_EVENT_CREATED_BY', JHtml::_('link', JRoute::_($cntlink), $author));
+				else :
+					echo JText::sprintf('COM_JEM_EVENT_CREATED_BY', $author);
+				endif;
+				?>
+			</dd>
+			<?php endif; ?>
+
+		<!-- PUBLISHING STATE -->
+			<?php $this->showeventstate = false; if (!empty($this->showeventstate) && isset($this->item->published)) : ?>
+			<dt class="published"><?php echo JText::_('JSTATUS'); ?>:</dt>
+			<dd class="published">
+				<?php switch ($this->item->published) {
+				case  1: echo JText::_('JPUBLISHED');   break;
+				case  0: echo JText::_('JUNPUBLISHED'); break;
+				case  2: echo JText::_('JARCHIVED');    break;
+				case -2: echo JText::_('JTRASHED');     break;
+				} ?>
+			</dd>
+			<?php endif; ?>
 		</dl>
 
 		<hr />
@@ -148,8 +198,8 @@ JHtml::_('behavior.modal', 'a.flyermodal');
 	</div>
 
 	<!-- Registration -->
-	<?php if ($this->item->registra == 1) : ?>
-		<h2 class="register"><?php echo JText::_('COM_JEM_REGISTRATION').':'; ?></h2>
+	<?php if ($this->showAttendees) : ?>
+		<h2 class="register"><?php echo JText::_('COM_JEM_REGISTRATION'); ?>:</h2>
 		<?php echo $this->loadTemplate('attendees'); ?>
 	<?php endif; ?>
 

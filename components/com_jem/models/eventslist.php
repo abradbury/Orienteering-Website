@@ -1,8 +1,8 @@
 <?php
 /**
- * @version 2.1.4
+ * @version 2.2.1
  * @package JEM
- * @copyright (C) 2013-2015 joomlaeventmanager.net
+ * @copyright (C) 2013-2017 joomlaeventmanager.net
  * @copyright (C) 2005-2009 Christoph Lukes
  * @license http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL
  */
@@ -10,6 +10,8 @@
 defined('_JEXEC') or die;
 
 jimport('joomla.application.component.modellist');
+// ensure JemFactory is loaded (because model is used by modules too)
+require_once(JPATH_SITE.'/components/com_jem/factory.php');
 
 /**
  * Model-Eventslist
@@ -56,32 +58,32 @@ class JemModelEventslist extends JModelList
 	 */
 	protected function populateState($ordering = null, $direction = null)
 	{
-
 		$app         = JFactory::getApplication();
 		$jemsettings = JemHelper::config();
-		$jinput      = JFactory::getApplication()->input;
-		$task        = $jinput->get('task','','cmd');
-		$itemid      = $jinput->getInt('id', 0) . ':' . $jinput->getInt('Itemid', 0);
+		$task        = $app->input->getCmd('task','');
+		$format      = $app->input->getCmd('format',false);
+		$itemid      = $app->input->getInt('id', 0) . ':' . $app->input->getInt('Itemid', 0);
 
 		# limit/start
+		if (empty($format) || ($format == 'html')) {
+			/* in J! 3.3.6 limitstart is removed from request - but we need it! */
+			if ($app->input->get('limitstart', null, 'int') === null) {
+				$app->setUserState('com_jem.eventslist.'.$itemid.'.limitstart', 0);
+			}
 
-		/* in J! 3.3.6 limitstart is removed from request - but we need it! */
-		if ($app->input->get('limitstart', null, 'int') === null) {
-			$app->setUserState('com_jem.eventslist.'.$itemid.'.limitstart', 0);
+			$limit       = $app->getUserStateFromRequest('com_jem.eventslist.'.$itemid.'.limit', 'limit', $jemsettings->display_num, 'int');
+			$this->setState('list.limit', $limit);
+			$limitstart  = $app->getUserStateFromRequest('com_jem.eventslist.'.$itemid.'.limitstart', 'limitstart', 0, 'int');
+			// correct start value if required
+			$limitstart  = $limit ? (int)(floor($limitstart / $limit) * $limit) : 0;
+			$this->setState('list.start', $limitstart);
 		}
-
-		$limit       = $app->getUserStateFromRequest('com_jem.eventslist.'.$itemid.'.limit', 'limit', $jemsettings->display_num, 'int');
-		$this->setState('list.limit', $limit);
-		$limitstart  = $app->getUserStateFromRequest('com_jem.eventslist.'.$itemid.'.limitstart', 'limitstart', 0, 'int');
-		// correct start value if required
-		$limitstart  = $limit ? (int)(floor($limitstart / $limit) * $limit) : 0;
-		$this->setState('list.start', $limitstart);
 
 		# Search - variables
 		$search      = $app->getUserStateFromRequest('com_jem.eventslist.'.$itemid.'.filter_search', 'filter_search', '', 'string');
 		$this->setState('filter.filter_search', $search); // must be escaped later
 
-		$filtertype  = $app->getUserStateFromRequest('com_jem.eventslist.'.$itemid.'.filter_type', 'filter_type', '', 'int');
+		$filtertype  = $app->getUserStateFromRequest('com_jem.eventslist.'.$itemid.'.filter_type', 'filter_type', 0, 'int');
 		$this->setState('filter.filter_type', $filtertype);
 
 		$params = $app->getParams();
@@ -93,13 +95,7 @@ class JemModelEventslist extends JModelList
 		}
 
 		# publish state
-		if ($task == 'archive') {
-			$this->setState('filter.published',2);
-		} else {
-			$this->setState('filter.published',1);
-		}
-
-		$user = JFactory::getUser();
+		$this->_populatePublishState($task);
 
 		###############
 		## opendates ##
@@ -114,10 +110,10 @@ class JemModelEventslist extends JModelList
 		$filter_order		= $app->getUserStateFromRequest('com_jem.eventslist.'.$itemid.'.filter_order', 'filter_order', 'a.dates', 'cmd');
 		$filter_order_DirDefault = 'ASC';
 		// Reverse default order for dates in archive mode
-		if($task == 'archive' && $filter_order == 'a.dates') {
+		if ($task == 'archive' && $filter_order == 'a.dates') {
 			$filter_order_DirDefault = 'DESC';
 		}
-		$filter_reset = $jinput->getInt('filter_reset', 0);
+		$filter_reset = $app->input->getInt('filter_reset', 0);
 		if ($filter_reset && $filter_order == 'a.dates') {
 			$app->setUserState('com_jem.eventslist.'.$itemid.'.filter_order_Dir', $filter_order_DirDefault);
 		}
@@ -125,10 +121,12 @@ class JemModelEventslist extends JModelList
 		$filter_order		= JFilterInput::getInstance()->clean($filter_order, 'cmd');
 		$filter_order_Dir	= JFilterInput::getInstance()->clean($filter_order_Dir, 'word');
 
+		$default_order_Dir = ($task == 'archive') ? 'DESC' : 'ASC';
 		if ($filter_order == 'a.dates') {
-			$orderby = array('a.dates '.$filter_order_Dir,'a.times '.$filter_order_Dir);
+			$orderby = array('a.dates ' . $filter_order_Dir, 'a.times ' . $filter_order_Dir, 'a.created ' . $filter_order_Dir);
 		} else {
-			$orderby = $filter_order . ' ' . $filter_order_Dir;
+			$orderby = array($filter_order . ' ' . $filter_order_Dir,
+			                 'a.dates ' . $default_order_Dir, 'a.times ' . $default_order_Dir, 'a.created ' . $default_order_Dir);
 		}
 
 		$this->setState('filter.orderby',$orderby);
@@ -169,7 +167,7 @@ class JemModelEventslist extends JModelList
 	 */
 	function setLimit($value)
 	{
-		$this->setState('limit', (int) $value);
+		$this->setState('list.limit', (int) $value);
 	}
 
 	/**
@@ -177,7 +175,7 @@ class JemModelEventslist extends JModelList
 	 */
 	function setLimitStart($value)
 	{
-		$this->setState('limitstart', (int) $value);
+		$this->setState('list.start', (int) $value);
 	}
 
 
@@ -209,6 +207,10 @@ class JemModelEventslist extends JModelList
 		$id .= ':' . $this->getState('filter.calendar_startdayonly');
 		$id .= ':' . $this->getState('filter.req_venid');
 		$id .= ':' . $this->getState('filter.req_catid');
+		$id .= ':' . $this->getState('filter.unpublished');
+		$id .= ':' . serialize($this->getState('filter.unpublished.events.on_groups'));
+		$id .= ':' . $this->getState('filter.unpublished.venues');
+		$id .= ':' . $this->getState('filter.unpublished.on_user');
 
 		return parent::getStoreId($id);
 	}
@@ -220,19 +222,46 @@ class JemModelEventslist extends JModelList
 	protected function getListQuery()
 	{
 		$app       = JFactory::getApplication();
-		$jinput    = JFactory::getApplication()->input;
-		$task      = $jinput->getCmd('task', '');
-		$itemid    = $jinput->getInt('id', 0) . ':' . $jinput->getInt('Itemid', 0);
+		$task      = $app->input->getCmd('task', '');
+		$itemid    = $app->input->getInt('id', 0) . ':' . $app->input->getInt('Itemid', 0);
 
 		$params    = $app->getParams();
 		$settings  = JemHelper::globalattribs();
-		$user      = JFactory::getUser();
+		$user      = JemFactory::getUser();
+		$levels    = $user->getAuthorisedViewLevels();
 
 		# Query
-		$db 	= JFactory::getDBO();
+		$db    = JFactory::getDBO();
 		$query = $db->getQuery(true);
 
-		$case_when_e = ' CASE WHEN ';
+		# Event
+		$query->select(
+				$this->getState('list.select',
+				'a.access,a.alias,a.attribs,a.checked_out,a.checked_out_time,a.contactid,a.created,a.created_by,a.created_by_alias,a.custom1,a.custom2,a.custom3,a.custom4,a.custom5,a.custom6,a.custom7,a.custom8,a.custom9,a.custom10,a.dates,a.datimage,a.enddates,a.endtimes,a.featured,' .
+				'a.fulltext,a.hits,a.id,a.introtext,a.language,a.locid,a.maxplaces,a.metadata,a.meta_keywords,a.meta_description,a.modified,a.modified_by,a.published,a.registra,a.times,a.title,a.unregistra,a.waitinglist,DAYOFMONTH(a.dates) AS created_day, YEAR(a.dates) AS created_year, MONTH(a.dates) AS created_month,' .
+				'a.recurrence_byday,a.recurrence_counter,a.recurrence_first_id,a.recurrence_limit,a.recurrence_limit_date,a.recurrence_number, a.recurrence_type,a.version'
+			)
+		);
+		$query->from('#__jem_events as a');
+
+		# Author
+		$name = $settings->get('global_regname','1') ? 'u.name' : 'u.username';
+		$query->select($name.' AS author');
+		$query->join('LEFT', '#__users AS u on u.id = a.created_by');
+
+		# Venue
+		$query->select(array('l.alias AS l_alias','l.checked_out AS l_checked_out','l.checked_out_time AS l_checked_out_time','l.city','l.country','l.created AS l_created','l.created_by AS l_createdby'));
+		$query->select(array('l.custom1 AS l_custom1','l.custom2 AS l_custom2','l.custom3 AS l_custom3','l.custom4 AS l_custom4','l.custom5 AS l_custom5','l.custom6 AS l_custom6','l.custom7 AS l_custom7','l.custom8 AS l_custom8','l.custom9 AS l_custom9','l.custom10 AS l_custom10'));
+		$query->select(array('l.id AS l_id','l.latitude','l.locdescription','l.locimage','l.longitude','l.map','l.meta_description AS l_meta_description','l.meta_keywords AS l_meta_keywords','l.modified AS l_modified','l.modified_by AS l_modified_by','l.postalCode'));
+		$query->select(array('l.publish_up AS l_publish_up','l.publish_down AS l_publish_down','l.published AS l_published','l.state','l.street','l.url','l.venue','l.version AS l_version'));
+		$query->join('LEFT', '#__jem_venues AS l ON l.id = a.locid');
+
+		# Country
+		$query->select(array('ct.name AS countryname'));
+		$query->join('LEFT', '#__jem_countries AS ct ON ct.iso2 = l.country');
+
+		# the rest
+		$case_when_e  = ' CASE WHEN ';
 		$case_when_e .= $query->charLength('a.alias','!=', '0');
 		$case_when_e .= ' THEN ';
 		$id_e = $query->castAsChar('a.id');
@@ -240,36 +269,14 @@ class JemModelEventslist extends JModelList
 		$case_when_e .= ' ELSE ';
 		$case_when_e .= $id_e.' END as slug';
 
-		$case_when_l = ' CASE WHEN ';
-		$case_when_l .= $query->charLength('l.alias','!=', '0');
+		$case_when_l  = ' CASE WHEN ';
+		$case_when_l .= $query->charLength('l.alias', '!=', '0');
 		$case_when_l .= ' THEN ';
 		$id_l = $query->castAsChar('a.locid');
 		$case_when_l .= $query->concatenate(array($id_l, 'l.alias'), ':');
 		$case_when_l .= ' ELSE ';
 		$case_when_l .= $id_l.' END as venueslug';
 
-		# event
-		$query->select(
-				$this->getState(
-				'list.select',
-				'a.access,a.alias,a.attribs,a.author_ip,a.checked_out,a.checked_out_time,a.contactid,a.created,a.created_by,a.created_by_alias,a.custom1,a.custom2,a.custom3,a.custom4,a.custom5,a.custom6,a.custom7,a.custom8,a.custom9,a.custom10,a.dates,a.datimage,a.enddates,a.endtimes,a.featured,' .
-				'a.fulltext,a.hits,a.id,a.introtext,a.language,a.locid,a.maxplaces,a.metadata,a.meta_keywords,a.meta_description,a.modified,a.modified_by,a.published,a.registra,a.times,a.title,a.unregistra,a.waitinglist,DAYOFMONTH(a.dates) AS created_day, YEAR(a.dates) AS created_year, MONTH(a.dates) AS created_month,' .
-				'a.recurrence_byday,a.recurrence_counter,a.recurrence_first_id,a.recurrence_limit,a.recurrence_limit_date,a.recurrence_number, a.recurrence_type,a.version'
-			)
-		);
-		$query->from('#__jem_events as a');
-
-		# venue
-		$query->select(array('l.alias AS l_alias','l.author_ip AS l_authorip','l.checked_out AS l_checked_out','l.checked_out_time AS l_checked_out_time','l.city','l.country','l.created AS l_created','l.created_by AS l_createdby'));
-		$query->select(array('l.custom1 AS l_custom1','l.custom2 AS l_custom2','l.custom3 AS l_custom3','l.custom4 AS l_custom4','l.custom5 AS l_custom5','l.custom6 AS l_custom6','l.custom7 AS l_custom7','l.custom8 AS l_custom8','l.custom9 AS l_custom9','l.custom10 AS l_custom10'));
-		$query->select(array('l.id AS l_id','l.latitude','l.locdescription','l.locimage','l.longitude','l.map','l.meta_description','l.meta_keywords','l.modified AS l_modified','l.modified_by AS l_modified_by','l.ordering','l.postalCode','l.publish_up','l.publish_down','l.published AS l_published','l.state','l.street','l.url','l.venue','l.version AS l_version'));
-		$query->join('LEFT', '#__jem_venues AS l ON l.id = a.locid');
-
-		# country
-		$query->select(array('ct.name AS countryname'));
-		$query->join('LEFT', '#__jem_countries AS ct ON ct.iso2 = l.country');
-
-		# the rest
 		$query->select(array($case_when_e, $case_when_l));
 
 
@@ -305,31 +312,24 @@ class JemModelEventslist extends JModelList
 		###################
 
 		# Filter by access level - always.
-		$user = JFactory::getUser();
-		$groups = implode(',', $user->getAuthorisedViewLevels());
-		$query->where('a.access IN ('.$groups.')');
+		$query->where('a.access IN ('.implode(',', $levels).')');
 
 		####################
 		## FILTER-PUBLISH ##
 		####################
 
 		# Filter by published state.
-		$published = $this->getState('filter.published');
-
-		if (is_numeric($published)) {
-			$query->where('a.published = ' . (int) $published);
-		}
-		elseif (is_array($published) && !empty($published)) {
-			JArrayHelper::toInteger($published);
-			$published = implode(',', $published);
-			$query->where('a.published IN ('.$published.')');
+		$where_pub = $this->_getPublishWhere();
+		if (!empty($where_pub)) {
+			$query->where('(' . implode(' OR ', $where_pub) . ')');
+		} else {
+			// something wrong - fallback to published events
+			$query->where('a.published = 1');
 		}
 
-
-
-		####################
+		#####################
 		## FILTER-FEATURED ##
-		####################
+		#####################
 
 		# Filter by featured flag.
 		$featured = $this->getState('filter.featured');
@@ -379,9 +379,14 @@ class JemModelEventslist extends JModelList
 		### FILTER - BYCAT ##
 		#####################
 
-		$cats = $this->getCategories('all');
-		if (!empty($cats)) {
-			$query->where('c.id  IN (' . implode(',', $cats) . ')');
+		$filter_catid = $this->getState('filter.filter_catid');
+		if ($filter_catid) { // categorycal
+			$query->where('c.id = '.(int)$filter_catid);
+		} else {
+			$cats = $this->getCategories('all');
+			if (!empty($cats)) {
+				$query->where('c.id  IN (' . implode(',', $cats) . ')');
+			}
 		}
 
 		####################
@@ -475,7 +480,6 @@ class JemModelEventslist extends JModelList
 
 		# ordering
 		$orderby = $this->getState('filter.orderby');
-
 		if ($orderby) {
 			$query->order($orderby);
 		}
@@ -489,22 +493,15 @@ class JemModelEventslist extends JModelList
 	 */
 	public function getItems()
 	{
-		$items	= parent::getItems();
+		$items = parent::getItems();
 
 		if (empty($items)) {
 			return array();
 		}
 
-		$user	= JFactory::getUser();
-		$userId	= $user->get('id');
-		$guest	= $user->get('guest');
-		$groups = $user->getAuthorisedViewLevels();
-		$input	= JFactory::getApplication()->input;
-
+		$user = JemFactory::getUser();
 		$calendarMultiday = $this->getState('filter.calendar_multiday');
-
-		# Get the global params
-		$globalParams = JComponentHelper::getParams('com_jem', true);
+		$stateParams = $this->getState('params');
 
 		# Convert the parameter fields into objects.
 		foreach ($items as $index => $item)
@@ -512,29 +509,12 @@ class JemModelEventslist extends JModelList
 			$eventParams = new JRegistry;
 			$eventParams->loadString($item->attribs);
 
-			$item->params = clone $this->getState('params');
-			$item->params->merge($eventParams);
-
-			# write access permissions.
-			if (!$guest)
-			{
-				$asset = 'com_jem.event.' . $item->id;
-
-				# Check general edit permission first.
-				if ($user->authorise('core.edit', $asset))
-				{
-					$item->params->set('access-edit', true);
-				}
-
-				# Now check if edit.own is available.
-				elseif (!empty($userId) && $user->authorise('core.edit.own', $asset))
-				{
-					# Check for a valid user and that they are the owner.
-					if ($userId == $item->created_by)
-					{
-						$item->params->set('access-edit', true);
-					}
-				}
+			if (empty($stateParams)) {
+				$item->params = new JRegistry;
+				$item->params->merge($eventParams);
+			} else {
+				$item->params = clone $stateParams;
+				$item->params->merge($eventParams);
 			}
 
 			# adding categories
@@ -543,11 +523,15 @@ class JemModelEventslist extends JModelList
 			# check if the item-categories is empty, if so the user has no access to that event at all.
 			if (empty($item->categories)) {
 				unset ($items[$index]);
+				continue;
+			} else {
+			# write access permissions.
+				$item->params->set('access-edit', $user->can('edit', 'event', $item->id, $item->created_by));
 			}
-		}
+		} // foreach
 
 		if ($items) {
-			$items = JemHelper::getAttendeesNumbers($items);
+			/*$items =*/ JemHelper::getAttendeesNumbers($items);
 
 			if ($calendarMultiday) {
 				$items = self::calendarMultiday($items);
@@ -564,19 +548,14 @@ class JemModelEventslist extends JModelList
 	 * Due to multi-cat this function is needed
 	 * filter-index (4) is pointing to the cats
 	 */
-
 	function getCategories($id)
 	{
-		$user 			= JFactory::getUser();
-		$userid			= (int) $user->get('id');
-		$levels 		= $user->getAuthorisedViewLevels();
-		$app 			= JFactory::getApplication();
-		$params 		= $app->getParams();
-		$catswitch 		= $params->get('categoryswitch', '0');
-		$settings 		= JemHelper::globalattribs();
+		$user     = JemFactory::getUser();
+		$levels   = $user->getAuthorisedViewLevels();
+		$settings = JemHelper::globalattribs();
 
 		// Query
-		$db 	= JFactory::getDBO();
+		$db    = JFactory::getDBO();
 		$query = $db->getQuery(true);
 
 		$case_when_c = ' CASE WHEN ';
@@ -665,7 +644,7 @@ class JemModelEventslist extends JModelList
 		$requestCategoryId = $this->getState('filter.req_catid');
 
 		if ($requestCategoryId) {
-			$query->where('c.id = '.$requestCategoryId);
+			$query->where('c.id = '.(int)$requestCategoryId);
 		}
 
 		###################
@@ -682,7 +661,7 @@ class JemModelEventslist extends JModelList
 			} else {
 				$search = $db->Quote('%'.$db->escape($search, true).'%', false); // escape once
 
-				if($search && $settings->get('global_show_filter')) {
+				if ($search && $settings->get('global_show_filter')) {
 					if ($filter == 4) {
 							$query->where('c.catname LIKE '.$search);
 					}
@@ -692,7 +671,7 @@ class JemModelEventslist extends JModelList
 
 		$db->setQuery($query);
 
-		if ($id == 'all'){
+		if ($id == 'all') {
 			$cats = $db->loadColumn(0);
 			$cats = array_unique($cats);
 			return ($cats);
@@ -702,18 +681,17 @@ class JemModelEventslist extends JModelList
 		return $cats;
 	}
 
-	function calendarMultiday($items) {
-
+	function calendarMultiday($items)
+	{
 		if (empty($items)) {
 			return array();
 		}
 
-		$app 			= JFactory::getApplication();
-		$params 		= $app->getParams();
-		$startdayonly	= $this->getState('filter.calendar_startdayonly');
+		$startdayonly = $this->getState('filter.calendar_startdayonly');
 
-		foreach($items AS $item) {
-			if (!$startdayonly) {
+		if (!$startdayonly) {
+			foreach($items AS $item)
+			{
 				if (!is_null($item->enddates) && ($item->enddates != $item->dates)) {
 					$day = $item->start_day;
 					$multi = array();
@@ -724,8 +702,8 @@ class JemModelEventslist extends JModelList
 					$item->multiname = $item->title;
 					$item->sort = 'zlast';
 
-					for ($counter = 0; $counter <= $item->datesdiff-1; $counter++) {
-
+					for ($counter = 0; $counter <= $item->datesdiff-1; $counter++)
+					{
 						# next day:
 						$day++;
 						$nextday = mktime(0, 0, 0, $item->start_month, $day, $item->start_year);
@@ -762,8 +740,8 @@ class JemModelEventslist extends JModelList
 					# unset temp array holding generated days before working on the next multiday event
 					unset($multi);
 				}
-			}
-		} // foreach
+			} // foreach
+		}
 
 		foreach ($items as $item) {
 			$time[] = $item->times;
@@ -773,6 +751,107 @@ class JemModelEventslist extends JModelList
 		array_multisort($time, SORT_ASC, $title, SORT_ASC, $items);
 
 		return $items;
+	}
+
+
+	/**
+	 * Helper method to auto-populate publishing related model state.
+	 * Can be called in populateState()
+	 */
+	protected function _populatePublishState($task)
+	{
+		$app         = JFactory::getApplication();
+		$jemsettings = JemHelper::config();
+		$user        = JemFactory::getUser();
+		$userId      = $user->get('id');
+
+		# publish state
+		$format = $app->input->getCmd('format', '');
+
+		if ($task == 'archive') {
+			$this->setState('filter.published', 2);
+		} elseif (($format == 'raw') || ($format == 'feed')) {
+			$this->setState('filter.published', 1);
+		} else {
+			$show_unpublished = $user->can(array('edit', 'publish'), 'event', false, false, 1);
+			if ($show_unpublished) {
+				// global editor or publisher permission
+				$this->setState('filter.published', array(0, 1));
+			} else {
+				// no global permission but maybe on event level
+				$this->setState('filter.published', 1);
+				$this->setState('filter.unpublished', 0);
+
+				$jemgroups = $user->getJemGroups(array('editevent', 'publishevent'));
+				if (($userId !== 0) && ($jemsettings->eventedit == -1)) {
+					$jemgroups[0] = true; // we need key 0 to get unpublished events not attached to any jem group
+				}
+				// user permitted on that jem groups
+				if (is_array($jemgroups) && count($jemgroups)) {
+					$this->setState('filter.unpublished.events.on_groups', array_keys($jemgroups));
+				}
+				// user permitted on own events
+				if (($userId !== 0) && ($user->authorise('core.edit.own', 'com_jem') || $jemsettings->eventowner)) {
+					$this->setState('filter.unpublished.on_user', $userId);
+				}
+			}
+		}
+	}
+
+	/**
+	 * Helper method to create publishing related where clauses.
+	 * Can be called in getListQuery()
+	 *
+	 * @param  $tbl   table alias to use
+	 *
+	 * @return array  where clauses related to publishing state and user permissons
+	 *                to combine with OR
+	 */
+	protected function _getPublishWhere($tbl = 'a')
+	{
+		$tbl = empty($tbl) ? '' : $this->_db->quoteName($tbl) . '.';
+		$where_pub = array();
+
+		# Filter by published state.
+		$published = $this->getState('filter.published');
+
+		if (is_numeric($published)) {
+			$where_pub[] = '(' . $tbl . 'published = ' . (int)$published . ')';
+		}
+		elseif (is_array($published) && !empty($published)) {
+			JArrayHelper::toInteger($published);
+			$published = implode(',', $published);
+			$where_pub[] = '(' . $tbl . 'published IN (' . $published . '))';
+		}
+
+		# Filter by specific conditions
+		$unpublished = $this->getState('filter.unpublished');
+		if (is_numeric($unpublished)) {
+
+			// Is user member of jem groups allowing to see unpublished events?
+			$unpublished_on_groups = $this->getState('filter.unpublished.events.on_groups');
+			if (is_array($unpublished_on_groups) && !empty($unpublished_on_groups)) {
+				// to allow only events with categories attached to allowed jemgroups use this line:
+				//$where_pub[] = '(' . $tbl . '.published = ' . $unpublished . ' AND c.groupid IN (' . implode(',', $unpublished_on_groups) . '))';
+				// to allow also events with categories not attached to disallowed jemgroups use this crazy block:
+				$where_pub[] = '(' . $tbl . 'published = ' . $unpublished . ' AND '
+				             . $tbl . 'id NOT IN (SELECT rel3.itemid FROM #__jem_categories as c3 '
+				             . '                   INNER JOIN #__jem_cats_event_relations as rel3 '
+				             . '                   WHERE c3.id = rel3.catid AND c3.groupid NOT IN (0,' . implode(',', $unpublished_on_groups) . ')'
+				             . '                   GROUP BY rel3.itemid)'
+				             . ')';
+				// hint: above it's a not not ;-)
+				//       meaning: Show unpublished events not connected to a category which is not one of the allowed categories.
+			}
+
+			// Is user allowed to see own unpublished events?
+			$unpublished_on_user = (int)$this->getState('filter.unpublished.on_user');
+			if ($unpublished_on_user > 0) {
+				$where_pub[] = '(' . $tbl . 'published = ' . $unpublished . ' AND ' . $tbl . 'created_by = ' . $unpublished_on_user . ')';
+			}
+		}
+
+		return $where_pub;
 	}
 }
 ?>

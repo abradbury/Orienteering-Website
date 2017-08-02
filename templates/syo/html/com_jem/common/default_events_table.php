@@ -1,8 +1,8 @@
 <?php
 /**
- * @version 2.0.0
+ * @version 2.2.1
  * @package JEM
- * @copyright (C) 2013-2014 joomlaeventmanager.net
+ * @copyright (C) 2013-2017 joomlaeventmanager.net
  * @copyright (C) 2005-2009 Christoph Lukes
  * @license http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL
  */
@@ -124,7 +124,7 @@ defined('_JEXEC') or die;
 				<td headers="jem_date">
 					<?php
 						echo JemOutput::formatShortDateTime($row->dates, $row->times,
-							$row->enddates, $row->endtimes);
+							$row->enddates, $row->endtimes, $this->jemsettings->showtime);
 						echo JemOutput::formatSchemaOrgDateTime($row->dates, $row->times,
 							$row->enddates, $row->endtimes);
 					?>
@@ -134,23 +134,29 @@ defined('_JEXEC') or die;
 					<td headers="jem_title">
 						<a href="<?php echo JRoute::_(JemHelperRoute::getEventRoute($row->slug)); ?>" itemprop="url">
 							<span itemprop="name"><?php echo $this->escape($row->title) . JemOutput::recurrenceicon($row); ?></span>
-						</a>
+						</a><?php echo JemOutput::publishstateicon($row); ?>
 					</td>
 				<?php endif; ?>
 
 				<?php if (($this->jemsettings->showtitle == 1) && ($this->jemsettings->showdetails == 0)) : ?>
 					<td headers="jem_title" itemprop="name">
-						<?php echo $this->escape($row->title) . JemOutput::recurrenceicon($row); ?>
+						<?php echo $this->escape($row->title) . JemOutput::recurrenceicon($row) . JemOutput::publishstateicon($row); ?>
 					</td>
 				<?php endif; ?>
 
 				<?php if ($this->jemsettings->showlocate == 1) : ?>
 					<td headers="jem_location">
-						<?php if ($this->jemsettings->showlinkvenue == 1) : ?>
-							<?php echo !empty($row->locid) ? "<a href='".JRoute::_(JemHelperRoute::getVenueRoute($row->venueslug))."'>".$this->escape($row->venue)."</a>" : '-'; ?>
-						<?php else : ?>
-							<?php echo !empty($row->locid) ? $this->escape($row->venue) : '-'; ?>
-						<?php endif; ?>
+						<?php
+						if (!empty($row->venue)) :
+							if (($this->jemsettings->showlinkvenue == 1) && !empty($row->venueslug)) :
+								echo "<a href='".JRoute::_(JemHelperRoute::getVenueRoute($row->venueslug))."'>".$this->escape($row->venue)."</a>";
+							else :
+								echo $this->escape($row->venue);
+							endif;
+						else :
+							echo '-';
+						endif;
+						?>
 					</td>
 				<?php endif; ?>
 
@@ -168,7 +174,7 @@ defined('_JEXEC') or die;
 
 				<?php if ($this->jemsettings->showcat == 1) : ?>
 					<td headers="jem_category">
-						<?php echo /*implode(", ",*/ JemOutput::getCategoryList($row->categories, $this->jemsettings->catlinklist)[0]/*)*/; ?>
+						<?php echo implode(", ", JemOutput::getCategoryList($row->categories, $this->jemsettings->catlinklist)); ?>
 					</td>
 				<?php endif; ?>
 

@@ -1,8 +1,8 @@
 <?php
 /**
- * @version 2.1.4
+ * @version 2.2.1
  * @package JEM
- * @copyright (C) 2013-2015 joomlaeventmanager.net
+ * @copyright (C) 2013-2017 joomlaeventmanager.net
  * @copyright (C) 2005-2009 Christoph Lukes
  * @license http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL
  */
@@ -16,7 +16,7 @@ require_once JPATH_ADMINISTRATOR . '/components/com_jem/models/event.php';
 /**
  * Editevent Model
  */
-class JEMModelEditevent extends JEMModelEvent
+class JemModelEditevent extends JemModelEvent
 {
 
 	/**
@@ -35,8 +35,14 @@ class JEMModelEditevent extends JEMModelEvent
 		$catid = $app->input->getInt('catid', 0);
 		$this->setState('event.catid', $catid);
 
+		$locid = $app->input->getInt('locid', 0);
+		$this->setState('event.locid', $locid);
+
+		$date = $app->input->getCmd('date', '');
+		$this->setState('event.date', $date);
+
 		$return = $app->input->get('return', '', 'base64');
-		$this->setState('return_page', urldecode(base64_decode($return)));
+		$this->setState('return_page', base64_decode($return));
 
 		// Load the parameters.
 		$params = $app->getParams();
@@ -88,78 +94,81 @@ class JEMModelEditevent extends JEMModelEvent
 		$registry = new JRegistry();
 		$registry->loadString($value->attribs);
 
-		$globalregistry = JEMHelper::globalattribs();
+		$globalregistry = JemHelper::globalattribs();
 
 		$value->params = clone $globalregistry;
 		$value->params->merge($registry);
 
 		// Compute selected asset permissions.
-		$user = JFactory::getUser();
-		$userId = $user->get('id');
+		$user = JemFactory::getUser();
+		//$userId = $user->get('id');
 		//$asset = 'com_jem.event.' . $value->id;
-		$asset = 'com_jem';
+		//$asset = 'com_jem';
 
 		$db = JFactory::getDbo();
 		$query = $db->getQuery(true);
-		$query->select(array(
-				'count(id)'
-		));
+		$query->select(array('count(id)'));
 		$query->from('#__jem_register');
-		$query->where(array(
-				'event= ' . $db->quote($itemId),
-				'waiting= 0'
-		));
+		$query->where(array('event = ' . $db->quote($itemId), 'waiting = 0', 'status = 1'));
 
 		$db->setQuery($query);
 		$res = $db->loadResult();
-		$value->booked = $res;
+		$value->booked = (int)$res;
+		if (!empty($value->maxplaces)) {
+			$value->avplaces = $value->maxplaces - $value->booked;
+		}
 
-		$files = JEMAttachment::getAttachments('event' . $itemId);
+		$value->reginvitedonly = !empty($value->registra) && ($value->registra & 2);
+
+		$files = JemAttachment::getAttachments('event' . $itemId);
 		$value->attachments = $files;
 
-		// Check general edit permission first.
-		if ($user->authorise('core.edit', $asset)) {
-			$value->params->set('access-edit', true);
-		}
-		// Now check if edit.own is available.
-		elseif (!empty($userId) && $user->authorise('core.edit.own', $asset)) {
-			// Check for a valid user and that they are the owner.
-			if ($userId == $value->created_by) {
-				$value->params->set('access-edit', true);
-			}
-		}
+		// Preset values on new events
+		if (!$itemId) {
+			$catid = (int) $this->getState('event.catid');
+			$locid = (int) $this->getState('event.locid');
+			$date  = $this->getState('event.date');
 
-		// Check edit state permission.
-		if ($itemId) {
-			// Existing item
-			$value->params->set('access-change', $user->authorise('core.edit.state', $asset));
-		}
-		else {
-			// New item.
-			$catId = (int) $this->getState('event.catid');
-
-			if ($catId) {
-				$value->params->set('access-change', $user->authorise('core.edit.state', 'com_jem.category.' . $catId));
-				$value->catid = $catId;
+			// ???
+			if (empty($value->catid) && !empty($catid)) {
+				$value->catid = $catid;
 			}
-			else {
-				$value->params->set('access-change', $user->authorise('core.edit.state', 'com_jem'));
+
+			if (empty($value->locid) && !empty($locid)) {
+				$value->locid = $locid;
+			}
+
+			if (empty($value->dates) && JemHelper::isValidDate($date)) {
+				$value->dates = $date;
 			}
 		}
 
 		////////////////
 		$venueQuery = $db->getQuery(true);
 		$venueQuery->select(array(
-				'alias'
+			'alias'
 		));
 		$venueQuery->from('#__jem_venues');
 		$venueQuery->where(array(
-				'id= ' . $db->quote($value->locid)
+			'id= ' . $db->quote($value->locid)
 		));
 		$db->setQuery($venueQuery);
 		$venueResult = $db->loadResult();
 		$value->localias = $venueResult;
 		////////////////
+
+		// Check edit permission.
+		$value->params->set('access-edit', $user->can('edit', 'event', $value->id, $value->created_by));
+
+		// Check edit state permission.
+		if (!$itemId && ($catId = (int) $this->getState('event.catid'))) {
+			// New item.
+			$cats = array($catId);
+		} else {
+			// Existing item (or no category)
+			$cats = false;
+		}
+		$value->params->set('access-change', $user->can('publish', 'event', $value->id, $value->created_by, $cats));
 
 		$value->author_ip = $jemsettings->storeip ? JemHelper::retrieveIP() : false;
 
@@ -186,7 +195,7 @@ class JEMModelEditevent extends JEMModelEvent
 	 */
 	public function getReturnPage()
 	{
-		return base64_encode(urlencode($this->getState('return_page')));
+		return base64_encode($this->getState('return_page'));
 	}
 
 	############
@@ -221,12 +230,12 @@ class JEMModelEditevent extends JEMModelEvent
 		$filter_order 		= JFilterInput::getinstance()->clean($filter_order, 'cmd');
 		$filter_order_Dir 	= JFilterInput::getinstance()->clean($filter_order_Dir, 'word');
 
-		$filter_type 		= $app->getUserStateFromRequest('com_jem.selectvenue.filter_type', 'filter_type', '', 'int');
+		$filter_type 		= $app->getUserStateFromRequest('com_jem.selectvenue.filter_type', 'filter_type', 0, 'int');
 		$search      		= $app->getUserStateFromRequest('com_jem.selectvenue.filter_search', 'filter_search', '', 'string');
 		$search      		= $this->_db->escape(trim(JString::strtolower($search)));
 
 		// Query
-		$db 	= JFactory::getDBO();
+		$db    = JFactory::getDBO();
 		$query = $db->getQuery(true);
 		$query->select(array('l.id','l.state','l.city','l.country','l.published','l.venue','l.ordering'));
 		$query->from('#__jem_venues as l');
@@ -250,7 +259,7 @@ class JEMModelEditevent extends JEMModelEvent
 		}
 
 		if ($params->get('global_show_ownedvenuesonly')) {
-			$user = JFactory::getUser();
+			$user = JemFactory::getUser();
 			$userid = $user->get('id');
 			$where[] = ' created_by = ' . (int) $userid;
 		}
@@ -316,8 +325,8 @@ class JEMModelEditevent extends JEMModelEvent
 	/**
 	 * contacts-Pagination
 	 **/
-	function getContactsPagination() {
-
+	function getContactsPagination()
+	{
 		$jemsettings = JemHelper::config();
 		$app         = JFactory::getApplication();
 		$limit       = $app->getUserStateFromRequest('com_jem.selectcontact.limit', 'limit', $jemsettings->display_num, 'int');
@@ -350,12 +359,12 @@ class JEMModelEditevent extends JEMModelEvent
 		$filter_order 		= JFilterInput::getinstance()->clean($filter_order, 'cmd');
 		$filter_order_Dir	= JFilterInput::getinstance()->clean($filter_order_Dir, 'word');
 
-		$filter_type   		= $app->getUserStateFromRequest('com_jem.selectcontact.filter_type', 'filter_type', '', 'int');
+		$filter_type   		= $app->getUserStateFromRequest('com_jem.selectcontact.filter_type', 'filter_type', 0, 'int');
 		$search       		= $app->getUserStateFromRequest('com_jem.selectcontact.filter_search', 'filter_search', '', 'string');
 		$search       		= $this->_db->escape(trim(JString::strtolower($search)));
 
 		// Query
-		$db 	= JFactory::getDBO();
+		$db    = JFactory::getDBO();
 		$query = $db->getQuery(true);
 		$query->select(array('con.*'));
 		$query->from('#__contact_details As con');
@@ -402,4 +411,147 @@ class JEMModelEditevent extends JEMModelEvent
 
 		return $query;
 	}
+
+
+	###########
+	## USERS ##
+	###########
+
+	/**
+	 * Get users data
+	 */
+	function getUsers()
+	{
+		$query      = $this->buildQueryUsers();
+		$pagination = $this->getUsersPagination();
+
+		$rows       = $this->_getList($query, $pagination->limitstart, $pagination->limit);
+
+		// Add registration status if available
+		$itemId     = (int)$this->getState('event.id');
+		$db         = JFactory::getDBO();
+		$qry        = $db->getQuery(true);
+		// #__jem_register (id, event, uid, waiting, status, comment)
+		$qry->select(array('reg.uid, reg.status, reg.waiting'));
+		$qry->from('#__jem_register As reg');
+		$qry->where('reg.event = ' . $itemId);
+		$db->setQuery($qry);
+		$regs = $db->loadObjectList('uid');
+
+	//	JemHelper::addLogEntry((string)$qry . "\n" . print_r($regs, true), __METHOD__);
+
+		foreach ($rows AS &$row) {
+			if (array_key_exists($row->id, $regs)) {
+				$row->status = $regs[$row->id]->status;
+				if ($row->status == 1 && $regs[$row->id]->waiting) {
+					++$row->status;
+				}
+			} else {
+				$row->status = -99;
+			}
+		}
+
+		return $rows;
+	}
+
+
+	/**
+	 * users-Pagination
+	 **/
+	function getUsersPagination()
+	{
+		$jemsettings = JemHelper::config();
+		$app         = JFactory::getApplication();
+		$limit       = 0;//$app->getUserStateFromRequest('com_jem.selectusers.limit', 'limit', $jemsettings->display_num, 'int');
+		$limitstart  = 0;//$app->input->getInt('limitstart', 0);
+		// correct start value if required
+		$limitstart  = $limit ? (int)(floor($limitstart / $limit) * $limit) : 0;
+
+		$query = $this->buildQueryUsers();
+		$total = $this->_getListCount($query);
+
+		// Create the pagination object
+		jimport('joomla.html.pagination');
+		$pagination = new JPagination($total, $limitstart, $limit);
+
+		return $pagination;
+	}
+
+
+	/**
+	 * users-query
+	 */
+	function buildQueryUsers()
+	{
+		$app              = JFactory::getApplication();
+		$jemsettings      = JemHelper::config();
+
+		// no filters, hard-coded
+		$filter_order     = 'usr.name';
+		$filter_order_Dir = '';
+		$filter_type      = '';
+		$search           = '';
+
+		// Query
+		$db    = JFactory::getDBO();
+		$query = $db->getQuery(true);
+		$query->select(array('usr.id, usr.name'));
+		$query->from('#__users As usr');
+
+		// where
+		$where = array();
+		$where[] = 'usr.block = 0';
+		$where[] = 'NOT usr.activation > 0';
+
+		/* something to search for? (we like to search for "0" too) */
+		if ($search || ($search === "0")) {
+			switch ($filter_type) {
+				case 1: /* Search name */
+					$where[] = ' LOWER(usr.name) LIKE \'%' . $search . '%\' ';
+					break;
+			}
+		}
+		$query->where($where);
+
+		// ordering
+
+		// ensure it's a valid order direction (asc, desc or empty)
+		if (!empty($filter_order_Dir) && strtoupper($filter_order_Dir) !== 'DESC') {
+			$filter_order_Dir = 'ASC';
+		}
+
+		if ($filter_order != '') {
+			$orderby = $filter_order . ' ' . $filter_order_Dir;
+			if ($filter_order != 'usr.name') {
+				$orderby = array($orderby, 'usr.name'); // in case of (???) we should have a useful second ordering
+			}
+		} else {
+			$orderby = 'usr.name ' . $filter_order_Dir;
+		}
+		$query->order($orderby);
+
+		return $query;
+	}
+
+
+	/**
+	 * Get list of invited users.
+	 */
+	function getInvitedUsers()
+	{
+		$itemId = (int)$this->getState('event.id');
+		$db     = JFactory::getDBO();
+		$query  = $db->getQuery(true);
+		// #__jem_register (id, event, uid, waiting, status, comment)
+		$query->select(array('reg.uid'));
+		$query->from('#__jem_register As reg');
+		$query->where('reg.event = ' . $itemId);
+		$query->where('reg.status = 0');
+		$db->setQuery($query);
+		$regs = $db->loadColumn();
+
+	//	JemHelper::addLogEntry((string)$query . "\n" . implode(',', $regs), __METHOD__);
+		return $regs;
+	}
+
 }
