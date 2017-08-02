@@ -15,7 +15,6 @@ $this->direction = $doc->direction;
 ?>
 
 <!doctype html>
-
 <html lang="en">
 	<head>
 	<meta charset="utf-8">
@@ -23,7 +22,7 @@ $this->direction = $doc->direction;
 
 	<title><?php echo $this->error->getCode(); ?> - <?php echo htmlspecialchars($this->error->getMessage(), ENT_QUOTES, 'UTF-8'); ?></title>
 
-	<link rel="stylesheet" href="templates/syo/css/error.css?v=2">
+	<link rel="stylesheet" href="/templates/syo/css/error.css?v=4">
 
 	<script type="text/javascript">
 		var imageNames = [
@@ -104,7 +103,7 @@ $this->direction = $doc->direction;
 			<img src="<?php echo $this->baseurl; ?>/templates/syo/images/errors/error7.jpg" />
 
 			<?php } else { ?>
-			<img src="<?php echo $this->baseurl; ?>/templayes/syo/images/errors/error6.jpg" />
+			<img src="<?php echo $this->baseurl; ?>/templates/syo/images/errors/error6.jpg" />
 			<?php } ?>
 		</div>
 	</div>
