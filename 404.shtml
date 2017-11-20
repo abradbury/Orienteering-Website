@@ -4,7 +4,7 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>404 - Page not found</title>
-	<link rel="stylesheet" href="templates/syo/css/error.css?v=2">
+	<link rel="stylesheet" href="/templates/syo/css/error.css?v=4">
 
 	<script type="text/javascript">
 		var imageNames = [
@@ -15,7 +15,7 @@
 			"error5"];
 
 		function get_random_404_image() {
-			var img = '<img src=\"templates/syo/images/errors/';
+			var img = '<img src=\"/templates/syo/images/errors/';
 			var randomIndex = Math.floor(Math.random() * imageNames.length);
 			img += imageNames[randomIndex];
 			img += '.jpg\" />';

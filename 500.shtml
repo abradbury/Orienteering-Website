@@ -4,7 +4,7 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>500 - Internal Server Error</title>
-	<link rel="stylesheet" href="templates/syo/css/error.css?v=2">
+	<link rel="stylesheet" href="/templates/syo/css/error.css?v=4">
 </head>
 <body>
 	<div class="container">
@@ -21,7 +21,7 @@
 			</div>
 		</div>
 		<div class="image">
-			<img src="templates/syo/images/errors/error6.jpg" />
+			<img src="/templates/syo/images/errors/error6.jpg" />
 		</div>
 	</div>
 </body>

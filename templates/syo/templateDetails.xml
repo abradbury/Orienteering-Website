@@ -2,13 +2,11 @@
 <extension version="3.4" type="template">
 	<name>SYO</name>
 	<creationDate>2015-08-10</creationDate>
-	<author>A Bradbury</author>
-	<authorEmail>john@example.com</authorEmail>
-	<authorUrl>http://www.southyorkshireorienteers.org.uk</authorUrl>
-	<copyright>South Yorkshire Orienteers 2015</copyright>
-	<license>GNU/GPL</license>
-	<version>1.0.0</version>
-	<description>SYO Template</description>
+	<author>A. Bradbury</author>
+	<authorUrl>https://www.southyorkshireorienteers.org.uk</authorUrl>
+	<copyright>South Yorkshire Orienteers 2017</copyright>
+	<version>1.0.8</version>
+	<description>A Joomla template created for the South Yorkshire Orienteers' website</description>
 
 	<files>
 		<filename>index.php</filename>
