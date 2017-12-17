@@ -17,8 +17,8 @@ if (is_object($menu)) {
 }
 
 // Get the image used for the banner
-$imageNames = array('P1020182.jpg', 'BOC_2015_RL.jpg', 'BRC_2012_MW.jpg', 'LOXLEY_2016_RB.jpg');
-$imageCapts = array('World Orienteering Championships 2015 - Nairn, Scotland', 'British Sprint Orienteering Championships 2015 - Aldershot Garrison, Hampshire (&copy; Robert Lines)', 'British Relay Championships 2012 - Helsington Barrows, Cumbria (&copy; Martin Ward)', 'SYO Coaching Session - Loxely Common, Sheffield (&copy; Richard Baxter)');
+$imageNames = array('CSC_2017_LG.jpg', 'P1020182.jpg', 'BOC_2015_RL.jpg', 'BRC_2012_MW.jpg', 'LOXLEY_2016_RB.jpg');
+$imageCapts = array('CompassSport Cup Final 2017 - Virtuous Lady, Devon (&copy; Louise Garnett)', 'World Orienteering Championships 2015 - Nairn, Scotland', 'British Sprint Orienteering Championships 2015 - Aldershot Garrison, Hampshire (&copy; Robert Lines)', 'British Relay Championships 2012 - Helsington Barrows, Cumbria (&copy; Martin Ward)', 'SYO Coaching Session - Loxely Common, Sheffield (&copy; Richard Baxter)');
 $randIndex  = array_rand($imageNames);
 
 // Remove deprecated meta-data (HTML5)
