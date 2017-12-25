@@ -33,7 +33,7 @@ JHtml::_('behavior.modal', 'a.flyermodal');
       <td>
         <?php if ($item->eventlink) : ?>
         <span class="eventTitle">
-          <a href="<?php echo $item->eventlink; ?>" title="<?php echo $item->fulltitle; ?>"><?php echo $item->title; ?></a>
+          <a href="<?php echo $item->eventlink; ?>" <?php if (!($item->fulltitle === $item->title)) : ?>title="<?php echo $item->fulltitle; ?>"<?php endif; ?>><?php echo $item->title; ?></a>
         </span>
         <?php else : ?>
         <span class="eventTitle">
@@ -42,7 +42,8 @@ JHtml::_('behavior.modal', 'a.flyermodal');
         <?php endif; ?>
       </td>
       <td>
-        <span class="eventDate" title="<?php echo strip_tags($item->dateinfo); ?>"><?php echo $item->date; ?></span>
+        <?php $parsedDate = date_create_from_format('D jS M Y', $item->date); ?>
+        <time class="eventDate" <?php if ($parsedDate) : ?> datetime="<?php echo $parsedDate->format('Y-m-d'); ?>"<?php endif; ?>><?php echo $item->date; ?></time>
         <?php if ($item->time && $params->get('datemethod', 1) == 1 && !($params->get('formattime') === NULL)) : ?>
         <span class="eventTime" data-some="<?php echo $params->get('formattime'); ?>" title="<?php echo strip_tags($item->dateinfo); ?>"><?php echo $item->time; ?></span>
         <?php endif; ?>
@@ -50,7 +51,9 @@ JHtml::_('behavior.modal', 'a.flyermodal');
       <td>
       <?php if ($item->venue) : ?>
         <?php if ($item->venuelink) : ?>
-        <span class="eventVenue"><a href="<?php echo $item->venuelink; ?>" title="<?php echo $item->fullvenue; ?>"><?php echo $item->venue; ?></a></span>
+        <span class="eventVenue">
+          <a href="<?php echo $item->venuelink; ?>" <?php if (!($item->fullvenue === $item->venue)) : ?>title="<?php echo $item->fullvenue; ?>"<?php endif; ?>><?php echo $item->venue; ?></a>
+        </span>
         <?php else : ?>
         <span class="eventVenue"><?php echo $item->venue; ?></span>
         <?php endif; ?>
