@@ -97,7 +97,7 @@ $document->addScriptDeclaration("
 			<!-- RSS feed icon -->
 			<div class="k2FeedIcon">
 				<a href="<?php echo $this->feed; ?>" title="<?php echo JText::_('K2_SUBSCRIBE_TO_THIS_RSS_FEED'); ?>">
-					<i class="fa fa-rss"></i>
+					<span><?php echo JText::_('K2_SUBSCRIBE_TO_THIS_RSS_FEED'); ?></span>
 				</a>
 				<div class="clr"></div>
 			</div>
