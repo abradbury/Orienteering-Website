@@ -742,7 +742,7 @@ $document->addScriptDeclaration("
 	    <div class="modal-content">
 	      <div class="modal-header">
 	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-	        <h4 class="modal-title" id="editModalLabel">Edit Item</h4>
+	        <h1 class="modal-title" id="editModalLabel"><?php echo ucwords(JText::_('K2_EDIT_ITEM')); ?></h1>
 	      </div>
 	      <div class="modal-body">
 	      	<div class="text-center" id="loadingModal">
