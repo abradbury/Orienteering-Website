@@ -45,6 +45,8 @@ footer a{color:#FFD300;}
 footer a:hover, footer a:focus {color:#d4af00;}
 .footerHeader{color: #DDD;}
 .footerBody{height:auto;background-color:#333;}
+object.footerLogo{pointer-events:none;cursor:pointer;}
+.footerSponsors{display:flex;align-items:center;}
 .finalFooterRow{margin-bottom:40px;}
 .inner-events{background-color:#FAFAFA;margin:10px 0;padding:5px 10px;-webkit-box-shadow:2px 2px 2px 0px #ccc;-moz-box-shadow:2px 2px 2px 0px #ccc;box-shadow:2px 2px 2px 0px #ccc;}
 .eventsHeader > *{margin:10px 0;display:inline-block;}

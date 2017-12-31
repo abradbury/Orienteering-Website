@@ -16,6 +16,20 @@ jQuery("#login-form input").keypress(function(event) {
     }
 });
 
+// jQuery(window).on("load", function() {
+  // jQuery('#swl').hover(
+  //   function() {
+  //     console.log(this);
+  //     console.log(jQuery(this).find("g"));
+  //     console.log(this.childNodes);
+  //     console.log(jQuery(this).find("object"));
+  //     console.log(jQuery(this).find("object").innerHTML);
+  //     jQuery(this).find("g").removeClass("swlg");
+  //   }, function() {
+  //     jQuery(this).find("g").removeClass("swlg");
+  // });
+// });
+
 jQuery(document).ready(function() {
   "use strict";
   // Add HTML content for image caption
@@ -30,6 +44,30 @@ jQuery(document).ready(function() {
     var banner = jQuery(this);
     banner.css('background-image', 'url(' + banner.attr('data-img-name') + ')');
   });
+
+  // Hover effect on sponsor logo
+  function footerHover(elementID) {
+    var svgObject = document.getElementById(elementID + "o");
+    var svgParent = document.getElementById(elementID);
+
+    // How to access SVG innards via JS: https://stackoverflow.com/a/6794343/1433614
+    // jQuery bug in add/remove class functions on SVGs: https://stackoverflow.com/a/10257755/1433614
+    svgObject.addEventListener("load",function(){
+        var svgDoc = svgObject.contentDocument; 
+        var svgRoot = svgDoc.documentElement;
+
+        jQuery(svgParent).on("focusin mouseenter", function() {
+          jQuery("g", svgRoot).attr("class", "");
+        })
+
+        jQuery(svgParent).on("focusout mouseleave", function() {
+          jQuery("g", svgRoot).attr("class", "sponsorLogo");
+        })
+    },false);
+  }
+
+  footerHover("swl");
+  footerHover("acl");
 });
 
 

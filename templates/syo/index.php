@@ -38,7 +38,7 @@ $doc->setGenerator('');
 
 // Add CSS
 $doc->addStyleSheet($this->baseurl.'/templates/'.$this->template.'/css/bootstrap.min.css');
-$doc->addStyleSheet($this->baseurl.'/templates/'.$this->template.'/css/template.css?v=26');
+$doc->addStyleSheet($this->baseurl.'/templates/'.$this->template.'/css/template.css?v=27');
 $doc->addStyleSheet($this->baseurl.'/templates/'.$this->template.'/css/font-awesome.min.css');
 
 // Add favicon stuff
@@ -229,12 +229,20 @@ $doc->addCustomTag('<!--[if lt IE 9]><script src="https://oss.maxcdn.com/html5sh
           <div class="row">
             <div class="col-sm-6">
               <h3 class="footerHeader">Sponsors</h3>
-              <div class="row">
-                <div class="col-xs-6">
-                  <a class="no-external-link-icon" href="http://www.accelerateuk.com/"><img class="img-responsive footerLogo noCaption" src="<?php echo $this->baseurl.'/templates/'.$this->template ?>/images/accelerate.gif" alt="Accelerate Logo"></a>
+              <div class="row footerSponsors">
+                <div id="acl" class="col-xs-6">
+                  <a class="no-external-link-icon" title="Visit the website of our sponsor, Accelerate" href="http://www.accelerateuk.com/">
+                    <object id="aclo" class="img-responsive footerLogo" type="image/svg+xml" data="<?php echo $this->baseurl.'/templates/'.$this->template ?>/svg/accelerate.svg">
+                      Your browser does not support SVGs
+                    </object>
+                  </a>
                 </div>
-                <div class="col-xs-6">
-                  <a class="no-external-link-icon" href="http://www.smartwool.com/"><img class="img-responsive footerLogo noCaption" src="<?php echo $this->baseurl.'/templates/'.$this->template ?>/images/smartwool.gif" alt="Smartwool Logo"></a>
+                <div id="swl" class="col-xs-6">
+                  <a class="no-external-link-icon" title="Visit the website of our sponsor, Smartwool" href="https://www.smartwool.com/">
+                    <object id="swlo" class="img-responsive footerLogo" type="image/svg+xml" data="<?php echo $this->baseurl.'/templates/'.$this->template ?>/svg/smartwool.svg">
+                      Your browser does not support SVGs
+                    </object>
+                  </a>
                 </div>
               </div>
             </div>
