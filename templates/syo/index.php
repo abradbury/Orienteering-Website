@@ -38,7 +38,7 @@ $doc->setGenerator('');
 
 // Add CSS
 $doc->addStyleSheet($this->baseurl.'/templates/'.$this->template.'/css/bootstrap.min.css');
-$doc->addStyleSheet($this->baseurl.'/templates/'.$this->template.'/css/template.css?v=27');
+$doc->addStyleSheet($this->baseurl.'/templates/'.$this->template.'/css/template.css?v=28');
 $doc->addStyleSheet($this->baseurl.'/templates/'.$this->template.'/css/font-awesome.min.css');
 
 // Add favicon stuff
@@ -101,7 +101,7 @@ $doc->addCustomTag('<!--[if lt IE 9]><script src="https://oss.maxcdn.com/html5sh
 
             <nav class="row" id="mainNav">
               <div class="col-xs-12 col-sm-6 col-md-4">
-                <a id="mainNavLogo" href="<?php echo $this->baseurl; ?>">
+                <a class="mainNavLogo" href="<?php echo $this->baseurl; ?>">
                   <object type="image/svg+xml" data="<?php echo $this->baseurl.'/templates/'.$this->template ?>/images/syo_logo_and_text_crop.svg">
                     Your browser does not support SVGs
                   </object>
@@ -231,14 +231,14 @@ $doc->addCustomTag('<!--[if lt IE 9]><script src="https://oss.maxcdn.com/html5sh
               <h3 class="footerHeader">Sponsors</h3>
               <div class="row footerSponsors">
                 <div id="acl" class="col-xs-6">
-                  <a class="no-external-link-icon" title="Visit the website of our sponsor, Accelerate" href="http://www.accelerateuk.com/">
+                  <a class="mainNavLogo no-external-link-icon" title="Visit the website of our sponsor, Accelerate" href="http://www.accelerateuk.com/">
                     <object id="aclo" class="img-responsive footerLogo" type="image/svg+xml" data="<?php echo $this->baseurl.'/templates/'.$this->template ?>/svg/accelerate.svg">
                       Your browser does not support SVGs
                     </object>
                   </a>
                 </div>
                 <div id="swl" class="col-xs-6">
-                  <a class="no-external-link-icon" title="Visit the website of our sponsor, Smartwool" href="https://www.smartwool.com/">
+                  <a class="mainNavLogo no-external-link-icon" title="Visit the website of our sponsor, Smartwool" href="https://www.smartwool.com/">
                     <object id="swlo" class="img-responsive footerLogo" type="image/svg+xml" data="<?php echo $this->baseurl.'/templates/'.$this->template ?>/svg/smartwool.svg">
                       Your browser does not support SVGs
                     </object>

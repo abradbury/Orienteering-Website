@@ -7,8 +7,8 @@ div#navWrapper{position: relative;}
 #mainNavLinks li{display:inline;}
 .row#mainNav {display:flex;align-items:center;}
 #mainNav ul li a{white-space:nowrap;}
-a#mainNavLogo{position:relative;display:inline-block;}
-a#mainNavLogo:after{content:"";position:absolute;top:0;right:0;bottom:0;left:0;}
+a.mainNavLogo{position:relative;display:inline-block;}
+a.mainNavLogo:after{content:"";position:absolute;top:0;right:0;bottom:0;left:0;}
 #mainNavLinks li a{line-height:35px;}
 #mainNavLinks > li > a{font-size:1em;text-transform:uppercase;padding:5px 10px;}
 #mainNavLinks > li > a:focus,
@@ -126,7 +126,7 @@ a[href $='.pdf']:after{font-family:FontAwesome;content:" \f1c1";}
 a[href $='.doc']:after, a[href $='.docx']:after{font-family:FontAwesome;content:" \f1c2";}
 a[href $='.xls']:after, a[href $='.xlsx']:after{font-family:FontAwesome;content:" \f1c3";}
 a[href $='.txt']:after, a[href $='.rtf']:after{font-family:FontAwesome;content:" \f0f6";}
-a[href*="//"]:not([href*="southyorkshireorienteers.org.uk"]):not([class="no-external-link-icon"]):after{/* From: https://codepen.io/simevidas/pen/MKdmeV */content:'(external link)';display:inline-block;width:1em;height:1em;text-indent:1em;white-space:nowrap;overflow:hidden;background-image:url("../svg/externalLink.svg");background-repeat:no-repeat;background-size:1em;}
+a[href*="//"]:not([href*="southyorkshireorienteers.org.uk"]):not([class~="no-external-link-icon"]):after{/* From: https://codepen.io/simevidas/pen/MKdmeV */content:'(external link)';display:inline-block;width:1em;height:1em;text-indent:1em;white-space:nowrap;overflow:hidden;background-image:url("../svg/externalLink.svg");background-repeat:no-repeat;background-size:1em;}
 .firstEventPanel{margin-top:69px;}
 ul.eventPanel > li{margin-bottom:5px;}
 .count {color: #000;font-weight: bold;}
