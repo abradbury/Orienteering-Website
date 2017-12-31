@@ -16,20 +16,6 @@ jQuery("#login-form input").keypress(function(event) {
     }
 });
 
-// jQuery(window).on("load", function() {
-  // jQuery('#swl').hover(
-  //   function() {
-  //     console.log(this);
-  //     console.log(jQuery(this).find("g"));
-  //     console.log(this.childNodes);
-  //     console.log(jQuery(this).find("object"));
-  //     console.log(jQuery(this).find("object").innerHTML);
-  //     jQuery(this).find("g").removeClass("swlg");
-  //   }, function() {
-  //     jQuery(this).find("g").removeClass("swlg");
-  // });
-// });
-
 jQuery(document).ready(function() {
   "use strict";
   // Add HTML content for image caption

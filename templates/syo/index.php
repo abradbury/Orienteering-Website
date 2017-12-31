@@ -261,6 +261,6 @@ $doc->addCustomTag('<!--[if lt IE 9]><script src="https://oss.maxcdn.com/html5sh
         </div>
       </div>
     </footer>
-    <script src="<?php echo ($this->baseurl.'/templates/'.$this->template); ?>/js/syo.js"></script>
+    <script src="<?php echo ($this->baseurl.'/templates/'.$this->template); ?>/js/syo.js?v=4"></script>
   </body>
 </html>
