@@ -22,31 +22,33 @@
 
 <div class="row">
     <?php if ($public) { ?>
-        <div class="col-xs-12">
+        <div class="col-lg-12">
             <p>You are not logged in. To see more options, please log in using the log in form available from the user icon in the top-right of the page. If you do not have an account, and believe you should do, please contact the website administrator using our <a href="/contact">contact form</a>.</p>
         </div>
     <?php } else { ?>
-        <div class="col-xs-12">
+        <div class="col-lg-12">
             <p>This page provides a starting point to all the benefits of having an SYO website account. Account holders are generally able to add new news articles and orienteering events to the website, in addition to modifying existing articles and events. Users are also able to view club documentation, which is useful when organising events. If you have any questions regarding the SYO website and how to use it, please don't hesitate to contact the website administrator using our <a href="/contact">contact form</a>.</p>
         </div>
 
         <div class="col-sm-6">
             <div class="inner-events">
                 <h2>Events</h2>
-                <?php if ($canEditEvent) { ?>
-                    <p>You are able to edit all SYO events and venues. To do so, navigate to the event or venue you wish to edit using the site's navigation and click the edit button on the event's or venue's page.</p>
-                <?php } else if ($canEditOwnEvent) { ?>
-                    <p>You are able to edit only those events or venues that you have created. <a href="/index.php?option=com_jem&amp;view=myevents">View a list of events that you have created</a> or <a href="/index.php?option=com_jem&amp;view=myvenues">view a list of venues that you have created</a>.</p>
-                    <p>If you wish to edit an event or venue that you did not create, please contact the <a href="/about-syo/syo-officials">Fixtures Secretary</a> through our <a href="/contact">contact form</a>. If you believe you should be able to edit events or venues you did not create, please contact the website administrator through the same form.</p> 
-                <?php } if ($canCreateEvent) { ?>
-                    <p>You are able to create new events or venues using the buttons below:</p>
-                    <a href="index.php?option=com_jem&amp;view=editevent&amp;layout=edit&amp;Itemid=81" class="btn btn-primary btn-block">Add new event...</a>
-                    <a href="index.php?option=com_jem&amp;view=editvenue&amp;layout=edit&amp;Itemid=547" class="btn btn-primary btn-block">Add new venue...</a>
-                    <p> </p>
-                <?php } else { ?>
-                    <p>You are not able to create new SYO events or venues. If you wish to create a new event or venue, please contact the <a href="/about-syo/syo-officials">Fixtures Secretary</a> through our <a href="/contact">contact form</a>. If you believe you should be able to create new events or venues, please contact the website administrator through the same form.</p>
-                <?php } if (!($canCreateEvent || $canDeleteEvent || $canEditEvent || $canEditOwnEvent)) { ?>
+                <?php if (!($canCreateEvent || $canDeleteEvent || $canEditEvent || $canEditOwnEvent)) { ?>
                     <p>You are not able to create, edit or manage events. If you think you should be able to, please <a href="/contact">contact the website administrator</a>. 
+                <?php } else { ?>
+                    <?php if ($canEditEvent) { ?>
+                        <p>You are able to edit all SYO events and venues. To do so, navigate to the event or venue you wish to edit using the site's navigation and click the edit button on the event's or venue's page.</p>
+                    <?php } else if ($canEditOwnEvent) { ?>
+                        <p>You are able to edit only those events or venues that you have created. <a href="/index.php?option=com_jem&amp;view=myevents">View a list of events that you have created</a> or <a href="/index.php?option=com_jem&amp;view=myvenues">view a list of venues that you have created</a>.</p>
+                        <p>If you wish to edit an event or venue that you did not create, please contact the <a href="/about-syo/syo-officials">Fixtures Secretary</a> through our <a href="/contact">contact form</a>. If you believe you should be able to edit events or venues you did not create, please contact the website administrator through the same form.</p> 
+                    <?php } if ($canCreateEvent) { ?>
+                        <p>You are able to create new events or venues using the buttons below:</p>
+                        <a href="index.php?option=com_jem&amp;view=editevent&amp;layout=edit&amp;Itemid=81" class="btn btn-primary btn-block">Add new event...</a>
+                        <a href="index.php?option=com_jem&amp;view=editvenue&amp;layout=edit&amp;Itemid=547" class="btn btn-primary btn-block">Add new venue...</a>
+                        <p> </p>
+                    <?php } else { ?>
+                        <p>You are not able to create new SYO events or venues. If you wish to create a new event or venue, please contact the <a href="/about-syo/syo-officials">Fixtures Secretary</a> through our <a href="/contact">contact form</a>. If you believe you should be able to create new events or venues, please contact the website administrator through the same form.</p>
+                    <?php } ?>
                 <?php } ?>
             </div>          
         </div>
@@ -56,17 +58,19 @@
                 <h2>Articles</h2>
                 <p>Some members are able to create and publish articles on the SYO website. Commonly, these are news articles about club achievements and are featured prominently on the SYO homepage. To ensure an article is shown on the homepage, make sure the 'featured' option is selected.</p>
 
-                <?php if ($canEditArticle) { ?>
-                    <p>You are able to edit all articles on the SYO website. To do so, navigate to the article you wish to edit using the site's navigation and click the edit button next to the article's title.</p>
-                <?php } else if ($canEditOwnArticle) { ?>
-                    <p>You are able to edit only those articles that you have created. If you believe you should be able to edit articles you did not create, please contact the website administrator using our <a href="/contact">contact form</a>.</p> 
-                <?php } if ($canCreateArticle) { ?>
-                    <p>You are able to create new articles on the SYO website using the button below:</p>
-                    <a href="index.php?option=com_k2&amp;view=item&amp;layout=itemform&amp;task=add&amp;Itemid=66" class="openExampleModal btn btn-primary btn-block">Add new article...</a>
-                <?php } else { ?>
-                    <p>You are not able to create new articles for the SYO website. If you believe you should be able to create new articles, please contact the website administrator using our <a href="/contact">contact form</a>.</p> 
-                <?php } if (!($canCreateEvent || $canDeleteEvent || $canEditEvent || $canEditOwnEvent)) { ?>
+                <?php if (!($canCreateArticle || $canDeleteArticle || $canEditArticle || $canEditOwnArticle)) { ?>
                     <p>You are not able to create, edit or manage articles on the SYO website. If you think you should be able to, please <a href="/contact">contact the website administrator</a>. 
+                <?php } else { ?>                
+                    <?php if ($canEditArticle) { ?>
+                        <p>You are able to edit all articles on the SYO website. To do so, navigate to the article you wish to edit using the site's navigation and click the edit button next to the article's title.</p>
+                    <?php } else if ($canEditOwnArticle) { ?>
+                        <p>You are able to edit only those articles that you have created. If you believe you should be able to edit articles you did not create, please contact the website administrator using our <a href="/contact">contact form</a>.</p> 
+                    <?php } if ($canCreateArticle) { ?>
+                        <p>You are able to create new articles on the SYO website using the button below:</p>
+                        <a href="index.php?option=com_k2&amp;view=item&amp;layout=itemform&amp;task=add&amp;Itemid=66" class="openExampleModal btn btn-primary btn-block">Add new article...</a>
+                    <?php } else { ?>
+                        <p>You are not able to create new articles for the SYO website. If you believe you should be able to create new articles, please contact the website administrator using our <a href="/contact">contact form</a>.</p> 
+                    <?php } ?>
                 <?php } ?>
             </div>
         </div>
