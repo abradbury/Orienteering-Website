@@ -100,7 +100,7 @@ $doc->addCustomTag('<!--[if lt IE 9]><script src="https://oss.maxcdn.com/html5sh
             </nav>
 
             <nav class="row" id="mainNav">
-              <div class="col-xs-12 col-sm-6 col-md-4">
+              <div class="col-xs-12 col-sm-5 col-md-6 col-lg-4">
                 <a class="mainNavLogo" href="<?php echo $this->baseurl; ?>">
                   <object type="image/svg+xml" data="<?php echo $this->baseurl.'/templates/'.$this->template ?>/images/syo_logo_and_text_crop.svg">
                     Your browser does not support SVGs
@@ -108,7 +108,7 @@ $doc->addCustomTag('<!--[if lt IE 9]><script src="https://oss.maxcdn.com/html5sh
                 </a>
               </div>
 
-              <div class="col-xs-12 col-sm-6 col-md-8">
+              <div class="col-xs-12 col-sm-7 col-md-6 col-lg-8">
                 <jdoc:include type="modules" name="menu" />
               </div>
             </nav>
