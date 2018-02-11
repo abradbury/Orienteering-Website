@@ -16,25 +16,32 @@ $images  = json_decode($this->item->datimage);
 $attribs = json_decode($this->item->attribs);
 $user    = JemFactory::getUser();
 
+$btn_params = array('slug' => $this->item->slug, 'print_link' => $this->print_link);
+
 JHtml::_('behavior.modal', 'a.flyermodal');
 ?>
 <?php if ($params->get('access-view')) { /* This will show nothings otherwise - ??? */ ?>
 <div id="jem" class="row event_id<?php echo $this->item->did; ?> jem_event<?php echo $this->pageclass_sfx;?>" itemscope="itemscope" itemtype="http://schema.org/SportsEvent">
-	<div class="buttons">
-		<?php
-		$btn_params = array('slug' => $this->item->slug, 'print_link' => $this->print_link);
-		echo JemOutput::createButtonBar($this->getName(), $this->permissions, $btn_params);
-		?>
-	</div>
 
 	<div class="clr"> </div>
 
 	<div class="col-sm-9">
 		<?php if ($this->params->get('show_page_heading', 1)) : ?>
-			<h1>
-				<span itemprop="name"><?php echo $this->escape($this->params->get('page_heading')); ?></span>
-				<?php echo JemOutput::editbutton($this->item, $params, $attribs, $this->permissions->canEditEvent, 'editevent'); ?>
-			</h1>
+			<div class="row">
+				<div class="col-sm-8">
+					<h1>
+						<span itemprop="name"><?php echo $this->escape($this->params->get('page_heading')); ?></span>
+						<?php echo JemOutput::editbutton($this->item, $params, $attribs, $this->permissions->canEditEvent, 'editevent'); ?>
+					</h1>
+				</div>
+				<div class="col-sm-4 buttons">
+					<?php echo str_replace('class=" hasTooltip"', 'class="btn btn-primary btn-block pull-right" role="button"', JemOutput::createButtonBar($this->getName(), $this->permissions, $btn_params)); ?>
+				</div>
+			</div>
+		<?php else : ?>
+			<div class="buttons">
+				<?php echo str_replace('class=" hasTooltip"', 'class="btn btn-primary btn-block pull-right" role="button"', JemOutput::createButtonBar($this->getName(), $this->permissions, $btn_params)); ?>
+			</div>
 		<?php endif; ?>
 		
 		<div class="clr"> </div>

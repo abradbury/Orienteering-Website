@@ -11,18 +11,20 @@ defined('_JEXEC') or die;
 $document = JFactory::getDocument();
 ?>
 <div id="jem" class="jem_eventslist<?php echo $this->pageclass_sfx;?>">
-	<div class="buttons">
-		<?php
-			echo JemOutput::submitbutton($this->dellink, $this->params);
-			echo JemOutput::archivebutton($this->params, $this->task);
-			echo JemOutput::printbutton($this->print_link, $this->params);
-		?>
-	</div>
 
 	<?php if ($this->params->get('show_page_heading', 1)) : ?>
-		<h1>
-			<?php echo $this->escape($this->params->get('page_heading')); ?>
-		</h1>
+		<div class="row">
+			<div class="col-sm-8">
+				<h1><?php echo $this->escape($this->params->get('page_heading')); ?></h1>
+			</div>
+			<div class="col-sm-4 buttons">
+				<?php echo str_replace('class=" hasTooltip"', 'class="btn btn-primary btn-block pull-right" role="button"', JemOutput::submitbutton($this->dellink, $this->params)); ?>
+			</div>
+		</div>
+	<?php else : ?>
+		<div class="buttons">
+			<?php echo str_replace('class=" hasTooltip"', 'class="btn btn-primary btn-block pull-right" role="button"', JemOutput::submitbutton($this->dellink, $this->params)); ?>
+		</div>
 	<?php endif; ?>
 
 	<?php if ($document->countModules( 'right_mobile' )):

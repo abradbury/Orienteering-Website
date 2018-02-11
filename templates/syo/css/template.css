@@ -66,6 +66,8 @@ p.eventSubtitle{font-size:1.2em;color:#777;}
 p.eventSubtitle span{font-weight:bold;color:#333;}
 span.icon-calendar:after{font-family:FontAwesome;content:'\f133';}
 table.eventtable{margin-top:20px;}
+div#jem div.buttons {margin-top: 20px; margin-bottom: 10px;}
+div#jem div#jem_filter div {margin-bottom: 0.5em;}
 div.jem_venue > div#map-canvas{border:none;}
 p.mapcaveat{color:#777;}
 .news{border-left:1px solid #DDD;}

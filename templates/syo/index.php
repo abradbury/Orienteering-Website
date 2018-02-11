@@ -38,7 +38,7 @@ $doc->setGenerator('');
 
 // Add CSS
 $doc->addStyleSheet($this->baseurl.'/templates/'.$this->template.'/css/bootstrap.min.css');
-$doc->addStyleSheet($this->baseurl.'/templates/'.$this->template.'/css/template.css?v=30');
+$doc->addStyleSheet($this->baseurl.'/templates/'.$this->template.'/css/template.css?v=31');
 $doc->addStyleSheet($this->baseurl.'/templates/'.$this->template.'/css/font-awesome.min.css');
 
 // Add favicon stuff

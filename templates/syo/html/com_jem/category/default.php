@@ -11,19 +11,17 @@ defined('_JEXEC') or die;
 JHtml::_('behavior.modal');
 ?>
 <div id="jem" class="jem_category<?php echo $this->pageclass_sfx;?>">
-	<div class="buttons">
-		<?php
-		echo JemOutput::submitbutton($this->dellink, $this->params);
-		echo JemOutput::archivebutton($this->params, $this->task, $this->category->slug);
-		echo JemOutput::mailbutton($this->category->slug, 'category', $this->params);
-		echo JemOutput::printbutton($this->print_link, $this->params);
-		?>
-	</div>
-
 	<?php if ($this->params->get('show_page_heading', 1)) : ?>
-	<h1>
-		<?php echo $this->escape($this->params->get('page_heading')); ?>
-	</h1>
+		<div class="row">
+			<div class="col-sm-8">
+				<h1><?php echo $this->escape($this->params->get('page_heading')); ?></h1>
+			</div>
+			<div class="col-sm-4 buttons">
+				<?php echo str_replace('class=" hasTooltip"', 'class="btn btn-primary btn-block pull-right" role="button"', JemOutput::submitbutton($this->dellink, $this->params)); ?>
+			</div>
+		</div>
+	<?php else : ?>
+		<?php echo str_replace('class=" hasTooltip"', 'class="btn btn-primary btn-block pull-right" role="button"', JemOutput::submitbutton($this->dellink, $this->params)); ?>
 	<?php endif; ?>
 
 	<div class="clr"></div>

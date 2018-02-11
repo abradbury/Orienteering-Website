@@ -10,18 +10,22 @@ defined('_JEXEC') or die;
 
 ?>
 <div id="jem" class="jem_venue<?php echo $this->pageclass_sfx;?>" itemscope="itemscope" itemtype="http://schema.org/Place">
-	<div class="buttons">
-		<?php
-		$btn_params = array('id' => $this->venue->slug, 'slug' => $this->venue->slug, 'task' => $this->task, 'print_link' => $this->print_link);
-		echo JemOutput::createButtonBar($this->getName(), $this->permissions, $btn_params);
-?>
-	</div>
 
 	<?php if ($this->params->get('show_page_heading', 1)) : ?>
-		<h1>
-			<span itemprop="name"><?php echo $this->escape($this->params->get('page_heading')); ?></span>
-			<?php echo JemOutput::editbutton($this->venue, $this->params, NULL, $this->permissions->canEditVenue, 'venue'); ?>
-		</h1>
+		<div class="row">
+			<div class="col-sm-8">
+				<h1>
+					<span itemprop="name"><?php echo $this->escape($this->params->get('page_heading')); ?></span>
+					<?php echo JemOutput::editbutton($this->venue, $this->params, NULL, $this->permissions->canEditVenue, 'venue'); ?>
+				</h1>
+			</div>
+			<div class="col-sm-4 buttons">
+				<?php
+				$btn_params = array('id' => $this->venue->slug, 'slug' => $this->venue->slug, 'task' => $this->task, 'print_link' => $this->print_link);
+				echo str_replace('class=" hasTooltip"', 'class="btn btn-primary pull-right btn-block" role="button"', JemOutput::createButtonBar($this->getName(), $this->permissions, $btn_params));
+				?>
+			</div>
+		</div>
 	<?php endif; ?>
 
 	<?php
