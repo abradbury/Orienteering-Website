@@ -125,10 +125,10 @@ ol.breadcrumb{border-radius:0;background-color:inherit;padding:0;margin:10px 0 0
 .alert-error{color:#a94442;background-color:#f2dede;border-color:#ebccd1;}
 .alert-error hr{border-top-color:#e4b9c0;}
 .alert-error .alert-link{color:#843534;}
-a[href $='.pdf']:after{font-family:FontAwesome;content:" \f1c1";}
-a[href $='.doc']:after, a[href $='.docx']:after{font-family:FontAwesome;content:" \f1c2";}
-a[href $='.xls']:after, a[href $='.xlsx']:after{font-family:FontAwesome;content:" \f1c3";}
-a[href $='.txt']:after, a[href $='.rtf']:after{font-family:FontAwesome;content:" \f0f6";}
+a[href $='.pdf']:not([class~="no-filetype-link-icon"]):after{font-family:FontAwesome;content:" \f1c1";}
+a[href $='.doc']:not([class~="no-filetype-link-icon"]):after, a[href $='.docx']:not([class~="no-filetype-link-icon"]):after{font-family:FontAwesome;content:" \f1c2";}
+a[href $='.xls']:not([class~="no-filetype-link-icon"]):after, a[href $='.xlsx']:not([class~="no-filetype-link-icon"]):after{font-family:FontAwesome;content:" \f1c3";}
+a[href $='.txt']:not([class~="no-filetype-link-icon"]):after, a[href $='.rtf']:not([class~="no-filetype-link-icon"]):after{font-family:FontAwesome;content:" \f0f6";}
 a[href*="//"]:not([href*="southyorkshireorienteers.org.uk"]):not([class~="no-external-link-icon"]):after{/* From: https://codepen.io/simevidas/pen/MKdmeV */content:'(external link)';display:inline-block;width:1em;height:1em;text-indent:1em;white-space:nowrap;overflow:hidden;background-image:url("../svg/externalLink.svg");background-repeat:no-repeat;background-size:1em;}
 ul.eventPanel > li{margin-bottom:5px;}
 .count {color: #000;font-weight: bold;}
