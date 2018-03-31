@@ -38,7 +38,7 @@ $doc->setGenerator('');
 
 // Add CSS
 $doc->addStyleSheet($this->baseurl.'/templates/'.$this->template.'/css/bootstrap.min.css?v=337');
-$doc->addStyleSheet($this->baseurl.'/templates/'.$this->template.'/css/template.min.css?v=34');
+$doc->addStyleSheet($this->baseurl.'/templates/'.$this->template.'/css/template.min.css?v=35');
 $doc->addStyleSheet($this->baseurl.'/templates/'.$this->template.'/css/font-awesome.min.css');
 
 // Add favicon stuff
@@ -87,15 +87,14 @@ $doc->addCustomTag('<!--[if lt IE 9]><script src="https://oss.maxcdn.com/html5sh
                     </a>
 
                     <div class="header-cell2">
-                      <button type="button" class="navbar-toggle collapsed header-cell3" data-toggle="collapse" data-target="#nav-collapse" aria-expanded="false">
+                      <button type="button" class="navbar-toggle collapsed header-cell3-button" data-toggle="collapse" data-target="#nav-collapse-mob" aria-expanded="false">
                         <span>Menu</span>
                       </button>
 
-                      <div class="collapse navbar-collapse header-cell3" id="nav-collapse">
-                        <jdoc:include type="modules" name="menu" />
-                        <!-- TODO: Drop-down menus -->
-                        <!-- TODO: Align header with 36px line height of logo -->
-                        <!-- TODO: Fix mobile nav regressions -->
+                      <div class="collapse navbar-collapse header-cell3-menu" id="nav-collapse">
+                          <jdoc:include type="modules" name="menu" />
+                          <!-- TODO: Drop-down menus -->
+                          <!-- TODO: Align header with 36px line height of logo -->
                       </div>
 
                       <ul class="nav social header-cell4">
@@ -112,6 +111,9 @@ $doc->addCustomTag('<!--[if lt IE 9]><script src="https://oss.maxcdn.com/html5sh
                         <?php endif; ?>
                       </ul>
                     </div>
+                  </div>
+                  <div class="collapse navbar-collapse header-cell3-menu" id="nav-collapse-mob">
+                      <jdoc:include type="modules" name="menu" />
                   </div>
                 </div>
               </div>
