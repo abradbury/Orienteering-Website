@@ -37,8 +37,8 @@ $doc->setMetadata('viewport', 'width=device-width, initial-scale=1.0');
 $doc->setGenerator('');
 
 // Add CSS
-$doc->addStyleSheet($this->baseurl.'/templates/'.$this->template.'/css/bootstrap.min.css');
-$doc->addStyleSheet($this->baseurl.'/templates/'.$this->template.'/css/template.css?v=32');
+$doc->addStyleSheet($this->baseurl.'/templates/'.$this->template.'/css/bootstrap.min.css?v=337');
+$doc->addStyleSheet($this->baseurl.'/templates/'.$this->template.'/css/template.css?v=33');
 $doc->addStyleSheet($this->baseurl.'/templates/'.$this->template.'/css/font-awesome.min.css');
 
 // Add favicon stuff
@@ -58,7 +58,7 @@ $doc->setMetadata('theme-color', 'content="#ffffff">');
 $doc->setMetadata('og:image', JURI::base().'templates/'.$this->template.'/images/header/'.$imageNames[$randIndex]);
 
 // Add JS
-$doc->addScript($this->baseurl.'/templates/'.$this->template.'/js/bootstrap.min.js');
+$doc->addScript($this->baseurl.'/templates/'.$this->template.'/js/bootstrap.min.js?v=337');
 
 // HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries
 $doc->addCustomTag('<!--[if lt IE 9]><script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script><script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->');
