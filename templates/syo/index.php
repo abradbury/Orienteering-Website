@@ -38,7 +38,7 @@ $doc->setGenerator('');
 
 // Add CSS
 $doc->addStyleSheet($this->baseurl.'/templates/'.$this->template.'/css/bootstrap.min.css?v=337');
-$doc->addStyleSheet($this->baseurl.'/templates/'.$this->template.'/css/template.css?v=33');
+$doc->addStyleSheet($this->baseurl.'/templates/'.$this->template.'/css/template.min.css?v=33');
 $doc->addStyleSheet($this->baseurl.'/templates/'.$this->template.'/css/font-awesome.min.css');
 
 // Add favicon stuff
@@ -76,43 +76,45 @@ $doc->addCustomTag('<!--[if lt IE 9]><script src="https://oss.maxcdn.com/html5sh
       <div class="container">
         <header>
           <div id="navWrapper">
-             <nav id="socialNav">
-              <ul class="nav social">
-                <?php 
-                $params = $this->params;
+            <nav class="navbar navbar-default">
+              <div class="container-fluid">
+                <div class="navbar-header">
+                  <div class="header-grid1">
+                    <a class="header-cell1 mainNavLogo" href="<?php echo $this->baseurl; ?>">
+                      <object type="image/svg+xml" data="<?php echo $this->baseurl.'/templates/'.$this->template ?>/svg/syo_logo_and_text_crop.svg">
+                        Your browser does not support SVGs
+                      </object>
+                    </a>
 
-                if ($params->get( 'facebookURL' )) {
-                  echo "<li><a class='no-external-link-icon' target='_blank' href='". $params->get( 'facebookURL' ) ."' title='View SYOs Facebook Page'><span class='sr-only'>View S.Y.Os Facebook Page</span><span class='fa my-fa-facebook' aria-hidden='true'></span></a></li>\n                  ";
-                }
-                if ($params->get( 'twitterURL' )) {
-                  echo "<li><a class='no-external-link-icon' target='_blank' href='". $params->get( 'twitterURL' ) ."' title='View SYOs Twitter Feed'><span class='sr-only'>View S.Y.Os Twitter Feed</span><span class='fa my-fa-twitter' aria-hidden='true'></span></a></li>\n                  ";
-                }
-                if ($params->get( 'flickrURL' )) {
-                  echo "<li><a class='no-external-link-icon' target='_blank' href='". $params->get( 'flickrURL' ) ."' title='View SYOs Flickr Photo Pool'><span class='sr-only'>View S.Y.Os Flickr Photo Pool</span><span class='fa my-fa-flickr' aria-hidden='true'></span></a></li>\n";
-                }
-                if ($this->countModules( 'logout' )): ?>
-                <li><span id="login-btn" class="fa fa-user" aria-hidden="true"></span></li>
-                <li><jdoc:include type="modules" name="logout" style="xhtml" /></li>
-                <?php else: ?>
-                <li><a id="login-btn" href="#" title="SYO Member Login" data-toggle="modal" data-target="#login"><span class="sr-only">S.Y.O Member Login</span><span class="fa fa-user" aria-hidden="true"></span></a></li>
-                <?php endif; ?>
-              </ul>
+                    <div class="header-cell2">
+                      <button type="button" class="navbar-toggle collapsed header-cell3" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                        <span>Menu</span>
+                      </button>
+
+                      <ul class="nav social header-cell4">
+                        <?php $params = $this->params; ?>
+                        <?php if ($params->get( 'facebookURL' )) { ?><li><a class='no-external-link-icon' target='_blank' href='<?php echo $params->get('facebookURL'); ?>' title="View SYO's Facebook Page"><span class='sr-only'>View S.Y.O's Facebook Page</span><span class='fa my-fa-facebook' aria-hidden='true'></span></a></li><?php } ?>
+                        <?php if ($params->get( 'twitterURL' )) {  ?><li><a class='no-external-link-icon' target='_blank' href='<?php echo $params->get('twitterURL');  ?>' title="View SYO's Twitter Feed"><span class='sr-only'>View S.Y.O's Twitter Feed</span><span class='fa my-fa-twitter' aria-hidden='true'></span></a></li><?php } ?>
+                        <?php if ($params->get( 'flickrURL' )) {   ?><li><a class='no-external-link-icon' target='_blank' href='<?php echo $params->get('flickrURL');   ?>' title="View SYO's Flickr Photo Pool"><span class='sr-only'>View S.Y.O's Flickr Photo Pool</span><span class='fa my-fa-flickr' aria-hidden='true'></span></a></li><?php } ?>
+
+                        <?php if ($this->countModules( 'logout' )): ?>
+                        <li><span id="login-btn" class="fa fa-user" aria-hidden="true"></span></li>
+                        <li><jdoc:include type="modules" name="logout" style="xhtml" /></li>
+                        <?php else: ?>
+                        <li><a id="login-btn" href="#" title="SYO Member Login" data-toggle="modal" data-target="#login"><span class="sr-only">S.Y.O Member Login</span><span class="fa fa-user" aria-hidden="true"></span></a></li>
+                        <?php endif; ?>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                  <jdoc:include type="modules" name="menu" />
+                  <!-- TODO: Drop-down menus -->
+                </div><!-- /.navbar-collapse -->
+              </div><!-- /.container-fluid -->
             </nav>
-
-            <nav class="row" id="mainNav">
-              <div class="col-xs-12 col-sm-5 col-md-6 col-lg-4">
-                <a class="mainNavLogo" href="<?php echo $this->baseurl; ?>">
-                  <object type="image/svg+xml" data="<?php echo $this->baseurl.'/templates/'.$this->template ?>/images/syo_logo_and_text_crop.svg">
-                    Your browser does not support SVGs
-                  </object>
-                </a>
-              </div>
-
-              <div class="col-xs-12 col-sm-7 col-md-6 col-lg-8">
-                <jdoc:include type="modules" name="menu" />
-              </div>
-            </nav>
-          </div>
+          </div> <!-- /#navWrapper -->
 
           <div class="row">
             <div class="col-sm-12 hidden-xs">
