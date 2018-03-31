@@ -38,7 +38,7 @@ $doc->setGenerator('');
 
 // Add CSS
 $doc->addStyleSheet($this->baseurl.'/templates/'.$this->template.'/css/bootstrap.min.css?v=337');
-$doc->addStyleSheet($this->baseurl.'/templates/'.$this->template.'/css/template.min.css?v=33');
+$doc->addStyleSheet($this->baseurl.'/templates/'.$this->template.'/css/template.min.css?v=34');
 $doc->addStyleSheet($this->baseurl.'/templates/'.$this->template.'/css/font-awesome.min.css');
 
 // Add favicon stuff
@@ -87,9 +87,16 @@ $doc->addCustomTag('<!--[if lt IE 9]><script src="https://oss.maxcdn.com/html5sh
                     </a>
 
                     <div class="header-cell2">
-                      <button type="button" class="navbar-toggle collapsed header-cell3" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                      <button type="button" class="navbar-toggle collapsed header-cell3" data-toggle="collapse" data-target="#nav-collapse" aria-expanded="false">
                         <span>Menu</span>
                       </button>
+
+                      <div class="collapse navbar-collapse header-cell3" id="nav-collapse">
+                        <jdoc:include type="modules" name="menu" />
+                        <!-- TODO: Drop-down menus -->
+                        <!-- TODO: Align header with 36px line height of logo -->
+                        <!-- TODO: Fix mobile nav regressions -->
+                      </div>
 
                       <ul class="nav social header-cell4">
                         <?php $params = $this->params; ?>
@@ -107,14 +114,9 @@ $doc->addCustomTag('<!--[if lt IE 9]><script src="https://oss.maxcdn.com/html5sh
                     </div>
                   </div>
                 </div>
-
-                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                  <jdoc:include type="modules" name="menu" />
-                  <!-- TODO: Drop-down menus -->
-                </div><!-- /.navbar-collapse -->
-              </div><!-- /.container-fluid -->
+              </div>
             </nav>
-          </div> <!-- /#navWrapper -->
+          </div>
 
           <div class="row">
             <div class="col-sm-12 hidden-xs">
