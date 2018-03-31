@@ -123,6 +123,9 @@
      flex-grow: 1;
      width: 90px;
 }
+.header-cell4 {
+    flex-grow: 1;
+}
  .navbar-default .navbar-toggle {
      padding: 4px 0px;
      margin: 0;
@@ -140,12 +143,14 @@
  @media (min-width: 480px) {
      .header-grid1 {
          margin-bottom: 10px;
+         align-items: inherit;
     }
      .header-cell2 {
          flex-flow: column-reverse;
          align-items: flex-end;
          width: initial;
          margin: 0;
+         align-self: inherit;
     }
      .header-cell3 {
          align-self: flex-end;
@@ -165,6 +170,9 @@
     }
     .header-cell3 {
         padding-top: 10px;
+    }
+    .header-cell4 {
+        flex-grow: inherit;
     }
     .header-cell2 {
         justify-content: flex-end;
