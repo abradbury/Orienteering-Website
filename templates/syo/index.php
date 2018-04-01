@@ -42,17 +42,16 @@ $doc->addStyleSheet($this->baseurl.'/templates/'.$this->template.'/css/template.
 $doc->addStyleSheet($this->baseurl.'/templates/'.$this->template.'/css/font-awesome.min.css');
 
 // Add favicon stuff
-$doc->addCustomTag('<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=lkgazBwG6d">');
-$doc->addCustomTag('<link rel="icon" type="image/png" href="/favicon-32x32.png?v=lkgazBwG6d" sizes="32x32">');
-$doc->addCustomTag('<link rel="icon" type="image/png" href="/favicon-16x16.png?v=lkgazBwG6d" sizes="16x16">');
-$doc->addCustomTag('<link rel="manifest" href="/manifest.json?v=lkgazBwG6d">');
-$doc->addCustomTag('<link rel="mask-icon" href="/safari-pinned-tab.svg?v=lkgazBwG6d" color="#5bbad5">');
-$doc->addCustomTag('<link rel="shortcut icon" href="/favicon.ico?v=lkgazBwG6d">');
-$doc->setMetadata('apple-mobile-web-app-title', 'content="SYO">');
+$doc->addCustomTag('<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=sa5YTVdDS">');
+$doc->addCustomTag('<link rel="icon" type="image/png" href="/favicon-32x32.png?v=sa5YTVdDS" sizes="32x32">');
+$doc->addCustomTag('<link rel="icon" type="image/png" href="/favicon-16x16.png?v=sa5YTVdDS" sizes="16x16">');
+$doc->addCustomTag('<link rel="manifest" href="/site.webmanifest">');
+$doc->addCustomTag('<link rel="mask-icon" href="/safari-pinned-tab.svg?v=sa5YTVdDS" color="#5bbad5">');
 $doc->setMetadata('application-name', 'content="SYO">');
 $doc->setMetadata('msapplication-TileColor', 'content="#ffc40d">');
-$doc->setMetadata('msapplication-TileImage', 'content="/mstile-144x144.png?v=lkgazBwG6d">');
+$doc->setMetadata('msapplication-TileImage', 'content="/mstile-144x144.png?v=sa5YTVdDS">');
 $doc->setMetadata('theme-color', 'content="#ffffff">');
+$doc->setMetadata("apple-mobile-web-app-title", "content='SYO'>");
 
 // Add open graph details
 $doc->setMetadata('og:image', JURI::base().'templates/'.$this->template.'/images/header/'.$imageNames[$randIndex]);
@@ -81,7 +80,7 @@ $doc->addCustomTag('<!--[if lt IE 9]><script src="https://oss.maxcdn.com/html5sh
                 <div class="navbar-header">
                   <div class="header-grid1">
                     <a class="header-cell1 mainNavLogo" href="<?php echo $this->baseurl; ?>">
-                      <object type="image/svg+xml" data="<?php echo $this->baseurl.'/templates/'.$this->template ?>/svg/syo_logo_and_text_crop.svg">
+                      <object type="image/svg+xml" data="<?php echo $this->baseurl.'/templates/'.$this->template ?>/svg/syo_logo_and_text_crop.svg?v=4">
                         Your browser does not support SVGs
                       </object>
                     </a>
