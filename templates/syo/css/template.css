@@ -1,8 +1,11 @@
 /* Minify using https://cssminifier.com */
 @font-face {
     font-family: 'Mosk Bold 700';
-    src: url('../fonts/Mosk_Bold_700.eot');
-    src: url('../fonts/Mosk_Bold_700.eot?#iefix') format('embedded-opentype'),url('../fonts/Mosk_Bold_700.woff2') format('woff2'),url('../fonts/Mosk_Bold_700.woff') format('woff'),url('../fonts/Mosk_Bold_700.ttf') format('truetype');
+    src: url('../fonts/Mosk_Bold_700.eot'); /* IE9 Compat Modes */
+    src: url('../fonts/Mosk_Bold_700.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+         url('../fonts/Mosk_Bold_700.woff2') format('woff2'), /* Super Modern Browsers */
+         url('../fonts/Mosk_Bold_700.woff') format('woff'), /* Pretty Modern Browsers */
+         url('../fonts/Mosk_Bold_700.ttf')  format('truetype'); /* Safari, Android, iOS */
 }
  h1, h2, h3, h4, h5, h1 > span, h2[style], legend{
     font-family:'Mosk Bold 700', sans-serif !important;
