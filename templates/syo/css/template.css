@@ -83,12 +83,13 @@
     }
 }
  #nav-collapse ul li a, #nav-collapse ul li span,
- #nav-collapse-mob ul li a, #nav-collapse-mob ul li span{
+ #nav-collapse-mob ul li a, #nav-collapse-mob ul li span, 
+ #login-form span {
     color:#777
 }
 #nav-collapse ul li a:hover, #nav-collapse ul li span:hover, #nav-collapse ul li a:focus, #nav-collapse ul li span:focus,
 #nav-collapse-mob ul li a:hover, #nav-collapse-mob ul li span:hover, #nav-collapse-mob ul li a:focus, #nav-collapse-mob ul li span:focus{
-        color:#333;
+    color:#333;
     background-color:initial;
     text-decoration:none;
 }
@@ -108,6 +109,8 @@
 }
  #login-btn{
     border-left:1px solid;
+    padding: 8px 3px 8px 11px;
+    color: #777;
 }
  .navbar-brand > span, ul.social li, ul.social li *, div ul.social li.login-text div form span{
     display:-webkit-inline-box;
