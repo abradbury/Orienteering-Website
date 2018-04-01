@@ -56,7 +56,7 @@ foreach ($list as $i => &$item)
 
 	if ($item->deeper)
 	{
-		$class .= ' deeper';
+		$class .= ' dropdown';
 	}
 
 	if ($item->parent)
@@ -88,7 +88,7 @@ foreach ($list as $i => &$item)
 	// The next item is deeper.
 	if ($item->deeper)
 	{
-		echo '<ul class="nav-child unstyled small">';
+		echo '<ul class="nav-child unstyled dropdown-menu">';
 	}
 	elseif ($item->shallower)
 	{

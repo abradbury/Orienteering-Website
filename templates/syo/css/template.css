@@ -1,3 +1,4 @@
+/* Minify using https://cssminifier.com */
 @font-face {
     font-family: 'Mosk Bold 700';
     src: url('../fonts/Mosk_Bold_700.eot');
@@ -48,7 +49,7 @@
     left:0;
 }
  #mainNavLinks li a{
-    line-height:35px;
+    line-height:36px;
 }
  #mainNavLinks > li > a{
     font-size:1em;
@@ -57,6 +58,15 @@
 }
  #mainNavLinks > li > a:focus, #mainNavLinks > li > a:hover, #mainNavLinks > .active > a, #mainNavLinks > .active > a:hover, #mainNavLinks > .active > a:focus{
     box-shadow:0em 0.1em 0em #FFFFFF, 0em 0.4em 0em 0px #FFD300;
+}
+#mainNavLinks ul.dropdown-menu li > a:focus, #mainNavLinks ul.dropdown-menu li > a:hover, #mainNavLinks ul.dropdown-menu li .active > a, #mainNavLinks ul.dropdown-menu li .active > a:hover, #mainNavLinks ul.dropdown-menu li .active > a:focus,
+.dropdown-menu>.active>a {
+    box-shadow:0em 0.1em 0em #FFFFFF, -0.4em 0em 0em 0px #FFD300;
+    background-color: initial;
+}
+.dropdown-menu > li > a {
+    margin-left: 0.4em;
+    padding: 0 20px;
 }
  @media (max-width: 767px) {
      .row#mainNav {
@@ -128,6 +138,8 @@
 }
 .header-cell3-menu {
     order: 3;
+    /* !important used to get around Bootstrap bug with collapsed menu */
+    overflow-y: visible !important;
 }
 .header-cell4 {
     order: 2;
@@ -138,7 +150,7 @@
      margin: 0;
      border-radius: 0;
 }
- .navbar-default ul li a {
+ .navbar-default ul:not(.dropdown-menu) > li > a {
      color: #777;
      padding: 8px 11px;
 }
@@ -199,6 +211,14 @@
         padding-left: 0;
         padding-right: 0;
     }
+}
+/* To prevent drop-down menus disappearing on click
+https://stackoverflow.com/a/32984728/1433614 */
+.dropdown {
+    display: initial !important;
+}
+.dropdown-menu {
+    border-radius: 0; 
 }
  ::-moz-selection{
     background: #FFD300;
