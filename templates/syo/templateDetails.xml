@@ -20,6 +20,7 @@
 	</files>
 
 	<positions>
+		<position>browser_warning</position>
 		<position>breadcrumb</position>
 		<position>newsflash</position>
 		<position>login</position>

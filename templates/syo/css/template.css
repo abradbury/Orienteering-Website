@@ -593,6 +593,10 @@ form#venue-form > div.event-buttons, form#adminForm > div.event-buttons{
 .alert{
     border-radius:0;
 }
+.browser-warning .alert {
+    margin-top: 0;
+    margin-bottom: 10px; 
+}
 .file_upload_button {
     width: 0.1px;
     height: 0.1px;

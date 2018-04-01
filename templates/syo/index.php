@@ -38,7 +38,7 @@ $doc->setGenerator('');
 
 // Add CSS
 $doc->addStyleSheet($this->baseurl.'/templates/'.$this->template.'/css/bootstrap.min.css?v=337');
-$doc->addStyleSheet($this->baseurl.'/templates/'.$this->template.'/css/template.min.css?v=37');
+$doc->addStyleSheet($this->baseurl.'/templates/'.$this->template.'/css/template.min.css?v=39');
 $doc->addStyleSheet($this->baseurl.'/templates/'.$this->template.'/css/font-awesome.min.css');
 
 // Add favicon stuff
@@ -74,6 +74,16 @@ $doc->addCustomTag('<!--[if lt IE 9]><script src="https://oss.maxcdn.com/html5sh
     <div id="wrap">
       <div class="container">
         <header>
+          <!--[if lt IE 11]>
+          <?php if ($this->countModules( 'browser_warning' )): ?>
+            <div class="row">
+              <div class="col-sm-12 browser-warning">
+                <jdoc:include type="modules" name="browser_warning" style="xhtml" /> 
+              </div>
+            </div>
+          <?php endif; ?>
+          <![endif]-->
+
           <div id="navWrapper">
             <nav class="navbar navbar-default">
               <div class="container-fluid">
