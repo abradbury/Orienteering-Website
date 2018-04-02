@@ -75,11 +75,12 @@ foreach ($list as $i => &$item)
 	switch ($item->type) :
 		case 'separator':
 		case 'url':
-		case 'component':
 		case 'heading':
 			require JModuleHelper::getLayoutPath('mod_menu', 'default_' . $item->type);
 			break;
-
+		case 'component':
+			require JModuleHelper::getLayoutPath('mod_menu', 'sitemap_component');
+			break;
 		default:
 			require JModuleHelper::getLayoutPath('mod_menu', 'default_url');
 			break;
