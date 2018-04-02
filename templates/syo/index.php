@@ -38,7 +38,7 @@ $doc->setGenerator('');
 
 // Add CSS
 $doc->addStyleSheet($this->baseurl.'/templates/'.$this->template.'/css/bootstrap.min.css?v=337');
-$doc->addStyleSheet($this->baseurl.'/templates/'.$this->template.'/css/template.min.css?v=39');
+$doc->addStyleSheet($this->baseurl.'/templates/'.$this->template.'/css/template.min.css?v=40');
 $doc->addStyleSheet($this->baseurl.'/templates/'.$this->template.'/css/font-awesome.min.css');
 
 // Add favicon stuff
@@ -102,8 +102,6 @@ $doc->addCustomTag('<!--[if lt IE 9]><script src="https://oss.maxcdn.com/html5sh
 
                       <div class="collapse navbar-collapse header-cell3-menu" id="nav-collapse">
                           <jdoc:include type="modules" name="menu" />
-                          <!-- TODO: Drop-down menus -->
-                          <!-- TODO: Align header with 36px line height of logo -->
                       </div>
 
                       <ul class="nav social header-cell4">

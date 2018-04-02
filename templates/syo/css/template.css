@@ -274,6 +274,9 @@ a.mainNavLogo:after{
         -webkit-box-pack: end;
         -ms-flex-pack: end;
         justify-content: flex-end;
+        -webkit-box-align: stretch;
+        -ms-flex-align: stretch;
+        align-items: stretch;
    }
     nav.navbar.navbar-default div.container-fluid, #nav-collapse {
         padding-left: 0;
