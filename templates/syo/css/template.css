@@ -114,6 +114,15 @@ a.mainNavLogo:after{
     padding: 8px 3px 8px 11px;
     color: #777;
 }
+button .plg_system_eprivacy_accepted {
+    padding: inherit;
+    font-size: inherit;
+    vertical-align: inherit;
+    border: 0;
+}
+.login>.login-description {
+    margin-bottom: 20px;
+}
 .navbar-brand > span, ul.social li, ul.social li *, div ul.social li.login-text div form span{
     display:-webkit-inline-box;
     display:-ms-inline-flexbox;
@@ -340,6 +349,9 @@ object.footerLogo{
     -webkit-box-align:center;
     -ms-flex-align:center;
     align-items:center;
+}
+.sitemap {
+    column-count: 2;
 }
 .finalFooterRow{
     margin-bottom:40px;
