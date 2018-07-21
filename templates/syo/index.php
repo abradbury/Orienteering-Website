@@ -38,7 +38,7 @@ $doc->setGenerator('');
 
 // Add CSS
 $doc->addStyleSheet($this->baseurl.'/templates/'.$this->template.'/css/bootstrap.min.css?v=337');
-$doc->addStyleSheet($this->baseurl.'/templates/'.$this->template.'/css/template.min.css?v=40');
+$doc->addStyleSheet($this->baseurl.'/templates/'.$this->template.'/css/template.min.css?v=42.2');
 $doc->addStyleSheet($this->baseurl.'/templates/'.$this->template.'/css/font-awesome.min.css');
 
 // Add favicon stuff
@@ -200,28 +200,6 @@ $doc->addCustomTag('<!--[if lt IE 9]><script src="https://oss.maxcdn.com/html5sh
 
             <?php endif; ?>
           </div>
-
-          <?php if (($this->countModules( 'bottom_left' )) || ($this->countModules( 'bottom_middle' )) || ($this->countModules( 'bottom_right' ))): ?>
-          <div class="row">
-            <?php if ($this->countModules( 'bottom_left' )): ?>
-            <div class="col-sm-4">
-              <jdoc:include type="modules" name="bottom_left" style="xhtml" /> 
-            </div>
-            <?php endif; ?>
-
-            <?php if ($this->countModules( 'bottom_middle' )): ?>
-            <div class="col-sm-4">
-              <jdoc:include type="modules" name="bottom_middle" style="xhtml" /> 
-            </div>
-            <?php endif; ?>
-
-            <?php if ($this->countModules( 'bottom_right' )): ?>
-            <div class="col-sm-4">
-              <jdoc:include type="modules" name="bottom_right" style="xhtml" /> 
-            </div>
-            <?php endif; ?>
-          </div>
-          <?php endif; ?>
         </main>
       </div>
     </div>
@@ -239,36 +217,31 @@ $doc->addCustomTag('<!--[if lt IE 9]><script src="https://oss.maxcdn.com/html5sh
 
       <div class="footerBody">
         <div class="container">
+
+          <?php if (($this->countModules( 'bottom_left' )) || ($this->countModules( 'bottom_right' ))): ?>
           <div class="row">
+            <?php if ($this->countModules( 'bottom_left' )): ?>
             <div class="col-sm-6">
-              <h3 class="footerHeader">Sponsors</h3>
-              <div class="row footerSponsors">
-                <div id="acl" class="col-xs-6">
-                  <a class="mainNavLogo no-external-link-icon" title="Visit the website of our sponsor, Accelerate" href="http://www.accelerateuk.com/">
-                    <object id="aclo" class="img-responsive footerLogo" type="image/svg+xml" data="<?php echo $this->baseurl.'/templates/'.$this->template ?>/svg/accelerate.svg">
-                      Your browser does not support SVGs
-                    </object>
-                  </a>
-                </div>
-                <div id="swl" class="col-xs-6">
-                  <a class="mainNavLogo no-external-link-icon" title="Visit the website of our sponsor, Smartwool" href="https://www.smartwool.com/">
-                    <object id="swlo" class="img-responsive footerLogo" type="image/svg+xml" data="<?php echo $this->baseurl.'/templates/'.$this->template ?>/svg/smartwool.svg">
-                      Your browser does not support SVGs
-                    </object>
-                  </a>
-                </div>
-              </div>
+              <jdoc:include type="modules" name="bottom_left" style="footer" /> 
             </div>
+            <?php endif; ?>
+
+            <?php if ($this->countModules( 'bottom_right' )): ?>
             <div class="col-sm-6">
-              <jdoc:include type="modules" name="sitemap" style="footer" />
+              <jdoc:include type="modules" name="bottom_right" style="footer" /> 
             </div>
+            <?php endif; ?>
           </div>
+          <?php endif; ?>
 
           <hr>
 
           <div class="row finalFooterRow">
-            <div class="col-sm-12">
-              <jdoc:include type="modules" name="footer" />
+            <div class="col-sm-6">
+              <jdoc:include type="modules" name="footer_left" />
+            </div>
+            <div class="col-sm-6">
+              <jdoc:include type="modules" name="footer_right" />
             </div>
           </div>
         </div>
