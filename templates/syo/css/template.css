@@ -455,6 +455,9 @@ div .itemContainerItem{
 h1.catHead{
     display:inline-block;
 }
+.itemListCategoriesBlock {
+    overflow: auto;
+}
 span.k2FeedIcon{
     font-size:150%;
     line-height:36px;

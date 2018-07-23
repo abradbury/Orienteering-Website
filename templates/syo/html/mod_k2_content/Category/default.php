@@ -20,12 +20,12 @@ defined('_JEXEC') or die;
 	<?php if(count($items)): ?>
 
 	<?php if(count($items) > 1): ?>
-	<ul>
+	<div>
 	<?php endif; ?>
 
     <?php foreach ($items as $key=>$item):	?>
     <?php if(count($items) > 1): ?>
-    <li class="<?php echo ($key%2) ? "odd" : "even"; if(count($items)==$key+1) echo ' lastItem'; ?>">
+    <div class="<?php echo ($key%2) ? "odd" : "even"; if(count($items)==$key+1) echo ' lastItem'; ?>">
     <?php endif; ?>
 
       <!-- Plugins: BeforeDisplay -->
@@ -41,8 +41,15 @@ defined('_JEXEC') or die;
       <?php endif; ?>
 
       <?php if($params->get('itemTitle')): ?>
-      <h2 class="moduleItemTitle"><?php echo $item->title; ?></h2>
+      <h3 class="moduleItemTitle"><?php echo $item->title; ?></h3>
       <?php endif; ?>
+
+	  <?php if($params->get('itemDateCreated')): ?>
+	  <div class="news-item-info">
+	  	<span class="glyphicon glyphicon-time"></span>
+      	<span class="moduleItemDateCreated"><?php echo JText::_('K2_WRITTEN_ON') ; ?> <?php echo JHTML::_('date', $item->created, JText::_('K2_DATE_FORMAT_LC2')); ?></span>
+      </div>
+	  <?php endif; ?>
 
       <?php if($params->get('itemAuthor')): ?>
       <div class="moduleItemAuthor">
@@ -126,10 +133,6 @@ defined('_JEXEC') or die;
       <!-- K2 Plugins: K2AfterDisplayContent -->
       <?php echo $item->event->K2AfterDisplayContent; ?>
 
-      <?php if($params->get('itemDateCreated')): ?>
-      <span class="moduleItemDateCreated"><?php echo JText::_('K2_WRITTEN_ON') ; ?> <?php echo JHTML::_('date', $item->created, JText::_('K2_DATE_FORMAT_LC2')); ?></span>
-      <?php endif; ?>
-
       <?php if($params->get('itemCategory')): ?>
       <?php echo JText::_('K2_IN') ; ?> <a class="moduleItemCategory" href="<?php echo $item->categoryLink; ?>"><?php echo $item->categoryname; ?></a>
       <?php endif; ?>
@@ -174,7 +177,7 @@ defined('_JEXEC') or die;
 			</span>
 			<?php endif; ?>
 
-			<?php if($params->get('itemReadMore') && $item->fulltext): ?>
+			<?php if($params->get('itemReadMore')): ?>
 			<a class="moduleItemReadMore" href="<?php echo $item->link; ?>">
 				<?php echo JText::_('TPL_SYO_COM_K2_CONTINUE_READING'); ?> <?php echo $item->title; ?><?php echo JText::_('TPL_SYO_COM_K2_ELLIPSIS'); ?>
 			</a>
@@ -189,13 +192,13 @@ defined('_JEXEC') or die;
       <div class="clr"></div>
 
     <?php if(count($items) > 1): ?>
-    </li>
+    </div>
     <?php endif; ?>
     
     <?php endforeach; ?>
 
   	<?php if(count($items) > 1): ?>
-	<ul>
+	</div>
 	<?php endif; ?>
 
   	<?php endif; ?>
