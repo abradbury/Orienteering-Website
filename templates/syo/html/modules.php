@@ -48,7 +48,7 @@
 		}
 
 		if ($module->showtitle) {
-			echo '<'.$headerTag.' class="footerHeader>' .$module->title .'</'.$headerTag.'>';
+			echo '<'.$headerTag.' class="footerHeader">' .$module->title .'</'.$headerTag.'>';
 		}
 
 		echo $module->content;
