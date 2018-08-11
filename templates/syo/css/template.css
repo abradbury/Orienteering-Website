@@ -467,6 +467,10 @@ span.k2FeedIcon > a > span{
     margin-bottom:7px;
     vertical-align:middle;
 }
+.form-horizontal .control-label {
+    min-width: initial;
+    max-width: initial;
+}
 .news-item-info, .itemDateModified, .catItemDateModified, .catItemDateCreated{
     color:#777;
     margin-top:-0.5em;
