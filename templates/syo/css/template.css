@@ -409,6 +409,20 @@ iframe#editModalIframe{
     margin-top:1%;
     font-weight:bold;
 }
+#k2ModalContainer #adminForm {
+    margin-top:initial;
+}
+.form-group #k2Author {
+    margin-top: initial;
+    margin-right: initial;
+}
+.form-group label[for="title"] {
+    font-size: inherit;
+}
+.form-group label[for="tags"] {
+    padding-left: 15px;
+    padding-right: 15px;
+}
 p.eventSubtitle{
     font-size:1.2em;
     color:#777;
@@ -470,6 +484,10 @@ span.k2FeedIcon > a > span{
 .form-horizontal .control-label {
     min-width: initial;
     max-width: initial;
+}
+input#k2ImageBrowseServer {
+    width: 100%;
+    margin-left: 0;
 }
 .news-item-info, .itemDateModified, .catItemDateModified, .catItemDateCreated{
     color:#777;

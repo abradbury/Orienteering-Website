@@ -43,7 +43,11 @@ $document->addScriptDeclaration("
 
 ?>
 
-<form class="form-horizontal" action="<?php echo JURI::root(true); ?>/index.php" enctype="multipart/form-data" method="post" name="adminForm" id="adminForm">
+<?php if($this->mainframe->isSite()): ?>
+<div id="k2ModalContainer">
+<?php endif; ?>
+
+<form class="form-horizontal" action="<?php echo JURI::root(true); ?>/index.php" enctype="multipart/form-data" method="post" name="adminForm" id="adminForm" onkeypress="return event.keyCode != 13;">
 	<?php if($this->mainframe->isSite()): ?>
 	<div id="k2Frontend">
 
@@ -85,16 +89,17 @@ $document->addScriptDeclaration("
 				</div>
 			</div>
 
-			<!-- <div class="form-group">
-				<label class="col-sm-2 control-label"><?php echo JText::_('K2_TAGS'); ?></label>
+			<div class="form-group">
+				<label class="col-sm-2 control-label" for="tags"><?php echo JText::_('K2_TAGS'); ?></label>
 				<div class="col-sm-8">
-					<?php /*Free tagging*/ if($this->params->get('taggingSystem')): ?>
+					<?php if($this->params->get('taggingSystem')): ?>
+					<!-- Free tagging -->
 					<ul class="tags">
 						<?php if(isset($this->row->tags) && count($this->row->tags)): ?>
 						<?php foreach($this->row->tags as $tag): ?>
 						<li class="tagAdded">
 							<?php echo $tag->name; ?>
-							<span title="<?php echo JText::_('K2_CLICK_TO_REMOVE_TAG'); ?>" class="tagRemove">x</span>
+							<span title="<?php echo JText::_('K2_CLICK_TO_REMOVE_TAG'); ?>" class="tagRemove">&times;</span>
 							<input type="hidden" name="tags[]" value="<?php echo $tag->name; ?>" />
 						</li>
 						<?php endforeach; ?>
@@ -104,38 +109,41 @@ $document->addScriptDeclaration("
 						</li>
 						<li class="clr"></li>
 					</ul>
+					<p class="k2TagsNotice">
+						<?php echo JText::_('K2_WRITE_A_TAG_AND_PRESS_RETURN_OR_COMMA_TO_ADD_IT'); ?>
+					</p>
+					<?php else: ?>
+					<!-- Selection based tagging -->
+					<?php if( !$this->params->get('lockTags') || $this->user->gid>23): ?>
+					<div style="float:left;">
+						<input type="text" name="tag" id="tag" />
+						<input type="button" id="newTagButton" value="<?php echo JText::_('K2_ADD'); ?>" />
+					</div>
+					<div id="tagsLog"></div>
+					<div class="clr"></div>
+					<span class="k2Note">
+						<?php echo JText::_('K2_WRITE_A_TAG_AND_PRESS_ADD_TO_INSERT_IT_TO_THE_AVAILABLE_TAGS_LISTNEW_TAGS_ARE_APPENDED_AT_THE_BOTTOM_OF_THE_AVAILABLE_TAGS_LIST_LEFT'); ?>
+					</span>
+					<?php endif; ?>
+					<table cellspacing="0" cellpadding="0" border="0" id="tagLists">
+						<tr>
+							<td id="tagListsLeft">
+								<span><?php echo JText::_('K2_AVAILABLE_TAGS'); ?></span> <?php echo $this->lists['tags'];	?>
+							</td>
+							<td id="tagListsButtons">
+								<input type="button" id="addTagButton" value="<?php echo JText::_('K2_ADD'); ?> &raquo;" />
+								<br />
+								<br />
+								<input type="button" id="removeTagButton" value="&laquo; <?php echo JText::_('K2_REMOVE'); ?>" />
+							</td>
+							<td id="tagListsRight">
+								<span><?php echo JText::_('K2_SELECTED_TAGS'); ?></span> <?php echo $this->lists['selectedTags']; ?>
+							</td>
+						</tr>
+					</table>
+					<?php endif; ?>
 				</div>
-				<span class="col-sm-2 help-block"> <?php echo JText::_('K2_WRITE_A_TAG_AND_PRESS_RETURN_OR_COMMA_TO_ADD_IT'); ?> </span>
-					
-				<?php /*Selection based tagging*/ else: ?>
-				<?php if( !$this->params->get('lockTags') || $this->user->gid>23): ?>
-				<div style="float:left;">
-					<input type="text" name="tag" id="tag" />
-					<input type="button" id="newTagButton" value="<?php echo JText::_('K2_ADD'); ?>" />
-				</div>
-				<div id="tagsLog"></div>
-				<div class="clr"></div>
-				<span class="k2Note"> <?php echo JText::_('K2_WRITE_A_TAG_AND_PRESS_ADD_TO_INSERT_IT_TO_THE_AVAILABLE_TAGS_LISTNEW_TAGS_ARE_APPENDED_AT_THE_BOTTOM_OF_THE_AVAILABLE_TAGS_LIST_LEFT'); ?> </span>
-				<?php endif; ?>
-				
-				<table cellspacing="0" cellpadding="0" border="0" id="tagLists">
-					<tr>
-						<td id="tagListsLeft">
-							<span><?php echo JText::_('K2_AVAILABLE_TAGS'); ?></span> <?php echo $this->lists['tags'];	?>
-						</td>
-						<td id="tagListsButtons">
-							<input type="button" id="addTagButton" value="<?php echo JText::_('K2_ADD'); ?> &raquo;" />
-							<br />
-							<br />
-							<input type="button" id="removeTagButton" value="&laquo; <?php echo JText::_('K2_REMOVE'); ?>" />
-						</td>
-						<td id="tagListsRight">
-							<span><?php echo JText::_('K2_SELECTED_TAGS'); ?></span> <?php echo $this->lists['selectedTags']; ?>
-						</td>
-					</tr>
-				</table>
-				<?php endif; ?>
-			</div> -->
+			</div>
 
 			<?php if($this->mainframe->isAdmin() || ($this->mainframe->isSite() && $this->permissions->get('publish')  || ($this->permissions->get('editPublished') && $this->row->id && $this->row->published)  )): ?>
 			<?php if($this->permissions->get('publish')): ?>
@@ -159,10 +167,10 @@ $document->addScriptDeclaration("
 		<fieldset>
 			<legend><?php echo JText::_('K2_CONTENT'); ?></legend>
 		
-			<label for="editor" class="col-sm-2"><?php echo JText::_('K2_CONTENT'); ?></label>
+			<label for="editor" class="sr-only"><?php echo JText::_('K2_CONTENT'); ?></label>
 
 			<?php if($this->params->get('mergeEditors')): ?>
-			<div class="k2ItemFormEditor col-sm-8" id="editor"> <?php echo $this->text; ?>
+			<div class="k2ItemFormEditor col-sm-12" id="editor"> <?php echo $this->text; ?>
 				<div class="dummyHeight"></div>
 				<div class="clr"></div>
 			</div>
@@ -198,18 +206,17 @@ $document->addScriptDeclaration("
 			
 				<div class="form-group">
 					<label class="col-sm-2 control-label" for="imup"><?php echo JText::_('K2_ITEM_IMAGE'); ?></label>
-					<div class="col-sm-3">
+					<div class="col-sm-4">
 						<input type="file" name="image" id="imup" class="form-control" />
 					</div>
 
-					<div class="col-sm-3">
-						<input type="text" name="existingImage" id="existingImageValue" class="text_area" readonly placeholder="No existing image" />
-					</div>
-					<div class="col-sm-2">
+					<div class="col-sm-4">
 						<input class="btn btn-default btn-block" type="button" value="<?php echo JText::_('K2_BROWSE_SERVER'); ?>" id="k2ImageBrowseServer"  />
-					</div>	
+					</div>
 
-					<span class="col-sm-2 help-block">(<?php echo JText::_('K2_MAX_UPLOAD_SIZE'); ?>: <?php echo ini_get('upload_max_filesize'); ?>)</span>
+					<div class="col-sm-offset-2 col-sm-8 help-block">
+						<span>Upload an image from your device or select an image that has previously been uploaded</span>
+					</div>
 				</div>
 
 				<div class="form-group">
@@ -225,22 +232,25 @@ $document->addScriptDeclaration("
 						<input id="imcred" type="text" name="image_credits" size="30" class="form-control" value="<?php echo $this->row->image_credits; ?>" />
 					</div>
 				</div>
-<!-- 
+ 
 				<?php if (!empty($this->row->image)): ?>
-				<tr>
-					<td align="right" class="key">
-						<?php echo JText::_('K2_ITEM_IMAGE_PREVIEW'); ?>
-					</td>
-					<td>
-						<a class="modal" rel="{handler: 'image'}" href="<?php echo $this->row->image; ?>" title="<?php echo JText::_('K2_CLICK_ON_IMAGE_TO_PREVIEW_IN_ORIGINAL_SIZE'); ?>">
-							<img alt="<?php echo $this->row->title; ?>" src="<?php echo $this->row->thumb; ?>" class="k2AdminImage" />
-						</a>
+						
+				<div class="form-group">
+					<label class="col-sm-2 control-label" for="imprev"><?php echo JText::_('K2_ITEM_IMAGE_PREVIEW'); ?></label>
+					<div class="col-sm-8">
+						<img id="imprev" alt="<?php echo $this->row->title; ?>" src="<?php echo $this->row->thumb; ?>" class="k2AdminImage" />
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="col-sm-2 control-label" for="del_image"><?php echo JText::_('K2_DELETE_IMAGE'); ?></label>
+					<div class="col-sm-8">
 						<input type="checkbox" name="del_image" id="del_image" />
-						<label class="col-sm-2 control-label" for="del_image"><?php echo JText::_('K2_CHECK_THIS_BOX_TO_DELETE_CURRENT_IMAGE_OR_JUST_UPLOAD_A_NEW_IMAGE_TO_REPLACE_THE_EXISTING_ONE'); ?></label>
-					</td>
-				</tr>
-				<?php endif; ?> -->
-			<!-- </table> -->
+						<span><?php echo JText::_('K2_CHECK_THIS_BOX_TO_DELETE_CURRENT_IMAGE_OR_JUST_UPLOAD_A_NEW_IMAGE_TO_REPLACE_THE_EXISTING_ONE'); ?></span>
+					</div>
+				</div>
+
+				<?php endif; ?>
 			<?php if (count($this->K2PluginsItemImage)): ?>
 			<div class="itemPlugins">
 				<?php foreach($this->K2PluginsItemImage as $K2Plugin): ?>
@@ -524,3 +534,7 @@ $document->addScriptDeclaration("
 	</div>
 	<?php endif; ?>
 </form>
+
+<?php if($this->mainframe->isSite()): ?>
+</div>
+<?php endif; ?>
