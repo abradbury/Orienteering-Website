@@ -79,20 +79,20 @@ JHtml::_('behavior.modal', 'a.flyermodal');
 			?>
 		</span></p>
 
+		<?php
+		// Only print HR if there are custom fields
+		if($this->item->{'custom1'}) {
+			echo "<hr />";
+		}
+		?>
+
 		<!-- Event -->
 		<dl class="event_info floattext">
 			<?php
-			$first = false;
-
 			for($cr = 1; $cr <= 10; $cr++) {
 				$currentRow = $this->item->{'custom'.$cr};
 				
 				if($currentRow) {
-					if(!$first) {
-						$first = true;
-						echo "<hr />";
-					}
-
 					$currentRowNew = '<a rel="nofollow" href="'.$this->escape($currentRow).'">'. JText::_('TPL_SYO_JEM_EVENT_LINK_TEXT') . JText::_('COM_JEM_EVENT_CUSTOM_FIELD'.$cr) .'</a>';
 				?>
 					<dt class="custom<?php echo $cr; ?>"><?php echo JText::_('COM_JEM_EVENT_CUSTOM_FIELD'.$cr).':'; ?></dt>
@@ -211,7 +211,7 @@ JHtml::_('behavior.modal', 'a.flyermodal');
 	<?php endif; ?>
 
 	<?php if (!empty($this->item->pluginevent->onEventEnd)) : ?>
-		<hr>
+		<hr />
 		<?php echo $this->item->pluginevent->onEventEnd; ?>
 	<?php endif; ?>
 
