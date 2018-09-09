@@ -396,6 +396,9 @@ div.reset, div.remind, div.login, div.logout, div.profile{
 form div#k2FrontendEditToolbar{
     display:none;
 }
+.k2customLinkWrapper {
+    padding-top: 10px; 
+}
 iframe#editModalIframe{
     border:none;
     width:100%;

@@ -4,6 +4,7 @@ defined('_JEXEC') or die('Restricted access');
 
 // Variables
 $doc = JFactory::getDocument();
+$doc->setHtml5(true);
 $user = JFactory::getUser();
 $template = 'templates/' . $this->template;
 
@@ -38,7 +39,7 @@ $doc->setGenerator('');
 
 // Add CSS
 $doc->addStyleSheet($this->baseurl.'/templates/'.$this->template.'/css/bootstrap.min.css?v=337');
-$doc->addStyleSheet($this->baseurl.'/templates/'.$this->template.'/css/template.min.css?v=446');
+$doc->addStyleSheet($this->baseurl.'/templates/'.$this->template.'/css/template.min.css?v=447');
 $doc->addStyleSheet($this->baseurl.'/templates/'.$this->template.'/css/font-awesome.min.css');
 
 // Add favicon stuff
@@ -183,11 +184,19 @@ $doc->addCustomTag('<!--[if lt IE 9]><script src="https://oss.maxcdn.com/html5sh
             </div>
             <div class="col-sm-8 news">
               <jdoc:include type="component" />
+
+              <?php if ($this->countModules( 'main_bottom' )): ?>
+              <jdoc:include type="modules" name="main_bottom" style="xhtml" /> 
+              <?php endif; ?>
             </div>
 
             <?php elseif ($this->countModules( 'right' )): ?>
             <div class="col-sm-7 col-md-8">
               <jdoc:include type="component" />
+
+              <?php if ($this->countModules( 'main_bottom' )): ?>
+              <jdoc:include type="modules" name="main_bottom" style="xhtml" /> 
+              <?php endif; ?>
             </div>
             <div class="col-sm-5 col-md-4">
               <jdoc:include type="modules" name="right" style="module" /> 
@@ -196,8 +205,11 @@ $doc->addCustomTag('<!--[if lt IE 9]><script src="https://oss.maxcdn.com/html5sh
             <?php else : ?>
             <div class="col-sm-12">
               <jdoc:include type="component" />
-            </div>
 
+              <?php if ($this->countModules( 'main_bottom' )): ?>
+              <jdoc:include type="modules" name="main_bottom" style="xhtml" /> 
+              <?php endif; ?>
+            </div>
             <?php endif; ?>
           </div>
         </main>

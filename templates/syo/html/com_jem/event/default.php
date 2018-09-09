@@ -200,7 +200,6 @@ JHtml::_('behavior.modal', 'a.flyermodal');
 		<?php $this->attachments = $this->item->vattachments; ?>
 		<?php echo $this->loadTemplate('attachments'); ?>
 
-		</div>
 		<?php endif; ?>
 	</div>
 
