@@ -7,7 +7,9 @@ echo '<div class="pd-download">';
 if ( $this->t['p']->get( 'show_page_heading' ) ) { 
 	echo '<h1>'. $this->escape($this->t['p']->get('page_heading')) . '</h1>';
 }
+?>
 
+<?php
 if ($this->t['found'] == 1) {
 	if(isset($this->file[0]->id) && (int)$this->file[0]->id > 0 && isset($this->file[0]->token) && $this->file[0]->token != '') {
 		
@@ -56,7 +58,10 @@ if ($this->t['found'] == 1) {
 		}
 		echo '<div class="pd-downloadbox-direct row">'
 		.$pdFile
-		.'<div class="col-sm-4"><a class="btn btn-success btn-block" href="'.JRoute::_($downloadLink).'">'.JText::_('COM_PHOCADOWNLOAD_DOWNLOAD_FILE').'</a></div></div>';
+		.'<div class="col-sm-4 plg_system_eprivacy_accepted">'
+		.'<a class="btn btn-success btn-block" href="'.JRoute::_($downloadLink).'">'.JText::_('COM_PHOCADOWNLOAD_DOWNLOAD_FILE').'</a>'
+		.'</div><div class="col-sm-4">{module 217}</div>'
+		.'</div>';
 		
 	}
 } else {
