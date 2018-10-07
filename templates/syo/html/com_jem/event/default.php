@@ -64,7 +64,7 @@ JHtml::_('behavior.modal', 'a.flyermodal');
 			$category_text = $last_category;
 		}
 		?>
-		<p class="eventSubtitle">A <?php echo $category_text; ?> event at <span itemprop="location"><?php echo $this->escape($this->item->venue); ?></span></p>		
+		<p class="eventSubtitle">A <?php echo $category_text; ?> event at <?php echo $this->escape($this->item->venue); ?></p>		
 		<p class="eventSubtitle"><?php $is_multiday_event = strlen($this->item->enddates) > 0;
 			echo $is_multiday_event ? JText::_('COM_JEM_SEARCH_FROM') : JText::_('COM_JEM_EVENT_ON'); ?> <span>
 			<?php 
@@ -189,12 +189,12 @@ JHtml::_('behavior.modal', 'a.flyermodal');
 	<div class="col-sm-3">
 		<?php if ($this->item->locid != 0) : ?>
 
-		<div class="inner-events syo-module">
+		<div class="inner-events syo-module" itemprop="location" itemscope itemtype="http://schema.org/Place">
 		  <div class="eventsHeader">
 		    <h3 class="panel-title"><?php echo JText::_('TPL_SYO_JEM_VENUE_DESC'); ?></h3> 
 		  </div>
 			<?php echo $this->item->locdescription; ?>
-			<a href="<?php echo JRoute::_(JemHelperRoute::getVenueRoute($this->item->venueslug)); ?>">More details about <?php echo $this->escape($this->item->venue); ?>...</a>
+			<a itemprop="url" href="<?php echo JRoute::_(JemHelperRoute::getVenueRoute($this->item->venueslug)); ?>">More details about <span itemprop='name'><?php echo $this->escape($this->item->venue); ?></span>...</a>
 		</div>
 
 		<?php $this->attachments = $this->item->vattachments; ?>

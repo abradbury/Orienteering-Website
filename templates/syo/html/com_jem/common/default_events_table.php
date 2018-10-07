@@ -105,9 +105,9 @@ defined('_JEXEC') or die;
 			<?php $this->rows = $this->getRows(); ?>
 			<?php foreach ($this->rows as $row) : ?>
 				<?php if (!empty($row->featured)) :   ?>
-				<tr class="featured featured<?php echo $row->id.$this->params->get('pageclass_sfx'); ?>" itemscope="itemscope" itemtype="http://schema.org/Event" >
+				<tr class="featured featured<?php echo $row->id.$this->params->get('pageclass_sfx'); ?>" itemscope itemtype="http://schema.org/SportsEvent" >
 				<?php else : ?>
-				<tr class="sectiontableentry<?php echo ($row->odd +1) . $this->params->get('pageclass_sfx'); ?>" itemscope="itemscope" itemtype="http://schema.org/Event" >
+				<tr class="sectiontableentry<?php echo ($row->odd +1) . $this->params->get('pageclass_sfx'); ?>" itemscope itemtype="http://schema.org/SportsEvent" >
 				<?php endif; ?>
 
 				<?php if ($this->jemsettings->showeventimage == 1) : ?>
@@ -145,17 +145,25 @@ defined('_JEXEC') or die;
 				<?php endif; ?>
 
 				<?php if ($this->jemsettings->showlocate == 1) : ?>
-					<td headers="jem_location">
+					<td headers="jem_location" itemprop="location" itemscope itemtype="http://schema.org/Place">
 						<?php
 						if (!empty($row->venue)) :
 							if (($this->jemsettings->showlinkvenue == 1) && !empty($row->venueslug)) :
-								echo "<a href='".JRoute::_(JemHelperRoute::getVenueRoute($row->venueslug))."'>".$this->escape($row->venue)."</a>";
+								echo "<a itemprop='url' href='".JRoute::_(JemHelperRoute::getVenueRoute($row->venueslug))."'><span itemprop='name'>".$this->escape($row->venue)."</span></a>";
 							else :
-								echo $this->escape($row->venue);
+								echo "<span itemprop='name'>".$this->escape($row->venue)."</span>";
 							endif;
 						else :
 							echo '-';
 						endif;
+						if ((!empty($row->latitude) && !empty($row->longitude)) && (($row->latitude != '0.000000') && ($row->longitude != '0.000000'))) {
+						?>
+						<div itemprop="geo" itemscope itemtype="http://schema.org/GeoCoordinates">
+							<meta itemprop="latitude" content="<?php echo $row->latitude ?>" />
+							<meta itemprop="longitude" content="<?php echo $row->longitude ?>" />
+						</div>
+						<?php
+						}
 						?>
 					</td>
 				<?php endif; ?>
