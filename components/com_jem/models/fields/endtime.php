@@ -36,7 +36,7 @@ class JFormFieldEndtime extends JFormField
 		$endhours = JEMHelper::buildtimeselect(23, 'endhours', substr( $this->value, 0, 2 ));
 		$endminutes = JEMHelper::buildtimeselect(59, 'endminutes', substr($this->value, 3, 2 ));
 		
-		$var2 = $endhours."</div><div class='col-sm-4 col-xs-6'>".$endminutes;
+		$var2 = $endhours.$endminutes;
 	
 		return $var2;
 		

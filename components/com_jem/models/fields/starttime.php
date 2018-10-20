@@ -37,7 +37,7 @@ class JFormFieldStarttime extends JFormField
 		$starthours = JEMHelper::buildtimeselect(23, 'starthours', substr( $this->value, 0, 2 ));
 		$startminutes = JEMHelper::buildtimeselect(59, 'startminutes', substr($this->value, 3, 2 ));
 		
-		$var2 = $starthours."</div><div class='col-sm-4 col-xs-6'>".$startminutes;
+		$var2 = $starthours.$startminutes;
 	
 		return $var2;
 		

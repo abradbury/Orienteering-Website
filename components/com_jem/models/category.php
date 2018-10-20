@@ -143,15 +143,13 @@ class JemModelCategory extends JemModelEventslist
 
 		# publish state
 		$this->_populatePublishState($task);
-		# Get all events
-		$this->setState('filter.published', [1, 2]);
 
 		###########
 		## ORDER ##
 		###########
 
 		$filter_order = $app->getUserStateFromRequest('com_jem.category.'.$itemid.'.filter_order', 'filter_order', 'a.dates', 'cmd');
-		$filter_order_DirDefault = 'DESC';
+		$filter_order_DirDefault = 'ASC';
 		// Reverse default order for dates in archive mode
 		if($task == 'archive' && $filter_order == 'a.dates') {
 			$filter_order_DirDefault = 'DESC';
