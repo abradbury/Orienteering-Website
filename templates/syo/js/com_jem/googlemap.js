@@ -39,7 +39,7 @@ function initialize() {
 		      map: map,
 		      title: title,
 		      visible: true,
-		      icon: "http://www.southyorkshireorienteers.org.uk/templates/syo/images/map_icon.png"
+		      icon: "https://www.southyorkshireorienteers.org.uk/templates/syo/images/map_icon.png"
 		  });
 		
 		var boxText = document.createElement("div");
@@ -58,7 +58,7 @@ function initialize() {
 				  ,width: "280px"
 				 }
 				,closeBoxMargin: "10px 2px 2px 2px"
-				,closeBoxURL: "http://www.google.com/intl/en_us/mapfiles/close.gif"
+				,closeBoxURL: "https://www.google.com/intl/en_us/mapfiles/close.gif"
 				,infoBoxClearance: new google.maps.Size(1, 1)
 				,isHidden: false
 				,pane: "floatPane"
@@ -90,7 +90,7 @@ function initialize() {
 				        var marker = new google.maps.Marker({
 				            map: map, 
 				            position: results[0].geometry.location,
-				            icon: "http://chart.apis.google.com/chart?chst=d_map_pin_letter_withshadow&chld=•|3491FF|000000"
+				            icon: "https://chart.apis.google.com/chart?chst=d_map_pin_letter_withshadow&chld=•|3491FF|000000"
 				        });
 				        
 				        var boxText = document.createElement("div");
@@ -109,7 +109,7 @@ function initialize() {
 				    			  ,width: "280px"
 				    			 }
 				    			,closeBoxMargin: "10px 2px 2px 2px"
-				    			,closeBoxURL: "http://www.google.com/intl/en_us/mapfiles/close.gif"
+				    			,closeBoxURL: "https://www.google.com/intl/en_us/mapfiles/close.gif"
 				    			,infoBoxClearance: new google.maps.Size(1, 1)
 				    			,isHidden: false
 				    			,pane: "floatPane"
