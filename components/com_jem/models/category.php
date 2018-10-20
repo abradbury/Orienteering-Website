@@ -142,18 +142,20 @@ class JemModelCategory extends JemModelEventslist
 		$this->setState('filter.opendates', 1);
 
 		# publish state
-		$this->_populatePublishState($task);
+		# $this->_populatePublishState($task);
+		# Show archived and current events 
+		$this->setState('filter.published', array(1, 2));
 
 		###########
 		## ORDER ##
 		###########
 
 		$filter_order = $app->getUserStateFromRequest('com_jem.category.'.$itemid.'.filter_order', 'filter_order', 'a.dates', 'cmd');
-		$filter_order_DirDefault = 'ASC';
-		// Reverse default order for dates in archive mode
-		if($task == 'archive' && $filter_order == 'a.dates') {
+		// $filter_order_DirDefault = 'ASC';
+		// // Reverse default order for dates in archive mode
+		// if($task == 'archive' && $filter_order == 'a.dates') {
 			$filter_order_DirDefault = 'DESC';
-		}
+		// }
 		$filter_order_Dir = $app->getUserStateFromRequest('com_jem.category.'.$itemid.'.filter_order_Dir', 'filter_order_Dir', $filter_order_DirDefault, 'word');
 		$filter_order     = JFilterInput::getInstance()->clean($filter_order, 'cmd');
 		$filter_order_Dir = JFilterInput::getInstance()->clean($filter_order_Dir, 'word');

@@ -85,11 +85,16 @@ class JemModelEventslist extends JModelList
 		$filtertype  = $app->getUserStateFromRequest('com_jem.eventslist.'.$itemid.'.filter_type', 'filter_type', 0, 'int');
 		$this->setState('filter.filter_type', $filtertype);
 
-		# publish state
-		$this->_populatePublishState($task);
-
 		$params = $app->getParams();
 		$this->setState('params', $params);
+
+		# Get archive param
+		if ($params->get('showarchivedevents')) {
+			$task = 'archive';
+		}
+
+		# publish state
+		$this->_populatePublishState($task);
 
 		###############
 		## opendates ##
