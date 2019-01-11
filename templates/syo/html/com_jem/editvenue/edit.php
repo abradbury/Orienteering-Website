@@ -44,7 +44,7 @@ $location = JemHelper::defineCenterMap($this->form);
 <script type="text/javascript">
 	window.addEvent('domready', function(){
 		setAttribute();
-		test();
+		// test();
 	});
 
 	function setAttribute(){
@@ -66,32 +66,32 @@ $location = JemHelper::defineCenterMap($this->form);
 		f.jform_meta_keywords.value += f.jform_venue.value+', ' + f.jform_city.value;
 	}
 
-	function test(){			
-		var form = document.getElementById('venue-form');
-		var map = $('jform_map');
-		var streetcheck = $(form.jform_street).hasClass('required');
+	// function test(){			
+		// var form = document.getElementById('venue-form');
+		// var map = $('jform_map');
+		// var streetcheck = $(form.jform_street).hasClass('required');
 
-		if(map && map.checked == true) {
-			var lat = $('jform_latitude');
-			var lon = $('jform_longitude');
+		// if(map && map.checked == true) {
+		// 	var lat = $('jform_latitude');
+		// 	var lon = $('jform_longitude');
 
-			if(lat.value == ('' || 0.000000) || lon.value == ('' || 0.000000)) {
-				if(!streetcheck) {
-					addrequired();
-				}
-			} else {
-				if(lat.value != ('' || 0.000000) && lon.value != ('' || 0.000000) ) {
-					removerequired();
-				}
-			}
-			$('mapdiv').show();
-		}
+		// 	if(lat.value == ('' || 0.000000) || lon.value == ('' || 0.000000)) {
+		// 		if(!streetcheck) {
+		// 			addrequired();
+		// 		}
+		// 	} else {
+		// 		if(lat.value != ('' || 0.000000) && lon.value != ('' || 0.000000) ) {
+		// 			removerequired();
+		// 		}
+		// 	}
+		// 	$('mapdiv').show();
+		// }
 
-		if(map && map.checked == false) {
-			removerequired();
-			$('mapdiv').hide();
-		}
-	}
+		// if(map && map.checked == false) {
+		// 	removerequired();
+		// 	$('mapdiv').hide();
+		// }
+	// }
 
 	function addrequired(){
 		var form = document.getElementById('venue-form');
@@ -119,8 +119,9 @@ $location = JemHelper::defineCenterMap($this->form);
 			detailsAttribute: "geo-data",
 			types: ['establishment', 'geocode'],
 			mapOptions: {
-			      zoom: 16
-			    },
+				center: {lat: 53.4479389, lng: -1.3954769},
+			    zoom: 10
+			},
 			markerOptions: {
 				draggable: true
 			}
@@ -150,49 +151,49 @@ $location = JemHelper::defineCenterMap($this->form);
 		});
 		*/
 
-		jQuery("#find-left").click(function() {
-			jQuery("#geocomplete").val(jQuery("#jform_street").val() + ", " + jQuery("#jform_postalCode").val() + " " + jQuery("#jform_city").val());
-			jQuery("#geocomplete").trigger("geocode");
-		});
+		// jQuery("#find-left").click(function() {
+		// 	jQuery("#geocomplete").val(jQuery("#jform_street").val() + ", " + jQuery("#jform_postalCode").val() + " " + jQuery("#jform_city").val());
+		// 	jQuery("#geocomplete").trigger("geocode");
+		// });
 
-		jQuery("#cp-latlong").click(function() {
-			document.getElementById("jform_latitude").value = document.getElementById("tmp_form_latitude").value;
-			document.getElementById("jform_longitude").value = document.getElementById("tmp_form_longitude").value;
-			test();
-		});
+		// jQuery("#cp-latlong").click(function() {
+		// 	document.getElementById("jform_latitude").value = document.getElementById("tmp_form_latitude").value;
+		// 	document.getElementById("jform_longitude").value = document.getElementById("tmp_form_longitude").value;
+		// 	// test();
+		// });
 
-		jQuery("#cp-address").click(function() {
-			document.getElementById("jform_street").value = document.getElementById("tmp_form_street").value;
-			document.getElementById("jform_postalCode").value = document.getElementById("tmp_form_postalCode").value;
-			document.getElementById("jform_city").value = document.getElementById("tmp_form_city").value;
-			document.getElementById("jform_state").value = document.getElementById("tmp_form_state").value;	
-			document.getElementById("jform_country").value = document.getElementById("tmp_form_country").value;
-		});
+		// jQuery("#cp-address").click(function() {
+		// 	document.getElementById("jform_street").value = document.getElementById("tmp_form_street").value;
+		// 	document.getElementById("jform_postalCode").value = document.getElementById("tmp_form_postalCode").value;
+		// 	document.getElementById("jform_city").value = document.getElementById("tmp_form_city").value;
+		// 	document.getElementById("jform_state").value = document.getElementById("tmp_form_state").value;	
+		// 	document.getElementById("jform_country").value = document.getElementById("tmp_form_country").value;
+		// });
 
-		jQuery("#cp-venue").click(function() {
-			var venue = document.getElementById("tmp_form_venue").value;
-			if (venue) {
-				document.getElementById("jform_venue").value = venue;
-			}
-		});
+		// jQuery("#cp-venue").click(function() {
+		// 	var venue = document.getElementById("tmp_form_venue").value;
+		// 	if (venue) {
+		// 		document.getElementById("jform_venue").value = venue;
+		// 	}
+		// });
 
-		jQuery("#cp-all").click(function() {
-			jQuery("#cp-address").click();
-			jQuery("#cp-latlong").click();
-			jQuery("#cp-venue").click();
-		});	
+		// jQuery("#cp-all").click(function() {
+		// 	jQuery("#cp-address").click();
+		// 	jQuery("#cp-latlong").click();
+		// 	jQuery("#cp-venue").click();
+		// });	
 
-		jQuery('#jform_map').on('keyup keypress blur change', function() {
-		    test();
-		});
+		// jQuery('#jform_map').on('keyup keypress blur change', function() {
+		//     test();
+		// });
 
-		jQuery('#jform_latitude').on('keyup keypress blur change', function() {
-		    test();
-		});
+		// jQuery('#jform_latitude').on('keyup keypress blur change', function() {
+		//     test();
+		// });
 
-		jQuery('#jform_longitude').on('keyup keypress blur change', function() {
-		    test();
-		});
+		// jQuery('#jform_longitude').on('keyup keypress blur change', function() {
+		//     test();
+		// });
 	});
 	</script>
 
@@ -220,20 +221,26 @@ $location = JemHelper::defineCenterMap($this->form);
 			</div>
 			<?php endif; ?>
 
-			<fieldset>
-				<legend><?php echo JText::_('COM_JEM_EDITVENUE_DETAILS_LEGEND'); ?></legend>
 				<div class="form-group">
 					<div class="col-sm-2 cantAccessLabel"><?php echo $this->form->getLabel('venue');?></div>
 					<div class="col-sm-8"><?php echo $this->form->getInput('venue'); ?></div>
 				</div>
 
-				<?php if (is_null($this->item->id)):?>
 				<div class="form-group">
-					<div class="col-sm-2 cantAccessLabel"><?php echo $this->form->getLabel('alias'); ?></div>
-					<div class="col-sm-8"><?php echo $this->form->getInput('alias'); ?></div>
+					<label class="col-sm-2 control-label">Find venue</label>
+					<div class="col-sm-8">
+						<input id="geocomplete" type="text" size="55" placeholder="<?php echo JText::_( 'COM_JEM_VENUE_ADDRPLACEHOLDER' ); ?>" value="" />
+					</div>
 				</div>
 
-				<?php endif; ?>
+				<div class="form-group">
+					<label class="col-sm-2 control-label">Map</label>
+					<div class="col-sm-8">
+						<div class="map_canvas" aria-describedby="mapHelpBlock"></div>
+					</div>
+					<span id="mapHelpBlock" class="col-sm-2 help-block"><?php echo JText::_('TPL_SYO_JEM_VENUE_META_MAP_HELP_TEXT'); ?></span>
+				</div>
+				
 				<div class="form-group">
 					<div class="col-sm-2 cantAccessLabel"><?php echo $this->form->getLabel('street'); ?></div>
 					<div class="col-sm-8"><?php echo $this->form->getInput('street'); ?></div>
@@ -278,41 +285,8 @@ $location = JemHelper::defineCenterMap($this->form);
 					<div class="col-sm-2 cantAccessLabel"><?php echo $this->form->getLabel('locdescription'); ?></div>
 					<div class="col-sm-8"><?php echo $this->form->getInput('locdescription'); ?></div>
 				</div>
-			</fieldset>
 
-			<!-- VENUE-GEODATA-->
-			<fieldset class="adminform" id="geodata">
-				<legend>Venue Geodata</legend>
-				
-				<div class="form-group">
-					<div class="col-sm-2 cantAccessLabel">
-						<?php echo $this->form->getLabel('map'); ?>
-					</div>
-					<div class="col-sm-8">
-						<?php echo $this->form->getInput('map'); ?>
-					</div>
-					<span id="findVenueCitHelpBlock" class="col-sm-2 help-block"><?php echo JText::_('TPL_SYO_JEM_VENUE_ADD_MAP_HELP_TEXT'); ?></span>
-				</div>
-
-				<div id="mapdiv">
-					<div class="form-group">
-						<label class="col-sm-2 control-label">Find venue</label>
-						<div class="col-sm-6">
-							<input id="geocomplete" type="text" size="55" placeholder="<?php echo JText::_( 'COM_JEM_VENUE_ADDRPLACEHOLDER' ); ?>" value="" />
-						</div>
-						<div class="col-sm-2">
-							<input id="find-left" class="btn btn-default btn-block" type="button" value="<?php echo JText::_('COM_JEM_VENUE_ADDR_FINDVENUEDATA');?>" aria-describedby="findVenueCitHelpBlock" />
-						</div>
-						<span id="findVenueCitHelpBlock" class="col-sm-2 help-block"><?php echo JText::_('TPL_SYO_JEM_VENUE_META_FIND_VENUE_HELP_TEXT'); ?></span>
-					</div>
-
-					<div class="form-group">
-						<label class="col-sm-2 control-label">Map</label>
-						<div class="col-sm-8">
-							<div class="map_canvas" aria-describedby="mapHelpBlock"></div>
-					 	</div>
-					 	<span id="mapHelpBlock" class="col-sm-2 help-block"><?php echo JText::_('TPL_SYO_JEM_VENUE_META_MAP_HELP_TEXT'); ?></span>
-					</div>
+	
  
 					<div class="form-group">
 						<label class="col-sm-2 control-label"><?php echo JText::_('COM_JEM_STREET'); ?></label>
@@ -372,38 +346,6 @@ $location = JemHelper::defineCenterMap($this->form);
 							<input type="text" disabled="disabled" class="form-control readonly" id="tmp_form_longitude" readonly="readonly" />
 						</div>
 					</div>
-
-					<div class="form-group">
-						<div class="col-sm-2"></div>
-						<div class="col-sm-2"><input id="cp-all" class="btn btn-default btn-block" type="button" value="<?php echo JText::_('COM_JEM_VENUE_COPY_DATA'); ?>" /></div>
-						<div class="col-sm-2"><input id="cp-address" class="btn btn-default btn-block" type="button" value="<?php echo JText::_('COM_JEM_VENUE_COPY_ADDRESS'); ?>" /></div>
-						<div class="col-sm-2"><input id="cp-venue" class="btn btn-default btn-block" type="button" value="<?php echo JText::_('COM_JEM_VENUE_COPY_VENUE'); ?>" /></div>
-						<div class="col-sm-2"><input id="cp-latlong" class="btn btn-default btn-block" type="button" value="<?php echo JText::_('COM_JEM_VENUE_COPY_COORDINATES'); ?>" /></div>
-						<span class="col-sm-2 help-block"><?php echo JText::_('TPL_SYO_JEM_VENUE_COPY_MAP_DATA_HELP_TEXT'); ?></span>
-					</div>
-				</div>
-			</fieldset>
-
-			<!-- META -->
-			<fieldset>
-				<legend><?php echo JText::_('COM_JEM_META_HANDLING'); ?></legend>
-				<div class="form-group">
-					<label class="col-sm-2 control-label"><?php echo JText::_('COM_JEM_ADD_VENUE_CITY'); ?></label>
-					<div class="col-sm-8">
-						<input type="button" class="btn btn-default" value="<?php echo JText::_('COM_JEM_ADD_VENUE_CITY'); ?>" onclick="meta()" aria-describedby="addVenCitHelpBlock" />
-					</div>
-					<span id="addVenCitHelpBlock" class="col-sm-2 help-block"><?php echo JText::_('TPL_SYO_JEM_VENUE_META_VEN_CITY_HELP_TEXT'); ?></span>
-				</div>
-
-				<?php foreach($this->form->getFieldset('meta') as $field): ?>
-				<div class="form-group">
-					<div class="col-sm-2 cantAccessLabel"><?php echo $field->label; ?></div>
-					<div class="col-sm-8"><?php echo $field->input; ?></div>
-				</div>
-				<?php endforeach; ?>
-			</fieldset>
-
-			<?php echo $this->loadTemplate('other'); ?>
 
 			<div class="clearfix"></div>
 			<input id="country" name="country" geo-data="country_short" type="hidden" value="">

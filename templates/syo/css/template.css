@@ -595,7 +595,7 @@ textarea[id^="jform"], select[id^="jform"][multiple], select.inputbox[multiple]{
     height:auto;
 }
 @media (min-width:768px){
-    form > fieldset > div.form-group > div.cantAccessLabel{
+    form > fieldset > div.form-group > div.cantAccessLabel, form > div.form-group > div.cantAccessLabel{
         text-align:right;
    }
 }
