@@ -39,7 +39,7 @@ $doc->setGenerator('');
 
 // Add CSS
 $doc->addStyleSheet($this->baseurl.'/templates/'.$this->template.'/css/bootstrap.min.css?v=337');
-$doc->addStyleSheet($this->baseurl.'/templates/'.$this->template.'/css/template.min.css?v=448');
+$doc->addStyleSheet($this->baseurl.'/templates/'.$this->template.'/css/template.min.css?v=449');
 $doc->addStyleSheet($this->baseurl.'/templates/'.$this->template.'/css/font-awesome.min.css');
 
 // Add favicon stuff
@@ -110,6 +110,7 @@ $doc->addCustomTag('<!--[if lt IE 9]><script src="https://oss.maxcdn.com/html5sh
                         <?php if ($params->get( 'facebookURL' )) { ?><li><a class='no-external-link-icon' target='_blank' href='<?php echo $params->get('facebookURL'); ?>' title="View SYO's Facebook Page"><span class='sr-only'>View S.Y.O's Facebook Page</span><span class='fa my-fa-facebook' aria-hidden='true'></span></a></li><?php } ?>
                         <?php if ($params->get( 'twitterURL' )) {  ?><li><a class='no-external-link-icon' target='_blank' href='<?php echo $params->get('twitterURL');  ?>' title="View SYO's Twitter Feed"><span class='sr-only'>View S.Y.O's Twitter Feed</span><span class='fa my-fa-twitter' aria-hidden='true'></span></a></li><?php } ?>
                         <?php if ($params->get( 'flickrURL' )) {   ?><li><a class='no-external-link-icon' target='_blank' href='<?php echo $params->get('flickrURL');   ?>' title="View SYO's Flickr Photo Pool"><span class='sr-only'>View S.Y.O's Flickr Photo Pool</span><span class='fa my-fa-flickr' aria-hidden='true'></span></a></li><?php } ?>
+                        <?php if ($params->get( 'instagramURL' )) {   ?><li><a class='no-external-link-icon' target='_blank' href='<?php echo $params->get('instagramURL');   ?>' title="View SYO's Instagram Page"><span class='sr-only'>View S.Y.O's Instagram Page</span><span class='fa my-fa-instagram' aria-hidden='true'></span></a></li><?php } ?>
 
                         <?php if ($this->countModules( 'logout' )): ?>
                         <li><span id="login-btn" class="fa fa-user" aria-hidden="true"></span></li>

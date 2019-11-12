@@ -101,6 +101,9 @@ a.mainNavLogo:after{
 .my-fa-flickr:before{
     content:"\f16e";
 }
+.my-fa-instagram:before{
+    content:"\f16d";
+}
 .my-fa-twitter:before{
     content:"\f099";
 }
@@ -392,9 +395,6 @@ img,figcaption{
 }
 div.reset, div.remind, div.login, div.logout, div.profile{
     margin-top:10px;
-}
-form div#k2FrontendEditToolbar{
-    display:none;
 }
 .k2customLinkWrapper {
     padding-top: 10px; 

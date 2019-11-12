@@ -5,7 +5,7 @@
 	<author>A. Bradbury</author>
 	<authorUrl>https://www.southyorkshireorienteers.org.uk</authorUrl>
 	<copyright>South Yorkshire Orienteers 2017</copyright>
-	<version>1.0.9</version>
+	<version>1.0.10</version>
 	<description>A Joomla template created for the South Yorkshire Orienteers' website</description>
 
 	<files>
@@ -57,6 +57,10 @@
 				<field name="flickrURL" class="" type="url" default=""
 					label="TPL_SYO_FLICKR_LABEL"
 					description="TPL_SYO_FLICKR_DESC" />
+
+				<field name="instagramURL" class="" type="url" default=""
+					label="TPL_SYO_INSTAGRAM_LABEL"
+					description="TPL_SYO_INSTAGRAM_DESC" />
 			</fieldset>
 		</fields>
 	</config>
