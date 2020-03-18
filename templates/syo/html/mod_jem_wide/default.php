@@ -28,6 +28,7 @@ JHtml::_('behavior.modal', 'a.flyermodal');
       </tr>
     </thead>
     <tbody>
+    <?php if (count($list)) : ?>
     <?php foreach ($list as $item) : ?>
     <tr>
       <td>
@@ -61,6 +62,11 @@ JHtml::_('behavior.modal', 'a.flyermodal');
       </td>
     </tr>
     <?php endforeach; ?>
+    <?php else : ?>
+    <tr align="center">
+      <td colspan="20"><?php echo JText::_('COM_JEM_NO_EVENTS'); ?></td>
+    </tr>
+    <?php endif; ?>
     </tbody>
   </table>
 </div>
