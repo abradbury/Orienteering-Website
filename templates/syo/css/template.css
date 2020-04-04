@@ -107,6 +107,9 @@ a.mainNavLogo:after{
 .my-fa-twitter:before{
     content:"\f099";
 }
+.my-fa-strava:before{
+    content:"\f428";
+}
 #logout-btn{
     padding:0 0 0 5px;
     margin:0;
