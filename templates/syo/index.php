@@ -40,7 +40,7 @@ $doc->setGenerator('');
 // Add CSS
 $doc->addStyleSheet($this->baseurl.'/templates/'.$this->template.'/css/bootstrap.min.css?v=337');
 $doc->addStyleSheet($this->baseurl.'/templates/'.$this->template.'/css/template.min.css?v=449');
-$doc->addStyleSheet($this->baseurl.'/templates/'.$this->template.'/css/font-awesome.min.css');
+$doc->addStyleSheet($this->baseurl.'/templates/'.$this->template.'/css/font-awesome.min.css?v=470');
 
 // Add favicon stuff
 $doc->addCustomTag('<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=sa5YTVdDS">');
