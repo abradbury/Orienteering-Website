@@ -39,8 +39,10 @@ $doc->setGenerator('');
 
 // Add CSS
 $doc->addStyleSheet($this->baseurl.'/templates/'.$this->template.'/css/bootstrap.min.css?v=337');
-$doc->addStyleSheet($this->baseurl.'/templates/'.$this->template.'/css/template.min.css?v=449');
-$doc->addStyleSheet($this->baseurl.'/templates/'.$this->template.'/css/font-awesome.min.css?v=470');
+$doc->addStyleSheet($this->baseurl.'/templates/'.$this->template.'/css/template.min.css?v=450');
+$doc->addStyleSheet($this->baseurl.'/templates/'.$this->template.'/css/fontawesome.min.css?v=5130');
+$doc->addStyleSheet($this->baseurl.'/templates/'.$this->template.'/css/brands.min.css?v=5130');
+$doc->addStyleSheet($this->baseurl.'/templates/'.$this->template.'/css/solid.min.css?v=5130');
 
 // Add favicon stuff
 $doc->addCustomTag('<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=sa5YTVdDS">');
@@ -107,17 +109,17 @@ $doc->addCustomTag('<!--[if lt IE 9]><script src="https://oss.maxcdn.com/html5sh
 
                       <ul class="nav social header-cell4">
                         <?php $params = $this->params; ?>
-                        <?php if ($params->get( 'facebookURL' )) { ?><li><a class='no-external-link-icon' target='_blank' href='<?php echo $params->get('facebookURL'); ?>' title="View SYO's Facebook Page"><span class='sr-only'>View S.Y.O's Facebook Page</span><span class='fa my-fa-facebook' aria-hidden='true'></span></a></li><?php } ?>
-                        <?php if ($params->get( 'twitterURL' )) {  ?><li><a class='no-external-link-icon' target='_blank' href='<?php echo $params->get('twitterURL');  ?>' title="View SYO's Twitter Feed"><span class='sr-only'>View S.Y.O's Twitter Feed</span><span class='fa my-fa-twitter' aria-hidden='true'></span></a></li><?php } ?>
-                        <?php if ($params->get( 'flickrURL' )) {   ?><li><a class='no-external-link-icon' target='_blank' href='<?php echo $params->get('flickrURL');   ?>' title="View SYO's Flickr Photo Pool"><span class='sr-only'>View S.Y.O's Flickr Photo Pool</span><span class='fa my-fa-flickr' aria-hidden='true'></span></a></li><?php } ?>
-                        <?php if ($params->get( 'instagramURL' )) {   ?><li><a class='no-external-link-icon' target='_blank' href='<?php echo $params->get('instagramURL');   ?>' title="View SYO's Instagram Page"><span class='sr-only'>View S.Y.O's Instagram Page</span><span class='fa my-fa-instagram' aria-hidden='true'></span></a></li><?php } ?>
-                        <?php if ($params->get( 'stravaURL' )) {   ?><li><a class='no-external-link-icon' target='_blank' href='<?php echo $params->get('stravaURL');   ?>' title="View SYO's Strava Page"><span class='sr-only'>View S.Y.O's Strava Page</span><span class='fa my-fa-strava' aria-hidden='true'></span></a></li><?php } ?>
+                        <?php if ($params->get( 'facebookURL' )) { ?><li><a class='no-external-link-icon' target='_blank' href='<?php echo $params->get('facebookURL'); ?>' title="View SYO's Facebook Page"><span class='sr-only'>View S.Y.O's Facebook Page</span><span class='fab my-fa-facebook' aria-hidden='true'></span></a></li><?php } ?>
+                        <?php if ($params->get( 'twitterURL' )) {  ?><li><a class='no-external-link-icon' target='_blank' href='<?php echo $params->get('twitterURL');  ?>' title="View SYO's Twitter Feed"><span class='sr-only'>View S.Y.O's Twitter Feed</span><span class='fab my-fa-twitter' aria-hidden='true'></span></a></li><?php } ?>
+                        <?php if ($params->get( 'flickrURL' )) {   ?><li><a class='no-external-link-icon' target='_blank' href='<?php echo $params->get('flickrURL');   ?>' title="View SYO's Flickr Photo Pool"><span class='sr-only'>View S.Y.O's Flickr Photo Pool</span><span class='fab my-fa-flickr' aria-hidden='true'></span></a></li><?php } ?>
+                        <?php if ($params->get( 'instagramURL' )) {   ?><li><a class='no-external-link-icon' target='_blank' href='<?php echo $params->get('instagramURL');   ?>' title="View SYO's Instagram Page"><span class='sr-only'>View S.Y.O's Instagram Page</span><span class='fab my-fa-instagram' aria-hidden='true'></span></a></li><?php } ?>
+                        <?php if ($params->get( 'stravaURL' )) {   ?><li><a class='no-external-link-icon' target='_blank' href='<?php echo $params->get('stravaURL');   ?>' title="View SYO's Strava Page"><span class='sr-only'>View S.Y.O's Strava Page</span><span class='fab my-fa-strava' aria-hidden='true'></span></a></li><?php } ?>
 
                         <?php if ($this->countModules( 'logout' )): ?>
-                        <li><span id="login-btn" class="fa fa-user" aria-hidden="true"></span></li>
+                        <li><span id="login-btn" class="fas fa-user" aria-hidden="true"></span></li>
                         <li><jdoc:include type="modules" name="logout" style="xhtml" /></li>
                         <?php else: ?>
-                        <li><a id="login-btn" href="#" title="SYO Member Login" data-toggle="modal" data-target="#login"><span class="sr-only">S.Y.O Member Login</span><span class="fa fa-user" aria-hidden="true"></span></a></li>
+                        <li><a id="login-btn" href="#" title="SYO Member Login" data-toggle="modal" data-target="#login"><span class="sr-only">S.Y.O Member Login</span><span class="fas fa-user" aria-hidden="true"></span></a></li>
                         <?php endif; ?>
                       </ul>
                     </div>
@@ -261,6 +263,6 @@ $doc->addCustomTag('<!--[if lt IE 9]><script src="https://oss.maxcdn.com/html5sh
         </div>
       </div>
     </footer>
-    <script src="<?php echo ($this->baseurl.'/templates/'.$this->template); ?>/js/syo.js?v=4"></script>
+    <script src="<?php echo ($this->baseurl.'/templates/'.$this->template); ?>/js/syo.js?v=4.1"></script>
   </body>
 </html>

@@ -174,7 +174,7 @@ $document->addScriptDeclaration("
 	      </div>
 	      <div class="modal-body">
 	      	<div class="text-center" id="loadingModal">
-	      	  <span class="fa fa-circle-o-notch fa-spin fa-5x"></span>
+	      	  <span class="fas fa-circle-notch fa-spin fa-5x"></span>
 	      	  <p>Loading...</p>
 	      	</div>
 	      	<iframe id="editModalIframe" src="about:blank" onload=""></iframe>
