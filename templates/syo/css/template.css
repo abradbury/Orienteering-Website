@@ -444,7 +444,7 @@ p.eventSubtitle span{
     color:#333;
 }
 span.icon-calendar:after{
-    font-family:FontAwesome;
+    font-family:"Font Awesome 5 Free";
     content:'\f133';
 }
 table.eventtable{
@@ -731,20 +731,20 @@ ol.breadcrumb{
     color:#843534;
 }
 a[href $='.pdf']:not([class~="no-filetype-link-icon"]):after{
-    font-family:FontAwesome;
+    font-family:"Font Awesome 5 Free";
     content:" \f1c1";
 }
 a[href $='.doc']:not([class~="no-filetype-link-icon"]):after, a[href $='.docx']:not([class~="no-filetype-link-icon"]):after{
-    font-family:FontAwesome;
+    font-family:"Font Awesome 5 Free";
     content:" \f1c2";
 }
 a[href $='.xls']:not([class~="no-filetype-link-icon"]):after, a[href $='.xlsx']:not([class~="no-filetype-link-icon"]):after{
-    font-family:FontAwesome;
+    font-family:"Font Awesome 5 Free";
     content:" \f1c3";
 }
 a[href $='.txt']:not([class~="no-filetype-link-icon"]):after, a[href $='.rtf']:not([class~="no-filetype-link-icon"]):after{
-    font-family:FontAwesome;
-    content:" \f0f6";
+    font-family:"Font Awesome 5 Free";
+    content:" \f15c";
 }
 a[href*="//"]:not([href*="southyorkshireorienteers.org.uk"]):not([class~="no-external-link-icon"]):after{
    /* From: https://codepen.io/simevidas/pen/MKdmeV */

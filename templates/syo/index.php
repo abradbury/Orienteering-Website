@@ -39,7 +39,7 @@ $doc->setGenerator('');
 
 // Add CSS
 $doc->addStyleSheet($this->baseurl.'/templates/'.$this->template.'/css/bootstrap.min.css?v=337');
-$doc->addStyleSheet($this->baseurl.'/templates/'.$this->template.'/css/template.min.css?v=450');
+$doc->addStyleSheet($this->baseurl.'/templates/'.$this->template.'/css/template.min.css?v=452');
 $doc->addStyleSheet($this->baseurl.'/templates/'.$this->template.'/css/fontawesome.min.css?v=5130');
 $doc->addStyleSheet($this->baseurl.'/templates/'.$this->template.'/css/brands.min.css?v=5130');
 $doc->addStyleSheet($this->baseurl.'/templates/'.$this->template.'/css/solid.min.css?v=5130');

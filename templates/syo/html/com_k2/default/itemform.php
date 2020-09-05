@@ -15,7 +15,7 @@ $app = JFactory::getApplication();
 
 // For some reason none of the usual CCS gets included in modal windows
 $document->addStyleSheet($this->baseurl.'/templates/syo/css/bootstrap.min.css?v=337');
-$document->addStyleSheet($this->baseurl.'/templates/syo/css/template.css?v=451');
+$document->addStyleSheet($this->baseurl.'/templates/syo/css/template.min.css?v=452');
 $document->addStyleSheet($this->baseurl.'/templates/syo/css/font-awesome.min.css?v=5130');
 $document->addScript($this->baseurl.'/templates/syo/js/bootstrap.min.js?v=337');
 
