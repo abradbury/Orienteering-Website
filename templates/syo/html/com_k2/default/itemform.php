@@ -11,12 +11,13 @@
 defined('_JEXEC') or die;
 
 $document = JFactory::getDocument();
+$app = JFactory::getApplication();
 
 // For some reason none of the usual CCS gets included in modal windows
-$document->addStyleSheet($this->baseurl.'/templates/syo/css/bootstrap.min.css');
-$document->addStyleSheet($this->baseurl.'/templates/syo/css/template.css');
-$document->addStyleSheet($this->baseurl.'/templates/syo/css/font-awesome.min.css');
-$document->addScript($this->baseurl.'/templates/syo/js/bootstrap.min.js');
+$document->addStyleSheet($this->baseurl.'/templates/syo/css/bootstrap.min.css?v=337');
+$document->addStyleSheet($this->baseurl.'/templates/syo/css/template.css?v=451');
+$document->addStyleSheet($this->baseurl.'/templates/syo/css/font-awesome.min.css?v=5130');
+$document->addScript($this->baseurl.'/templates/syo/js/bootstrap.min.js?v=337');
 
 $document->addScriptDeclaration("
 	Joomla.submitbutton = function(pressbutton){
@@ -43,12 +44,12 @@ $document->addScriptDeclaration("
 
 ?>
 
-<?php if($this->mainframe->isSite()): ?>
+<?php if($app->isSite()): ?>
 <div id="k2ModalContainer">
 <?php endif; ?>
 
 <form class="form-horizontal" action="<?php echo JURI::root(true); ?>/index.php" enctype="multipart/form-data" method="post" name="adminForm" id="adminForm" onkeypress="return event.keyCode != 13;">
-	<?php if($this->mainframe->isSite()): ?>
+	<?php if($app->isSite()): ?>
 	<div id="k2Frontend">
 		<div id="k2FrontendEditToolbar" <?php if(JRequest::getInt('cid')): ?>style="display: none"<?php endif; ?>>
 			<div class="row event-buttons">
@@ -147,18 +148,18 @@ $document->addScriptDeclaration("
 				</div>
 			</div>
 
-			<?php if($this->mainframe->isAdmin() || ($this->mainframe->isSite() && $this->permissions->get('publish')  || ($this->permissions->get('editPublished') && $this->row->id && $this->row->published)  )): ?>
+			<?php if($app->isAdmin() || ($app->isSite() && $this->permissions->get('publish')  || ($this->permissions->get('editPublished') && $this->row->id && $this->row->published)  )): ?>
 			<?php if($this->permissions->get('publish')): ?>
 			<div class="form-group">
 				<label class="col-sm-2 control-label" for="featured"><?php echo JText::_('K2_IS_IT_FEATURED'); ?></label>
-				<div class="col-sm-8">
+				<div class="col-sm-8 form-radio">
 					<?php echo $this->lists['featured']; ?>
 				</div>
 			</div>
 			<?php endif; ?>
 			<div class="form-group">
 				<label class="col-sm-2 control-label"><?php echo JText::_('K2_PUBLISHED'); ?></label>
-				<div class="col-sm-8">
+				<div class="col-sm-8 form-radio">
 					<?php echo $this->lists['published']; ?>
 				</div>
 			</div>
@@ -200,73 +201,6 @@ $document->addScriptDeclaration("
 			<?php endif; ?>
 			<div class="clr"></div>
 		</fieldset>
-
-		<!-- Tab image -->
-		<?php if ($this->params->get('showImageTab')): ?>
-		<fieldset>
-			<legend><?php echo JText::_('K2_IMAGE'); ?></legend>
-			
-				<div class="form-group">
-					<label class="col-sm-2 control-label" for="imup"><?php echo JText::_('K2_ITEM_IMAGE'); ?></label>
-					<div class="col-sm-4">
-						<input type="file" name="image" id="imup" class="form-control" />
-					</div>
-
-					<div class="col-sm-4">
-						<input class="btn btn-default btn-block" type="button" value="<?php echo JText::_('K2_BROWSE_SERVER'); ?>" id="k2ImageBrowseServer"  />
-					</div>
-
-					<div class="col-sm-offset-2 col-sm-8 help-block">
-						<span>Upload an image from your device or select an image that has previously been uploaded</span>
-					</div>
-				</div>
-
-				<div class="form-group">
-					<label for="imcap" class="col-sm-2 control-label"><?php echo JText::_('K2_ITEM_IMAGE_CAPTION'); ?></label>
-					<div class="col-sm-8">
-						<input id="imcap" type="text" name="image_caption" size="30" class="form-control" value="<?php echo $this->row->image_caption; ?>" />
-					</div>
-				</div>
-
-				<div class="form-group">
-					<label for="imcred" class="col-sm-2 control-label"><?php echo JText::_('K2_ITEM_IMAGE_CREDITS'); ?></label>
-					<div class="col-sm-8">
-						<input id="imcred" type="text" name="image_credits" size="30" class="form-control" value="<?php echo $this->row->image_credits; ?>" />
-					</div>
-				</div>
- 
-				<?php if (!empty($this->row->image)): ?>
-						
-				<div class="form-group">
-					<label class="col-sm-2 control-label" for="imprev"><?php echo JText::_('K2_ITEM_IMAGE_PREVIEW'); ?></label>
-					<div class="col-sm-8">
-						<img id="imprev" alt="<?php echo $this->row->title; ?>" src="<?php echo $this->row->thumb; ?>" class="k2AdminImage" />
-					</div>
-				</div>
-
-				<div class="form-group">
-					<label class="col-sm-2 control-label" for="del_image"><?php echo JText::_('K2_DELETE_IMAGE'); ?></label>
-					<div class="col-sm-8">
-						<input type="checkbox" name="del_image" id="del_image" />
-						<span><?php echo JText::_('K2_CHECK_THIS_BOX_TO_DELETE_CURRENT_IMAGE_OR_JUST_UPLOAD_A_NEW_IMAGE_TO_REPLACE_THE_EXISTING_ONE'); ?></span>
-					</div>
-				</div>
-
-				<?php endif; ?>
-			<?php if (count($this->K2PluginsItemImage)): ?>
-			<div class="itemPlugins">
-				<?php foreach($this->K2PluginsItemImage as $K2Plugin): ?>
-				<?php if(!is_null($K2Plugin)): ?>
-				<fieldset>
-					<legend><?php echo $K2Plugin->name; ?></legend>
-					<?php echo $K2Plugin->fields; ?>
-				</fieldset>
-				<?php endif; ?>
-				<?php endforeach; ?>
-			</div>
-			<?php endif; ?>
-		</fieldset>
-		<?php endif; ?>
 
 		<!-- Tab extra fields -->
 		<?php if ($this->params->get('showExtraFieldsTab')): ?>
@@ -339,7 +273,7 @@ $document->addScriptDeclaration("
 		<?php endif; ?>
 
 		<fieldset>
-			<legend><?php echo JText::_('K2_AUTHOR_PUBLISHING_STATUS'); ?></legend>
+			<legend><?php echo JText::_('K2_PUBLISHING_AND_METADATA'); ?></legend>
 			
 			<?php if(isset($this->lists['language'])): ?>
 			<div class="form-group">
@@ -355,7 +289,7 @@ $document->addScriptDeclaration("
 				<div class="col-sm-4">
 					<p class="form-control-static" id="k2Author"><?php echo $this->row->author; ?></p>
 				</div>	
-				<?php if($this->mainframe->isAdmin() || ($this->mainframe->isSite() && $this->permissions->get('editAll'))): ?>
+				<?php if($app->isAdmin() || ($app->isSite() && $this->permissions->get('editAll'))): ?>
 				<div class="col-sm-4">
 					<a class="modal" rel="{handler:'iframe', size: {x: 800, y: 460}}" href="index.php?option=com_k2&amp;view=users&amp;task=element&amp;tmpl=component"><?php echo JText::_('K2_CHANGE'); ?></a>
 					<input type="hidden" name="created_by" value="<?php echo $this->row->created_by; ?>" />
@@ -399,7 +333,7 @@ $document->addScriptDeclaration("
 			</div>
 		</fieldset>
 
-		<?php if(!($this->mainframe->isSite() && !$this->params->get('sideBarDisplayFrontend'))): ?>
+		<?php if(!($app->isSite() && !$this->params->get('sideBarDisplayFrontend'))): ?>
 		<fieldset id="adminFormK2Sidebar" class="xmlParamsFields">
 			<legend>Item Information</legend>
 
@@ -520,8 +454,8 @@ $document->addScriptDeclaration("
 
 		<?php endif; ?>		
 
-		<input type="hidden" name="isSite" value="<?php echo (int)$this->mainframe->isSite(); ?>" />
-		<?php if($this->mainframe->isSite()): ?>
+		<input type="hidden" name="isSite" value="<?php echo (int)$app->isSite(); ?>" />
+		<?php if($app->isSite()): ?>
 		<input type="hidden" name="lang" value="<?php echo JRequest::getCmd('lang'); ?>" />
 		<?php endif; ?>
 		<input type="hidden" name="id" value="<?php echo $this->row->id; ?>" />
@@ -532,11 +466,11 @@ $document->addScriptDeclaration("
 		<?php echo JHTML::_('form.token'); ?>		
 
 		<div class="clr"></div>
-		<?php if($this->mainframe->isSite()): ?>
+		<?php if($app->isSite()): ?>
 	</div>
 	<?php endif; ?>
 </form>
 
-<?php if($this->mainframe->isSite()): ?>
+<?php if($app->isSite()): ?>
 </div>
 <?php endif; ?>

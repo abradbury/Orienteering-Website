@@ -402,6 +402,12 @@ div.reset, div.remind, div.login, div.logout, div.profile{
 .k2customLinkWrapper {
     padding-top: 10px; 
 }
+.form-radio div.controls label.radio {
+    display: block;
+}
+.form-radio div.controls {
+    padding-left: 20px;
+}
 iframe#editModalIframe{
     border:none;
     width:100%;
