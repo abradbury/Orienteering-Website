@@ -19,7 +19,7 @@ jQuery("#login-form input").keypress(function(event) {
 jQuery(document).ready(function() {
   "use strict";
   // Add HTML content for image caption
-  jQuery('img').not('.noCaption').each(function(i, obj) {
+  jQuery('img').not('.noCaption,[src*=darkmode]').each(function(i, obj) {
     var image = jQuery(this);
     image.wrap("<div class='imgWrap'></div>");
     image.after("<small class='caption'>"+image.attr("alt")+"</small>");

@@ -30,7 +30,7 @@ JHtml::_('behavior.modal', 'a.flyermodal');
 			<div class="row">
 				<div class="col-sm-8">
 					<h1>
-						<span itemprop="name"><?php echo $this->escape($this->params->get('page_heading')); ?></span>
+						<span itemprop="name"><?php echo $this->escape($this->params->get('page_heading')); ?> at <?php echo $this->escape($this->item->venue); ?></span>
 						<?php echo JemOutput::editbutton($this->item, $params, $attribs, $this->permissions->canEditEvent, 'editevent'); ?>
 					</h1>
 				</div>
@@ -64,15 +64,15 @@ JHtml::_('behavior.modal', 'a.flyermodal');
 			$category_text = $last_category;
 		}
 		?>
-		<p class="eventSubtitle">A <?php echo $category_text; ?> event at <?php echo $this->escape($this->item->venue); ?></p>		
+		
 		<p class="eventSubtitle"><?php $is_multiday_event = strlen($this->item->enddates) > 0;
-			echo $is_multiday_event ? JText::_('COM_JEM_SEARCH_FROM') : JText::_('COM_JEM_EVENT_ON'); ?> <span>
+			echo $is_multiday_event ? JText::_('COM_JEM_SEARCH_FROM') : ''; ?> <span>
 			<?php 
 				$date_time_string = str_replace(" - ", "</span> " . strtolower(JText::_('COM_JEM_UNTIL')) . " <span>",  JemOutput::formatLongDateTime($this->item->dates, $this->item->times,$this->item->enddates, $this->item->endtimes));
 				if ($is_multiday_event) {
 					$date_time_string = str_replace(", ", "</span> at <span>",  $date_time_string);
 				} else {
-					$date_time_string = str_replace(", ", "</span> " . strtolower(JText::_('COM_JEM_SEARCH_FROM')) . " <span>",  $date_time_string);					
+					$date_time_string = str_replace(", ", "</span> " . JText::_('COM_JEM_SEARCH_FROM') . " <span>",  $date_time_string);					
 				}
 				echo $date_time_string;
 				echo JemOutput::formatSchemaOrgDateTime($this->item->dates, $this->item->times,$this->item->enddates, $this->item->endtimes);

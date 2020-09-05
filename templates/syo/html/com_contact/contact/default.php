@@ -23,9 +23,6 @@ jimport('joomla.html.html.bootstrap');
 	
 	<?php elseif ($this->contact->con_position && $this->params->get('show_position')) : ?>
 		<h2><?php echo $this->contact->con_position; ?></h2>
-
-	<?php elseif ($this->contact->name && $this->params->get('show_name')) : ?>
-		<h2><?php if ($this->item->published == 0) : ?><span class="label label-warning"><?php echo JText::_('JUNPUBLISHED'); ?></span><?php endif; ?><span class="contact-name" itemprop="name"><?php echo $this->contact->name; ?></span></h2>
 	<?php endif;  ?>
 
 	<?php if ($this->params->get('show_contact_category') == 'show_no_link') : ?>

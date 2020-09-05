@@ -50,23 +50,25 @@ $document->addScriptDeclaration("
 <form class="form-horizontal" action="<?php echo JURI::root(true); ?>/index.php" enctype="multipart/form-data" method="post" name="adminForm" id="adminForm" onkeypress="return event.keyCode != 13;">
 	<?php if($this->mainframe->isSite()): ?>
 	<div id="k2Frontend">
-
-		<div id="k2FrontendEditToolbar">
-			<div id="itemFormEditButtons" class="pull-right">
-				<button id="saveEdit" class="btn btn-success" onclick="Joomla.submitbutton('save'); return false;"><?php echo JText::_('K2_SAVE'); ?></button>
-				<button id="cancelEdit" class="btn btn-danger" onclick="window.parent.closeModal();"><?php echo JText::_('K2_CLOSE'); ?></button>
+		<div id="k2FrontendEditToolbar" <?php if(JRequest::getInt('cid')): ?>style="display: none"<?php endif; ?>>
+			<div class="row event-buttons">
+				<div class="col-sm-offset-2 col-sm-4 col-xs-6">
+					<button id="saveEdit" type="button" class="btn btn-success btn-block" onclick="Joomla.submitbutton('save'); return false;"><?php echo JText::_('K2_SAVE'); ?></button>
+				</div>
+				<div class="col-sm-4 col-xs-6">
+					<button id="cancelEdit" type="button" class="btn btn-danger btn-block" onclick="window.parent.closeModal();"><?php echo JText::_('K2_CLOSE'); ?></button>
+				</div>
 			</div>
-
-			<h2>
-				<?php echo (JRequest::getInt('cid')) ? JText::_('K2_EDIT_ITEM') : JText::_('K2_ADD_ITEM'); ?>
-			</h2>
-
-			<hr class="sep" />
-		</div>				
+			<div class="row">
+				<div class="col-sm-offset-2 col-sm-8">
+					<small>When adding a new article, clicking the save button will save the article and cause the page to reload. If the save was successful, a green popup saying "Item saved" will briefly appear upon which you can safely navigate away from the page. Do not use the reloaded page to edit the saved article, instead navigate to where that article is and use the "Edit Item" link next to the article's title.</small>
+				</div>
+			</div>
+		</div>
 	<?php endif; ?>
 
 		<fieldset>
-			<legend>Basic Details</legend>	
+			<legend>Basic Details</legend>
 
 			<div class="form-group">
 				<label class="col-sm-2 control-label" for="title"><?php echo JText::_('K2_TITLE'); ?></label>

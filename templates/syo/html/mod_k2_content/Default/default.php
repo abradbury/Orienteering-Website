@@ -201,7 +201,9 @@ defined('_JEXEC') or die;
   	<?php endif; ?>
 
 	<?php if($params->get('itemCustomLink')): ?>
-	<a class="moduleCustomLink" href="<?php echo $params->get('itemCustomLinkURL'); ?>" title="<?php echo K2HelperUtilities::cleanHtml($itemCustomLinkTitle); ?>"><?php echo $itemCustomLinkTitle; ?></a>
+	<div class="k2customLinkWrapper">
+		<a class="moduleCustomLink" href="<?php echo $params->get('itemCustomLinkURL'); ?>" title="<?php echo K2HelperUtilities::cleanHtml($itemCustomLinkTitle); ?>"><?php echo $itemCustomLinkTitle; ?></a>
+	</div>
 	<?php endif; ?>
 
 	<?php if($params->get('feed')): ?>

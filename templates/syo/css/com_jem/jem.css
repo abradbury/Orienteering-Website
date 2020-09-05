@@ -1,1 +1,9 @@
 div#jem dd,div#jem dt{padding:.3em 0;font-size:1em;background:0 0}div#jem{overflow:hidden}div#jem .clear{border:0;clear:both;float:none;height:1px;line-height:1px}div#jem div.clr{clear:both}div#jem dl{margin:0 5px}div#jem dt{margin:0;float:left;font-weight:700;width:150px;border-bottom:1px solid #DDD}div#jem dd{display:block;margin:0 0 5px 160px}* html .floattext dd{height:1%}
+/* event ics export button */
+div#jem .btn.btn-primary.btn-block.pull-right {
+  float: right;
+  width: auto;
+  background-color: #FFF;
+  border: 0px;
+  
+}
