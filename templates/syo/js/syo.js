@@ -52,8 +52,8 @@ jQuery(document).ready(function() {
     },false);
   }
 
-  footerHover("swl");
-  footerHover("acl");
+  // footerHover("swl");
+  // footerHover("acl");
 });
 
 
