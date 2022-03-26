@@ -23,8 +23,8 @@ defined('_JEXEC') or die;
             <p><a href="https://eur-lex.europa.eu/legal-content/<?php echo $linklang;?>/TXT/HTML/?uri=CELEX:32016R0679" onclick="window.open(this.href);return false;"><?php echo JText::_('PLG_SYS_EPRIVACY_GDPRLINK_TEXT'); ?></a></p>
         <?php endif; ?>
         <div class="row">
-        <div class="col-xs-6"><button class="btn btn-success btn-block plg_system_eprivacy_agreed"><?php echo JText::_('PLG_SYS_EPRIVACY_AGREE');?></button></div>
-        <div class="col-xs-6"><button class="btn btn-danger btn-block plg_system_eprivacy_declined"><?php echo JText::_('PLG_SYS_EPRIVACY_DECLINE');?></button></div>
+            <div class="col-xs-6"><button class="btn btn-success btn-block plg_system_eprivacy_agreed"><?php echo JText::_('PLG_SYS_EPRIVACY_AGREE');?></button></div>
+            <div class="col-xs-6"><button class="btn btn-danger btn-block plg_system_eprivacy_declined"><?php echo JText::_('PLG_SYS_EPRIVACY_DECLINE');?></button></div>
         </div>
     </div>
     <div class="plg_system_eprivacy_declined" style="display:none">

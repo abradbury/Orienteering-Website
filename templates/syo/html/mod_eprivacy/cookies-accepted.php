@@ -12,7 +12,7 @@ defined('_JEXEC') or die;
     <div class="plg_system_eprivacy_accepted" style="display:none">
         <small>
             <?php echo JText::_('PLG_SYS_EPRIVACY_UNACCEPT_MESSAGE_LOGIN'); ?>
-            <button type="button" class="btn btn-link plg_system_eprivacy_accepted"><?php echo JText::_('PLG_SYS_EPRIVACY_UNACCEPT');?></button> 
+            <button style="margin:0; padding:0;" type="button" class="btn btn-link plg_system_eprivacy_accepted"><?php echo JText::_('PLG_SYS_EPRIVACY_UNACCEPT');?></button>
         </small>
     </div>
 </div>

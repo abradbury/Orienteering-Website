@@ -600,6 +600,10 @@ input[id^="jform"]:not([type='checkbox']), input#geocomplete, textarea[id^="jfor
     transition:border-color ease-in-out .15s,box-shadow ease-in-out .15s;
     transition:border-color ease-in-out .15s,box-shadow ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
 }
+input[id^="jform"][disabled],textarea[id^="jform"][disabled] {
+    cursor: not-allowed;
+    background-color: #eee;
+}
 textarea[id^="jform"], select[id^="jform"][multiple], select.inputbox[multiple]{
     height:auto;
 }

@@ -22,19 +22,15 @@ defined('_JEXEC') or die;
             <p><a href="https://eur-lex.europa.eu/LexUriServ/LexUriServ.do?uri=CELEX:32002L0058:<?php echo $linklang;?>:NOT" onclick="window.open(this.href);return false;"><?php echo JText::_('PLG_SYS_EPRIVACY_LAWLINK_TEXT'); ?></a></p>
             <p><a href="https://eur-lex.europa.eu/legal-content/<?php echo $linklang;?>/TXT/HTML/?uri=CELEX:32016R0679" onclick="window.open(this.href);return false;"><?php echo JText::_('PLG_SYS_EPRIVACY_GDPRLINK_TEXT'); ?></a></p>
         <?php endif; ?>
-        <button type="button" class="btn btn-danger plg_system_eprivacy_declined"><?php echo JText::_('PLG_SYS_EPRIVACY_DECLINE');?></button>
-        <button type="button" class="btn btn-success plg_system_eprivacy_agreed"><?php echo JText::_('PLG_SYS_EPRIVACY_AGREE');?></button>
+        <div class="row">
+            <div class="col-xs-6"><button type="button" class="btn btn-block btn-danger plg_system_eprivacy_declined"><?php echo JText::_('PLG_SYS_EPRIVACY_DECLINE');?></button></div>
+            <div class="col-xs-6"><button type="button" class="btn btn-block btn-success plg_system_eprivacy_agreed"><?php echo JText::_('PLG_SYS_EPRIVACY_AGREE');?></button></div>
+        </div>
     </div>
     <div role="alert" class="alert alert-danger plg_system_eprivacy_declined" style="display:none">
         <p><?php echo JText::_('PLG_SYS_EPRIVACY_DECLINED_LOGIN'); ?></p>
         <button type="button" class="btn btn-default plg_system_eprivacy_reconsider"><?php echo JText::_('PLG_SYS_EPRIVACY_RECONSIDER');?></button> 
     </div>
     <?php endif; ?>
-    <div class="plg_system_eprivacy_accepted" style="display:none">
-        <p>
-            <?php echo JText::_('PLG_SYS_EPRIVACY_UNACCEPT_MESSAGE_LOGIN'); ?>
-            <button type="button" class="btn btn-link plg_system_eprivacy_accepted"><?php echo JText::_('PLG_SYS_EPRIVACY_UNACCEPT');?></button> 
-        </p>
-    </div>
 </div>
 <div id="plg_system_eprivacy" style="display:none"></div>

@@ -18,6 +18,13 @@ jQuery("#login-form input").keypress(function(event) {
 
 jQuery(document).ready(function() {
   "use strict";
+
+  // Disable the contact form if the user has not accepted cookies
+  if (!jQuery(".plg_system_eprivacy_accepted").is(":visible")) {
+    jQuery("#contact-form :input").each(function(i, o) { o.disabled = true })
+    jQuery(".form-actions :button").prop('disabled', true)
+  }
+
   // Add HTML content for image caption
   jQuery('img').not('.noCaption,[src*=darkmode]').each(function(i, obj) {
     var image = jQuery(this);
@@ -191,8 +198,3 @@ function camelise(str) {
     return index == 0 ? letter.toLowerCase() : letter.toUpperCase();
   }).replace(/\s+/g, '');
 }
-
-
-
-
-
