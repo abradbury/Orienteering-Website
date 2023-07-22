@@ -5,6 +5,8 @@ Copyright (c) 2012 Reactive Apps, Ronnie Garcia
 Released under the MIT License <http://www.opensource.org/licenses/mit-license.php> 
 */
 
+// From https://github.com/RonnieSan/uploadify
+
 // Define a destination
 $preTargetFolder = '/home/j14sout/public_html';
 $targetFolder = '/event'; // Relative to the root
@@ -15,8 +17,9 @@ $targetFolder = '/event'; // Relative to the root
 
 // TODO: Catch warnings and throw as error
 // These will trigger an error response
-// 	header("HTTP/1.1 405"); //any 4XX error will work
-//  exit();
+// header("HTTP/1.1 405"); //any 4XX error will work
+// echo "Some response message";
+// exit();
 
 if (!empty($_FILES)) {
 	$eventVenue = $_POST['eventVenue'];
@@ -31,7 +34,11 @@ if (!empty($_FILES)) {
 
 	// If the folder does not exist, create one
 	if(!file_exists($targetPath)) {
-		mkdir(str_replace('//','/',$targetPath), 0755, true);
+		$res = mkdir(str_replace('//','/',$targetPath), 0755, true);
+		if (!$res) {
+			echo "Error creating target directory";
+			return false;
+		}
 	}
 	
 	// Validate the file type
@@ -44,12 +51,19 @@ if (!empty($_FILES)) {
 		$existingVerions = glob($regex);
 		$newFile =  $targetFolder . '/' . $documentType . '_v1.' . strtolower($fileParts['extension']);
 				
-		// var_dump($regex);
-
 		// If there are no existing versions
 		if(empty($existingVerions)) {
-			move_uploaded_file($tempFile,$targetFile);
-			rename($preTargetFolder . $targetFolder . '/' . $_FILES['upload_file']['name'], $preTargetFolder . $newFile);
+			$res = move_uploaded_file($tempFile,$targetFile);
+			if (!$res) {
+				echo "Error moving uploaded file";
+				return false;
+			}
+
+			$res = rename($preTargetFolder . $targetFolder . '/' . $_FILES['upload_file']['name'], $preTargetFolder . $newFile);
+			if (!$res) {
+				echo "Error renaming uploaded file";
+				return false;
+			}
 		} else {
 			// If there are existing versions
 			// Splits into '/home/j14sout/../flyer_v3' and 'pdf'

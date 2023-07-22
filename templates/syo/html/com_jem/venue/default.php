@@ -22,7 +22,7 @@ defined('_JEXEC') or die;
 			<div class="col-sm-4 buttons">
 				<?php
 				$btn_params = array('id' => $this->venue->slug, 'slug' => $this->venue->slug, 'task' => $this->task, 'print_link' => $this->print_link);
-				echo str_replace('class=" hasTooltip"', 'class="btn btn-primary pull-right btn-block" role="button"', JemOutput::createButtonBar($this->getName(), $this->permissions, $btn_params));
+				echo str_replace('class=" hasTooltip"', 'class="btn btn-primary float-end btn-block" role="button"', JemOutput::createButtonBar($this->getName(), $this->permissions, $btn_params));
 				?>
 			</div>
 		</div>

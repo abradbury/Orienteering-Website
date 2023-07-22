@@ -23,7 +23,7 @@ defined('_JEXEC') or die;
 <?php if ($this->params->get('pageclass_sfx') === 'results') /* Hack that stops table filter on eventlist pages ($this->settings->get('global_show_filter',1) || $this->settings->get('global_display',1))*/ : ?>
 	<div id="jem_filter" class="floattext">
 		<?php if ($this->settings->get('global_show_filter',1)) : ?>
-			<div class="pull-left">
+			<div class="float-start">
 				<?php
 					echo '<label for="filter_type" class="control-label">'.JText::_('COM_JEM_FILTER').'</label>&nbsp;';
 					echo $this->lists['filter'].'&nbsp;';
@@ -35,7 +35,7 @@ defined('_JEXEC') or die;
 			</div>
 		<?php endif; ?>
 		<?php if ($this->settings->get('global_display',1)) : ?>
-			<div class="pull-right">
+			<div class="float-end">
 				<?php
 					echo '<label class="control-label" for="limit">'.JText::_('COM_JEM_DISPLAY_NUM').'</label>&nbsp;';
 					echo $this->pagination->getLimitBox();

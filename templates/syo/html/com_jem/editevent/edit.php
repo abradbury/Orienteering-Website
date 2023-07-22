@@ -67,17 +67,17 @@ $max_custom_fields = $this->settings->get('global_editevent_maxnumcustomfields',
 
 		<form enctype="multipart/form-data" action="<?php echo JRoute::_('index.php?option=com_jem&a_id='.(int) $this->item->id); ?>" method="post" name="adminForm" id="adminForm" class="form-horizontal form-validate">
 			<div class="row event-buttons">
-				<div class="col-sm-offset-2 col-sm-4 col-xs-6">
-					<button type="button" class="btn btn-success btn-block" onclick="Joomla.submitbutton('event.save')"><?php echo JText::_('JSAVE') ?></button>
+				<div class="offset-2 col-4">
+					<button type="button" class="w-100 btn btn-success" onclick="Joomla.submitbutton('event.save')"><?php echo JText::_('JSAVE') ?></button>
 				</div>
-				<div class="col-sm-4 col-xs-6">
-					<button type="button" class="btn btn-danger btn-block" onclick="Joomla.submitbutton('event.cancel')"><?php echo JText::_('JCANCEL') ?></button>
+				<div class="col-4">
+					<button type="button" class="w-100 btn btn-danger" onclick="Joomla.submitbutton('event.cancel')"><?php echo JText::_('JCANCEL') ?></button>
 				</div>
 			</div>
 
 			<?php if ($this->item->recurrence_type > 0) : ?>
 			<div class="description">
-				<div class="pull-left;">
+				<div class="float-start;">
 					<?php echo JemOutput::recurrenceicon($this->item, false, false); ?>
 				</div>
 				<div class="floattext" style="margin-left:36px;">
@@ -102,49 +102,49 @@ $max_custom_fields = $this->settings->get('global_editevent_maxnumcustomfields',
 
 			<fieldset>
 				<legend><?php echo JText::_('COM_JEM_EDITEVENT_DETAILS_LEGEND'); ?></legend>
-				<div class="form-group">
-					<div class="col-sm-2 cantAccessLabel"><?php echo $this->form->getLabel('title'); ?></div>
-					<div class="col-sm-8"><?php echo $this->form->getInput('title'); ?></div>
+				
+				<div class="mb-3">
+					<?php echo $this->form->getLabel('title'); ?>
+					<?php echo $this->form->getInput('title'); ?>
 				</div>
 
-				<div class="form-group">
-					<div class="col-sm-2 cantAccessLabel"><?php echo $this->form->getLabel('locid'); ?></div>
-					<div class="col-sm-6 col-xs-9"><?php echo $this->form->getInput('locid'); ?></div>
+				<div class="mb-3">
+					<?php echo $this->form->getLabel('locid'); ?>
+					<?php echo $this->form->getInput('locid'); ?>
 				</div>
 
-				<div class="form-group">
-					<div class="col-sm-2 cantAccessLabel"><?php echo $this->form->getLabel('cats'); ?></div>
-					<div class="col-sm-8"><?php echo $this->form->getInput('cats'); ?></div>
+				<div class="mb-3">
+					<?php echo $this->form->getLabel('cats'); ?>
+					<?php echo $this->form->getInput('cats'); ?>
 				</div>
 
-				<!--Calendar icon issue in html.php - core file...-->
-				<div class="form-group">
-					<div class="col-sm-2 cantAccessLabel"><?php echo $this->form->getLabel('dates'); ?></div>
-					<div class="col-sm-8 col-xs-12"><?php echo $this->form->getInput('dates'); ?></div>
+				<div class="mb-3">
+					<?php echo $this->form->getLabel('dates'); ?>
+					<?php echo $this->form->getInput('dates'); ?>
 				</div>
 
-				<div class="form-group">
-					<div class="col-sm-2 cantAccessLabel"><?php echo $this->form->getLabel('enddates'); ?></div>
-					<div class="col-sm-8 col-xs-12"><?php echo $this->form->getInput('enddates'); ?></div>
+				<div class="mb-3">
+					<?php echo $this->form->getLabel('enddates'); ?>
+					<?php echo $this->form->getInput('enddates'); ?>
 				</div>
 
-				<div class="form-group">
-					<div class="col-sm-2 cantAccessLabel"><?php echo $this->form->getLabel('times'); ?></div>
-					<div class="col-sm-4 col-xs-6"><?php echo $this->form->getInput('times'); ?></div>
+				<div class="mb-3">
+					<?php echo $this->form->getLabel('times'); ?>
+					<?php echo $this->form->getInput('times'); ?>
 				</div>
 
-				<div class="form-group">
-					<div class="col-sm-2 cantAccessLabel"><?php echo $this->form->getLabel('endtimes'); ?></div>
-					<div class="col-sm-4 col-xs-6"><?php echo $this->form->getInput('endtimes'); ?></div>
+				<div class="mb-3">
+					<?php echo $this->form->getLabel('endtimes'); ?>
+					<?php echo $this->form->getInput('endtimes'); ?>
 				</div>
 
-				<div class="form-group">
-					<div class="col-sm-2 cantAccessLabel"><?php echo $this->form->getLabel('published'); ?></div>
-					<div class="col-sm-8"><?php echo $this->form->getInput('published'); ?></div>
+				<div class="mb-3">
+					<?php echo $this->form->getLabel('published'); ?>
+					<?php echo $this->form->getInput('published'); ?>
 				</div>
 
 				<?php if ($max_custom_fields != 0) :
-				$custom_file_fields =array(1, 2, 3, 4, 8, 10);
+				$custom_file_fields = array(1, 2, 3, 4, 8, 10);
 
 				$fields = $this->form->getFieldset('custom');
 				if ($max_custom_fields < 0) :
@@ -153,41 +153,51 @@ $max_custom_fields = $this->settings->get('global_editevent_maxnumcustomfields',
 				$cnt = 0;
 				
 				foreach($fields as $field) :
-				if (++$cnt <= $max_custom_fields) : ?>
+					if (++$cnt <= $max_custom_fields) :
+						$isCustomFileInput = in_array($cnt, $custom_file_fields);?>
+						
+						<div class="mb-3">
+						<?php 
+						echo $field->label;
 
-				<div class="form-group">
-					<div class="col-sm-2 cantAccessLabel"><?php echo $field->label; ?></div>
-					<div class="col-sm-8 col-xs-10"><?php echo $field->input; ?></div>
+						if ($isCustomFileInput) { ?>
+							<div class="row">
+								<div class="col-10">
+						<?php }
 
-				<?php if (in_array($cnt, $custom_file_fields)) : ?>
-					<input 
-						type="file" 
-						name="file_upload" 
-						id="file_upload<?php echo $cnt; ?>" 
-						accept=".pdf,.jpg,.jpeg,.txt,.rtf,.doc,.docx,.xlsx,.xls,.htm,.html"
-						onchange="handleFiles(this);" 
-						class="file_upload_button col-sm-2 col-xs-2"
-						data-event-date="<?php echo $this->item->dates; ?>"
-						data-event-venue="<?php echo $this->item->localias; ?>"
-					>
-					<label class="btn btn-default col-sm-2 col-xs-2" for="file_upload<?php echo $cnt; ?>">Choose a file</label>
-					<div class="progress col-sm-8 col-sm-offset-2 col-xs-10" >
-					  <div class="progress-bar progress-bar-info" id="progressbar<?php echo $cnt; ?>" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" aria-hidden="true">
-					    <span class="sr-only">40% Complete (success)</span>
-					  </div>
-					</div>
-					<div class="col-sm-8 col-sm-offset-2 col-xs-10">
-						<div id="helpBlock<?php echo $cnt; ?>" class="alert alert-danger errorMsg" role="alert"></div>
-					</div>
+									echo $field->input;
+
+						if ($isCustomFileInput) : ?>
+								</div>
+								<div class="col-2">
+									<input 
+										type="file" 
+										name="file_upload" 
+										id="file_upload<?php echo $cnt; ?>" 
+										accept=".pdf,.jpg,.jpeg,.txt,.rtf,.doc,.docx,.xlsx,.xls,.htm,.html"
+										onchange="handleFiles(this);" 
+										class="file_upload_button"
+										data-event-date="<?php if(isset($this->item->dates)) : echo $this->item->dates; else: echo 'date'; endif; ?>"
+										data-event-venue="<?php if (isset($this->item->localias)) : echo $this->item->localias; else : echo 'location'; endif; ?>"
+									>
+									<label class="btn btn-outline-secondary w-100" for="file_upload<?php echo $cnt; ?>">Choose a file</label>
+								</div>
+								
+								<div class="col-10 progress" role="progressbar" aria-label="File upload progress bar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+									<div class="progress-bar bg-info progress-bar-striped progress-bar-animated" id="progressbar<?php echo $cnt; ?>" style="width: 100%"></div>
+								</div>
+
+								<div class="col-10">
+									<div id="helpBlock<?php echo $cnt; ?>" class="alert alert-danger errorMsg" role="alert"></div>
+								</div>
+							</div>
+						<?php endif; ?>
 				<?php endif; ?>
+					</div>
+				<?php endforeach; endif; ?>
 
-				</div>
-				<?php endif; endforeach; endif; ?>
-
-				<div class="form-group">
-					<div class="col-sm-2 cantAccessLabel"><?php echo $this->form->getLabel('articletext'); ?></div>
-					<div class="col-sm-8"><?php echo $this->form->getInput('articletext'); ?></div>
-				</div>
+				<?php echo $this->form->getLabel('articletext'); ?>
+				<?php echo $this->form->getInput('articletext'); ?>
 			</fieldset>
 							
 			<input type="hidden" name="task" value="" />

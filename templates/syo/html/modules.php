@@ -11,7 +11,7 @@
 		if ($module->showtitle) {
 			echo "<div class='eventsHeader'>";
 			echo '<'.$headerTag.'>' .$module->title .'</'.$headerTag.'>';
-			echo "<a class='pull-right' href='/". strtolower($module->title) ."'>View all ". strtolower($module->title) ."</a>";
+			echo "<a class='float-end' href='/". strtolower($module->title) ."'>View all ". strtolower($module->title) ."</a>";
 			echo "</div>";
 		}
 

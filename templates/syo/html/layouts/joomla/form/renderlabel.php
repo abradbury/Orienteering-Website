@@ -33,7 +33,7 @@ $title = '';
 // If a description is specified, use it to build a tooltip.
 if (!empty($desc))
 {
-	$classes[] = 'control-label';
+	$classes[] = 'form-label';
 	$title = ' title="' . JHtml::tooltipText(trim($text, ':'), $desc, 0) . '"';
 }
 

@@ -15,18 +15,13 @@ function renderMessage($msgList)
 	$buffer .= "\n<div id=\"system-message-container\">";
 	$alert = array('error' => 'alert-danger', 'warning' => 'alert-warning', 'notice' => 'alert-info', 'message' => 'alert-success');
 
-// 	<div class="alert alert-warning alert-dismissible" role="alert">
-//   <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-//   <strong>Warning!</strong> Better check yourself, you're not looking too good.
-//  </div>
-
 	// Only render the message list and the close button if $msgList has items
 	if (is_array($msgList) && (count($msgList) >= 1))
 	{
 		foreach ($msgList as $type => $msgs)
 		{
-			$buffer .= '<div class="alert ' . $alert[$type]. ' alert-dismissible" role="alert">';
-			$buffer .= '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>';
+			$buffer .= '<div class="alert ' . $alert[$type]. ' alert-dismissible fade show" role="alert">';
+			$buffer .= '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>';
 			$buffer .= "\n<h4 class=\"alert-heading\">" . JText::_($type) . "</h4>";
 			if (count($msgs))
 			{

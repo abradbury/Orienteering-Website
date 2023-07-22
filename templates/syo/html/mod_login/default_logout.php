@@ -12,11 +12,13 @@ defined('_JEXEC') or die;
 JHtml::_('behavior.keepalive');
 ?>
 
-<form action="<?php echo JRoute::_(JUri::getInstance()->toString(), true, $params->get('usesecure')); ?>" method="post" id="login-form" class="form-inline">
+<form action="<?php echo JRoute::_(JUri::getInstance()->toString(), true, $params->get('usesecure')); ?>" method="post" id="login-form" class="form-inline nav-link">
 	<span>
 		<?php if ($params->get('greeting')) : ?>
 		<?php if ($params->get('name') == 0) : {
-			echo JText::sprintf('MOD_LOGIN_HINAME', htmlspecialchars($user->get('name')));
+			$uname = $user->get('name');
+			$nameParts = explode(' ', $uname);
+			echo JText::sprintf('MOD_LOGIN_HINAME', htmlspecialchars($nameParts[0]));
 		} else : {
 			echo JText::sprintf('MOD_LOGIN_HINAME', htmlspecialchars($user->get('username')));
 		} endif; ?>

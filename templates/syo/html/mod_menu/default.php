@@ -12,7 +12,7 @@ defined('_JEXEC') or die;
 // Note. It is important to remove spaces between elements.
 ?>
 <?php // The menu class is deprecated. Use nav instead. ?>
-<ul id="mainNavLinks"<?php
+<ul id='mainNavLinks' class='navbar-nav me-auto mb-2 mb-lg-0 flex-nowrap flex-md-wrap' <?php
 	$tag = '';
 
 	if ($params->get('tag_id') != null)
@@ -24,7 +24,7 @@ defined('_JEXEC') or die;
 <?php
 foreach ($list as $i => &$item)
 {
-	$class = 'item-' . $item->id;
+	$class = 'nav-item item-' . $item->id;
 
 	if (($item->id == $active_id) OR ($item->type == 'alias' AND $item->params->get('aliasoptions') == $active_id))
 	{
@@ -88,7 +88,7 @@ foreach ($list as $i => &$item)
 	// The next item is deeper.
 	if ($item->deeper)
 	{
-		echo '<ul class="nav-child unstyled dropdown-menu">';
+		echo '<ul class="dropdown-menu">';
 	}
 	elseif ($item->shallower)
 	{

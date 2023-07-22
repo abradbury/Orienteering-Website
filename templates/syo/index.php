@@ -31,18 +31,17 @@ $doc->setHeadData($head);
 
 // New meta
 $doc->setMetadata('charset', 'utf-8');
-$doc->setMetadata('X-UA-Compatible', 'IE=edge');
-$doc->setMetadata('viewport', 'width=device-width, initial-scale=1.0');
+$doc->setMetadata('viewport', 'width=device-width, initial-scale=1');
 
 // Remove Joomla generator text
 $doc->setGenerator('');
 
 // Add CSS
-$doc->addStyleSheet($this->baseurl.'/templates/'.$this->template.'/css/bootstrap.min.css?v=341');
-$doc->addStyleSheet($this->baseurl.'/templates/'.$this->template.'/css/template.min.css?v=452');
-$doc->addStyleSheet($this->baseurl.'/templates/'.$this->template.'/css/fontawesome.min.css?v=5130');
-$doc->addStyleSheet($this->baseurl.'/templates/'.$this->template.'/css/brands.min.css?v=5130');
-$doc->addStyleSheet($this->baseurl.'/templates/'.$this->template.'/css/solid.min.css?v=5130');
+$doc->addStyleSheet($this->baseurl.'/templates/'.$this->template.'/css/bootstrap.min.css?v=530');
+$doc->addStyleSheet($this->baseurl.'/templates/'.$this->template.'/css/template.min.css?v=501');
+$doc->addStyleSheet($this->baseurl.'/templates/'.$this->template.'/css/fontawesome.min.css?v=640');
+$doc->addStyleSheet($this->baseurl.'/templates/'.$this->template.'/css/brands.min.css?v=640');
+$doc->addStyleSheet($this->baseurl.'/templates/'.$this->template.'/css/solid.min.css?v=640');
 
 // Add favicon stuff
 $doc->addCustomTag('<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=sa5YTVdDS">');
@@ -60,14 +59,11 @@ $doc->setMetadata("apple-mobile-web-app-title", "content='SYO'>");
 $doc->setMetadata('og:image', JURI::base().'templates/'.$this->template.'/images/header/'.$imageNames[$randIndex]);
 
 // Add JS
-$doc->addScript($this->baseurl.'/templates/'.$this->template.'/js/bootstrap.min.js?v=341');
-
-// HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries
-$doc->addCustomTag('<!--[if lt IE 9]><script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script><script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->');
+$doc->addScript($this->baseurl.'/templates/'.$this->template.'/js/bootstrap.bundle.min.js?v=530');
 ?>
 
-<!DOCTYPE html>
-<html xml:lang="<?php echo $this->language; ?>" lang="<?php echo $this->language; ?>" >
+<!doctype html>
+<html lang="<?php echo $this->language; ?>">
   <head>
     <jdoc:include type="head" />
   </head>
@@ -77,63 +73,79 @@ $doc->addCustomTag('<!--[if lt IE 9]><script src="https://oss.maxcdn.com/html5sh
     <div id="wrap">
       <div class="container">
         <header>
-          <!--[if lt IE 11]>
           <?php if ($this->countModules( 'browser_warning' )): ?>
             <div class="row">
-              <div class="col-sm-12 browser-warning">
-                <jdoc:include type="modules" name="browser_warning" style="xhtml" /> 
-              </div>
-            </div>
-          <?php endif; ?>
-          <![endif]-->
-
-          <div id="navWrapper">
-            <nav class="navbar navbar-default">
-              <div class="container-fluid">
-                <div class="navbar-header">
-                  <div class="header-grid1">
-                    <a class="header-cell1 mainNavLogo" href="<?php echo $this->baseurl; ?>">
-                      <object type="image/svg+xml" data="<?php echo $this->baseurl.'/templates/'.$this->template ?>/svg/syo_logo_and_text_crop.svg?v=4">
-                        Your browser does not support SVGs
-                      </object>
-                    </a>
-
-                    <div class="header-cell2">
-                      <button type="button" class="navbar-toggle collapsed header-cell3-button" data-toggle="collapse" data-target="#nav-collapse-mob" aria-expanded="false">
-                        <span>Menu</span>
-                      </button>
-
-                      <div class="collapse navbar-collapse header-cell3-menu" id="nav-collapse">
-                          <jdoc:include type="modules" name="menu" />
-                      </div>
-
-                      <ul class="nav social header-cell4">
-                        <?php $params = $this->params; ?>
-                        <?php if ($params->get( 'facebookURL' )) { ?><li><a class='no-external-link-icon' target='_blank' href='<?php echo $params->get('facebookURL'); ?>' title="View SYO's Facebook Page"><span class='sr-only'>View S.Y.O's Facebook Page</span><span class='fab my-fa-facebook' aria-hidden='true'></span></a></li><?php } ?>
-                        <?php if ($params->get( 'twitterURL' )) {  ?><li><a class='no-external-link-icon' target='_blank' href='<?php echo $params->get('twitterURL');  ?>' title="View SYO's Twitter Feed"><span class='sr-only'>View S.Y.O's Twitter Feed</span><span class='fab my-fa-twitter' aria-hidden='true'></span></a></li><?php } ?>
-                        <?php if ($params->get( 'flickrURL' )) {   ?><li><a class='no-external-link-icon' target='_blank' href='<?php echo $params->get('flickrURL');   ?>' title="View SYO's Flickr Photo Pool"><span class='sr-only'>View S.Y.O's Flickr Photo Pool</span><span class='fab my-fa-flickr' aria-hidden='true'></span></a></li><?php } ?>
-                        <?php if ($params->get( 'instagramURL' )) {   ?><li><a class='no-external-link-icon' target='_blank' href='<?php echo $params->get('instagramURL');   ?>' title="View SYO's Instagram Page"><span class='sr-only'>View S.Y.O's Instagram Page</span><span class='fab my-fa-instagram' aria-hidden='true'></span></a></li><?php } ?>
-                        <?php if ($params->get( 'stravaURL' )) {   ?><li><a class='no-external-link-icon' target='_blank' href='<?php echo $params->get('stravaURL');   ?>' title="View SYO's Strava Page"><span class='sr-only'>View S.Y.O's Strava Page</span><span class='fab my-fa-strava' aria-hidden='true'></span></a></li><?php } ?>
-
-                        <?php if ($this->countModules( 'logout' )): ?>
-                        <li><span id="login-btn" class="fas fa-user" aria-hidden="true"></span></li>
-                        <li><jdoc:include type="modules" name="logout" style="xhtml" /></li>
-                        <?php else: ?>
-                        <li><a id="login-btn" href="#" title="SYO Member Login" data-toggle="modal" data-target="#login"><span class="sr-only">S.Y.O Member Login</span><span class="fas fa-user" aria-hidden="true"></span></a></li>
-                        <?php endif; ?>
-                      </ul>
-                    </div>
-                  </div>
-                  <div class="collapse navbar-collapse header-cell3-menu" id="nav-collapse-mob">
-                      <jdoc:include type="modules" name="menu" />
-                  </div>
+              <!--[if IE ]>
+              <div id="browser-warning" class="col">
+                <div class="alert alert-danger" role="alert">
+                  <jdoc:include type="modules" name="browser_warning" style="xhtml" /> 
                 </div>
               </div>
-            </nav>
+              <![endif]-->
+            </div>
+          <?php endif; ?>
+
+          <div class="row align-items-center">
+            <div class="col-5 col-sm-4 col-md-3 col-lg-2 align-self-start align-self-md-center">
+              <a href="<?php echo $this->baseurl; ?>">
+                <img class="brand-image noCaption" src="<?php echo $this->baseurl.'/templates/'.$this->template ?>/svg/syo_logo_slim_border.svg?v=4"/>
+              </a>
+            </div>
+
+            <div class="col-7 col-sm-8 col-md-9 col-lg-10">
+              <div class="row nav-row-one flex-lg-row-reverse align-items-center">
+               
+                <div class="col-xl-4">
+                  <ul class='nav so-shall justify-content-end'>
+                    <?php $params = $this->params; ?>
+                    <?php if ($params->get( 'facebookURL' )) {  ?><li class='nav-item'><a class='nav-link no-external-link-icon fb' target='_blank' href='<?php echo $params->get('facebookURL');  ?>' title="View SYO's Facebook Page"><span class='sr-only'>View S.Y.O's Facebook Page</span><i class="fa-brands fa-facebook"></i></a></li><?php } ?>
+                    <?php if ($params->get( 'twitterURL' )) {   ?><li class='nav-item'><a class='nav-link no-external-link-icon tw' target='_blank' href='<?php echo $params->get('twitterURL');   ?>' title="View SYO's Twitter Feed"><span class='sr-only'>View S.Y.O's Twitter Feed</span><i class="fa-brands fa-twitter"></i></a></li><?php } ?>
+                    <?php if ($params->get( 'flickrURL' )) {    ?><li class='nav-item'><a class='nav-link no-external-link-icon fl' target='_blank' href='<?php echo $params->get('flickrURL');    ?>' title="View SYO's Flickr Photo Pool"><span class='sr-only'>View S.Y.O's Flickr Photo Pool</span><i class="fa-brands fa-flickr"></i></a></li><?php } ?>
+                    <?php if ($params->get( 'instagramURL' )) { ?><li class='nav-item'><a class='nav-link no-external-link-icon in' target='_blank' href='<?php echo $params->get('instagramURL'); ?>' title="View SYO's Instagram Page"><span class='sr-only'>View S.Y.O's Instagram Page</span><i class="fa-brands fa-instagram"></i></a></li><?php } ?>
+                    <?php if ($params->get( 'stravaURL' )) {    ?><li class='nav-item'><a class='nav-link no-external-link-icon st' target='_blank' href='<?php echo $params->get('stravaURL');    ?>' title="View SYO's Strava Page"><span class='sr-only'>View S.Y.O's Strava Page</span><i class="fa-brands fa-strava"></i></a></li><?php } ?>
+
+                    <li class='so-shall-divider'></li>
+                    <?php if ($this->countModules( 'logout' )): ?>
+                      <li class='nav-item'><jdoc:include type="modules" name="logout" style="xhtml" /></li>
+                    <?php else: ?>
+                      <li class='nav-item'>
+                        <a class='nav-link' href='#' role='button' data-bs-toggle="modal" data-bs-target="#login" title='SYO Member Login'>
+                          <span class='sr-only'>S.Y.O Member Login</span>  
+                          <span class='fas fa-user' aria-hidden='true'></span>
+                        </a>
+                        <?php $user = JFactory::getUser(); if ($user->guest) { ?>
+                          <jdoc:include type="modules" name="login" style="xhtml" />
+                        <?php } ?>
+                      </li>
+                    <?php endif; ?>
+                  </ul>
+                </div>
+
+                <div class="brand-name text-end text-md-start col-xl-8">
+                  <h1>South Yorkshire Orienteers</h1>
+                </div>
+              </div>
+
+              <div class="row nav-row-two">
+                <nav class="navbar navbar-expand-md">
+                  <div class="container-fluid justify-content-end justify-content-md-start">
+
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                      <span class="navbar-toggler-icon"></span>
+                      <span>Menu</span>
+                    </button>
+
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                      <jdoc:include type="modules" name="menu" />
+                    </div>
+                  </div>
+                </nav>
+              </div>
+            </div>
           </div>
 
           <div class="row">
-            <div class="col-sm-12 hidden-xs">
+            <div class="col d-none d-sm-block">
               <div class="banner" id="<?php echo $menuAlias; ?>" data-img-name="<?php echo $this->baseurl.'/templates/'.$this->template.'/images/header/'.$imageNames[$randIndex]; ?>">
                 <small class="caption" data-img-desc="<?php echo $imageCapts[$randIndex]; ?>"></small>
               </div>
@@ -142,7 +154,7 @@ $doc->addCustomTag('<!--[if lt IE 9]><script src="https://oss.maxcdn.com/html5sh
 
           <?php if ($this->countModules( 'newsflash' )): ?>
           <div class="row">
-            <div class="col-sm-12">
+            <div class="col">
               <jdoc:include type="modules" name="newsflash" style="xhtml" /> 
             </div>
           </div>
@@ -151,15 +163,15 @@ $doc->addCustomTag('<!--[if lt IE 9]><script src="https://oss.maxcdn.com/html5sh
           <?php $app = JFactory::getApplication();
           if(count($app->getMessageQueue())) { ?>
           <div class="row">
-            <div class="col-sm-12">
+            <div class="col">
               <jdoc:include type="message" />
             </div>
           </div>
           <?php } ?>
 
           <?php if ($this->countModules( 'breadcrumb' )): ?>
-          <div class="row">
-            <div class="col-sm-12">
+          <div class="row pt-2">
+            <div class="col">
               <jdoc:include type="modules" name="breadcrumb" style="xhtml" /> 
             </div>
           </div>
@@ -169,24 +181,24 @@ $doc->addCustomTag('<!--[if lt IE 9]><script src="https://oss.maxcdn.com/html5sh
         <main id="content">
           <div class="row">
             <?php if ($this->countModules( 'events' )): ?>
-            <div class="col-sm-6">
+            <div class="col-sm">
               <jdoc:include type="modules" name="events" style="events" /> 
             </div>
             <?php endif; ?>
 
             <?php if ($this->countModules( 'results' )): ?>
-            <div class="col-sm-6">
+            <div class="col-sm">
               <jdoc:include type="modules" name="results" style="events" /> 
             </div>
             <?php endif; ?>
           </div>
 
-          <div class="row">
+          <div class="row row-gap-3">
             <?php if ($this->countModules( 'about_left' )): ?>
-            <div class="col-sm-4">
+            <div class="col-md-4">
               <jdoc:include type="modules" name="about_left" style="xhtml" /> 
             </div>
-            <div class="col-sm-8 news">
+            <div class="col-md-8 news">
               <jdoc:include type="component" />
 
               <?php if ($this->countModules( 'main_bottom' )): ?>
@@ -195,19 +207,19 @@ $doc->addCustomTag('<!--[if lt IE 9]><script src="https://oss.maxcdn.com/html5sh
             </div>
 
             <?php elseif ($this->countModules( 'right' )): ?>
-            <div class="col-sm-7 col-md-8">
+            <div class="col-md-8">
               <jdoc:include type="component" />
 
               <?php if ($this->countModules( 'main_bottom' )): ?>
               <jdoc:include type="modules" name="main_bottom" style="xhtml" /> 
               <?php endif; ?>
             </div>
-            <div class="col-sm-5 col-md-4">
+            <div class="col-md-4">
               <jdoc:include type="modules" name="right" style="module" /> 
             </div>       
 
             <?php else : ?>
-            <div class="col-sm-12">
+            <div class="col">
               <jdoc:include type="component" />
 
               <?php if ($this->countModules( 'main_bottom' )): ?>
@@ -220,30 +232,32 @@ $doc->addCustomTag('<!--[if lt IE 9]><script src="https://oss.maxcdn.com/html5sh
       </div>
     </div>
 
-    <?php $user = JFactory::getUser();
-    if ($user->guest) { ?>
-    <jdoc:include type="modules" name="login" style="xhtml" />
-    <?php } ?>
-    
-    <footer class="footer container-fluid">
-      
+    <footer class="footer">
       <div class="footerImage">
         <img class="img-responsive noCaption" src="<?php echo $this->baseurl.'/templates/'.$this->template ?>/images/SYO_Footer_Silhouette.gif" alt="">
       </div>
 
       <div class="footerBody">
         <div class="container">
-
           <?php if (($this->countModules( 'bottom_left' )) || ($this->countModules( 'bottom_right' ))): ?>
           <div class="row">
-            <?php if ($this->countModules( 'bottom_left' )): ?>
-            <div class="col-sm-6">
-              <jdoc:include type="modules" name="bottom_left" style="footer" /> 
+            <div class="col-md">
+              <div class="footer-module">
+                <h1 class="footerHeader">Sponsors</h1>
+                <div class="row footerSponsors">
+                  <div id="acl" class="col-sm-10">
+                    <a class="mainNavLogo no-external-link-icon" title="Visit the website of our sponsor, CompassSport" href="http://www.compasssport.co.uk/">
+                      <object id="aclo" class="img-responsive footerLogo" type="image/svg+xml" data="<?php echo JURI::root()?>/templates/syo/svg/compasssport.svg?v=3">
+                          Sorry, your browser does not support SVGs, so we can't show you this image.
+                      </object>
+                    </a>
+                  </div>
+                </div>
+              </div>
             </div>
-            <?php endif; ?>
 
             <?php if ($this->countModules( 'bottom_right' )): ?>
-            <div class="col-sm-6">
+            <div class="col-md">
               <jdoc:include type="modules" name="bottom_right" style="footer" /> 
             </div>
             <?php endif; ?>
@@ -253,11 +267,8 @@ $doc->addCustomTag('<!--[if lt IE 9]><script src="https://oss.maxcdn.com/html5sh
           <hr>
 
           <div class="row finalFooterRow">
-            <div class="col-sm-6">
+            <div class="col">
               <jdoc:include type="modules" name="footer_left" />
-            </div>
-            <div class="col-sm-6">
-              <jdoc:include type="modules" name="footer_right" />
             </div>
           </div>
         </div>

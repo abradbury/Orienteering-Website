@@ -95,8 +95,6 @@ function pagination_list_render($list)
 	$html .= $list['start']['data'];
 	$html .= $list['previous']['data'];
 
-	// $html.=var_dump($list);
-
 	foreach($list['pages'] as $page) {
 		$html .= $page['data'];
 	}
@@ -114,7 +112,7 @@ function pagination_list_render($list)
  */
 function pagination_item_active(&$item)
 {
-	return "<li><a href=\"".$item->link."\" title=\"".$item->text."\">".$item->text."</a></li>";
+	return "<li class=\"page-item\"><a class=\"page-link\" href=\"".$item->link."\" title=\"".$item->text."\">".$item->text."</a></li>";
 }
 
 /**
@@ -130,6 +128,6 @@ function pagination_item_inactive(&$item)
 		$liClass = "disabled";
 	}
 
-	return "<li class=\"".$liClass."\"><a href=\"#\">".$item->text."</a></li>";
+	return "<li class=\"page-item ".$liClass."\"><a class=\"page-link\" href=\"#\">".$item->text."</a></li>";
 }
 ?>

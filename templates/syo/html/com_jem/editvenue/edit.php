@@ -103,17 +103,17 @@ $location = JemHelper::defineCenterMap($this->form);
 	<div class="edit item-page">
 		<?php if ($params->get('show_page_heading')) : ?>
 		<h1>
-		<?php echo $this->escape($params->get('page_heading')); ?>
+			<?php echo $this->escape($params->get('page_heading')); ?>
 		</h1>
 		<?php endif; ?>
 
 		<form action="<?php echo JRoute::_('index.php?option=com_jem&a_id='.(int) $this->item->id); ?>" class="form-horizontal form-validate" method="post" name="adminForm" id="venue-form" enctype="multipart/form-data">
 			<div class="row event-buttons">
-				<div class="col-sm-offset-2 col-sm-4 col-xs-6">
-					<button type="button" class="btn btn-success btn-block" onclick="Joomla.submitbutton('venue.save')"><?php echo JText::_('JSAVE') ?></button>
+				<div class="offset-2 col-4">
+					<button type="button" class="w-100 btn btn-success" onclick="Joomla.submitbutton('venue.save')"><?php echo JText::_('JSAVE') ?></button>
 				</div>
-				<div class="col-sm-4 col-xs-6">
-					<button type="button" class="btn btn-danger btn-block" onclick="Joomla.submitbutton('venue.cancel')"><?php echo JText::_('JCANCEL') ?></button>
+				<div class="col-4">
+					<button type="button" class="w-100 btn btn-danger" onclick="Joomla.submitbutton('venue.cancel')"><?php echo JText::_('JCANCEL') ?></button>
 				</div>
 			</div>
 
@@ -123,51 +123,47 @@ $location = JemHelper::defineCenterMap($this->form);
 			</div>
 			<?php endif; ?>
 
-			<div class="form-group">
-				<div class="col-sm-2 cantAccessLabel"><?php echo $this->form->getLabel('venue');?></div>
-				<div class="col-sm-8"><?php echo $this->form->getInput('venue'); ?></div>
+			<div class="mb-3">
+				<?php echo $this->form->getLabel('venue');?>
+				<?php echo $this->form->getInput('venue'); ?>
 			</div>
 
-			<div class="form-group">
-				<label class="col-sm-2 control-label">Find venue</label>
-				<div class="col-sm-8">
-					<input id="geocomplete" type="text" size="55" placeholder="<?php echo JText::_( 'COM_JEM_VENUE_ADDRPLACEHOLDER' ); ?>" value="" />
-				</div>
+			<div class="mb-3">
+				<label class="form-label" for="geocomplete">Find venue</label>
+				<input class="form-control" id="geocomplete" type="text" size="55" placeholder="<?php echo JText::_( 'COM_JEM_VENUE_ADDRPLACEHOLDER' ); ?>" value="" />
 			</div>
 
-			<div class="form-group">
-				<label class="col-sm-2 control-label"><?php echo JText::_('COM_JEM_MAP'); ?></label>
-				<div class="col-sm-8">
-					<div class="map_canvas" aria-describedby="mapHelpBlock"></div>
-				</div>
-				<span id="mapHelpBlock" class="col-sm-2 help-block"><?php echo JText::_('TPL_SYO_JEM_VENUE_META_MAP_HELP_TEXT'); ?></span>
+			<div class="mb-3">
+				<label class="form-label" for="venue-selection-map"><?php echo JText::_('COM_JEM_MAP'); ?></label>
+				<div class="map_canvas" id="venue-selection-map" aria-describedby="mapHelpBlock"></div>
+				<span id="mapHelpBlock" class="form-text"><?php echo JText::_('TPL_SYO_JEM_VENUE_META_MAP_HELP_TEXT'); ?></span>
 			</div>
 
-			<div class="form-group">
-				<div class="col-sm-2 cantAccessLabel"><?php echo $this->form->getLabel('latitude'); ?></div>
-				<div class="col-sm-8"><?php echo $this->form->getInput('latitude'); ?></div>
-				<span class="col-sm-2 help-block"><?php echo JText::_('TPL_SYO_JEM_VENUE_LATITUDE_HELP_TEXT'); ?></span>
+			<div class="mb-3">
+				<?php echo $this->form->getLabel('latitude'); ?>
+				<?php echo $this->form->getInput('latitude'); ?>
+				<div class="form-text"><?php echo JText::_('TPL_SYO_JEM_VENUE_LATITUDE_HELP_TEXT'); ?></div>
 			</div>
 
-			<div class="form-group">
-				<div class="col-sm-2 cantAccessLabel"><?php echo $this->form->getLabel('longitude'); ?></div>
-				<div class="col-sm-8"><?php echo $this->form->getInput('longitude'); ?></div>
-				<span class="col-sm-2 help-block"><?php echo JText::_('TPL_SYO_JEM_VENUE_LONGITUDE_HELP_TEXT'); ?></span>
+			<div class="mb-3">
+				<?php echo $this->form->getLabel('longitude'); ?>
+				<?php echo $this->form->getInput('longitude'); ?>
+				<div class="form-text"><?php echo JText::_('TPL_SYO_JEM_VENUE_LONGITUDE_HELP_TEXT'); ?></div>
 			</div>
 
-			<div class="form-group">
-				<div class="col-sm-2 cantAccessLabel"><?php echo $this->form->getLabel('locdescription'); ?></div>
-				<div class="col-sm-8"><?php echo $this->form->getInput('locdescription'); ?></div>
+			<div class="mb-3">
+				<?php echo $this->form->getLabel('locdescription'); ?>
+				<?php echo $this->form->getInput('locdescription'); ?>
 			</div>
 
-			<div class="form-group">
-				<div class="col-sm-2 cantAccessLabel"><?php echo $this->form->getLabel('published'); ?></div>
-				<div class="col-sm-8"><?php echo $this->form->getInput('published'); ?></div>
+			<div class="mb-3">
+				<?php echo $this->form->getLabel('published'); ?>
+				<?php echo $this->form->getInput('published'); ?>
 			</div>
 
-			<div class="form-group" style="display: none;">
-				<div class="col-sm-2 cantAccessLabel"><?php echo $this->form->getLabel('map'); ?></div>
-				<div class="col-sm-8"><?php echo $this->form->getInput('map'); ?></div>
+			<div class="mb-3" style="display: none;">
+				<?php echo $this->form->getLabel('map'); ?>
+				<?php echo $this->form->getInput('map'); ?>
 			</div>
 
 			<div class="clearfix"></div>

@@ -1,68 +1,52 @@
+"use strict";
+
 // Submit the login form - JavaScript workaround for IE's lack of support for
 // the form attribute of the button element
 jQuery('#login').on('show.bs.modal', function (event) {
   "use strict";
   var modal = jQuery(this);
   modal.find('#login-form-submit-button').on('click', function() {
-    modal.find('#login-form').submit();
+    var form = document.getElementById('login-form')
+    
+    if (form.reportValidity()) {
+      form.submit();
+    }
   });
 });
 
-// Submit the login form on enter key press
+  // Submit the login form on enter key press
 jQuery("#login-form input").keypress(function(event) {
     if (event.which == 13) {
         event.preventDefault();
-        jQuery("#login-form").submit();
+        var form = document.getElementById('login-form')
+
+        if (form.reportValidity()) {
+          form.submit();
+        }
     }
 });
 
-jQuery(document).ready(function() {
-  "use strict";
+// FIXME: The below does not work because of the ordering of when content is rendered in Joomla
+// // Disable the contact form if the user has not accepted cookies
+// var cookiesAccepted = jQuery(".plg_system_eprivacy_accepted").is(":visible")
+// if (!cookiesAccepted) {
+//   jQuery("#contact-form :input").each(function(i, o) { o.disabled = true })
+//   jQuery(".form-actions :button").prop('disabled', true)
+// }
 
-  // Disable the contact form if the user has not accepted cookies
-  if (!jQuery(".plg_system_eprivacy_accepted").is(":visible")) {
-    jQuery("#contact-form :input").each(function(i, o) { o.disabled = true })
-    jQuery(".form-actions :button").prop('disabled', true)
-  }
-
-  // Add HTML content for image caption
-  jQuery('img').not('.noCaption,[src*=darkmode]').each(function(i, obj) {
-    var image = jQuery(this);
-    image.wrap("<div class='imgWrap'></div>");
-    image.after("<small class='caption'>"+image.attr("alt")+"</small>");
-  });
-
-  // Header image
-  jQuery('.banner').each(function(i, obj) {
-    var banner = jQuery(this);
-    banner.css('background-image', 'url(' + banner.attr('data-img-name') + ')');
-  });
-
-  // Hover effect on sponsor logo
-  function footerHover(elementID) {
-    var svgObject = document.getElementById(elementID + "o");
-    var svgParent = document.getElementById(elementID);
-
-    // How to access SVG innards via JS: https://stackoverflow.com/a/6794343/1433614
-    // jQuery bug in add/remove class functions on SVGs: https://stackoverflow.com/a/10257755/1433614
-    svgObject.addEventListener("load",function(){
-        var svgDoc = svgObject.contentDocument; 
-        var svgRoot = svgDoc.documentElement;
-
-        jQuery(svgParent).on("focusin mouseenter", function() {
-          jQuery("g", svgRoot).attr("class", "");
-        })
-
-        jQuery(svgParent).on("focusout mouseleave", function() {
-          jQuery("g", svgRoot).attr("class", "sponsorLogo");
-        })
-    },false);
-  }
-
-  // footerHover("swl");
-  // footerHover("acl");
+// Add HTML content for image caption
+jQuery('img').not('.noCaption,[src*=darkmode]').each(function(i, obj) {
+  var image = jQuery(this);
+  image.wrap("<div class='imgWrap'></div>");
+  image.addClass('img-fluid');
+  image.after("<small class='caption'>"+image.attr("alt")+"</small>");
 });
 
+// Header image
+jQuery('.banner').each(function(i, obj) {
+  var banner = jQuery(this);
+  banner.css('background-image', 'url(' + banner.attr('data-img-name') + ')');
+});
 
 function handleFiles(input) {
   "use strict";
@@ -98,8 +82,9 @@ function handleFiles(input) {
 
   xhr.upload.addEventListener("progress", function(e) {
     var pc = parseInt(e.loaded / e.total * 100);
-    progressBar.style.width = pc + "%";
-    progressBar.childNodes[1].innerHTML = pc + "% Complete (in progress)"
+    progressBar.parentElement.style.display = 'flex';
+    progressBar.setAttribute('style', 'width: ' + pc + '%; display: flex;');
+    progressBar.parentElement.setAttribute('aria-valuenow', pc);
   }, false);
 
   xhr.onloadstart = function() {
@@ -108,7 +93,7 @@ function handleFiles(input) {
 
   xhr.onreadystatechange = function() {
     if (xhr.readyState == 4) {
-      if ((xhr.status == 200) && !(xhr.responseText.includes("error"))) {
+      if ((xhr.status == 200) && !((xhr.responseText).toLowerCase().includes("error"))) {
         // The file uploaded ok
         successState(inputField, progressBar, fileUpload, xhr.responseText);
       } else {
@@ -125,21 +110,20 @@ function handleFiles(input) {
 function errorState(inputField, progressBar, errorMessage, fileUpload, response) {
   console.error('The file did not upload successfully. If this problem persists please contact the website administrator.');
 
-  inputField.parentNode.parentNode.setAttribute('class', 'form-group has-error');
-
   // Label --------------------------------------------------------------------
   
   // Input --------------------------------------------------------------------
   inputField.setAttribute('aria-invalid', 'true');
+  inputField.setAttribute('class', 'form-control inputbox is-invalid');
 
   // Button -------------------------------------------------------------------
   fileUpload.value = ''
   
   // Progress -----------------------------------------------------------------
-  progressBar.setAttribute('aria-valuenow', '100');
-  progressBar.setAttribute('style', 'width: 100%');
-  progressBar.setAttribute('class', 'progress-bar progress-bar-danger');
-  progressBar.childNodes[1].innerHTML = "100% Complete (failure)"
+  progressBar.parentElement.style.display = 'flex';
+  progressBar.parentElement.setAttribute('aria-valuenow', '100');
+  progressBar.setAttribute('style', 'width: 100%; display: flex;');
+  progressBar.setAttribute('class', 'progress-bar bg-danger');
 
   // Alert --------------------------------------------------------------------
   errorMessage.style.display = 'inherit';
@@ -155,38 +139,38 @@ function successState(inputField, progressBar, fileUpload, response) {
   // Input --------------------------------------------------------------------
   inputField.value = response;
   inputField.setAttribute('aria-invalid', 'false');
+  inputField.setAttribute('class', 'form-control inputbox is-valid');
 
   // Button -------------------------------------------------------------------
   fileUpload.value = ''
 
   // Progress -----------------------------------------------------------------
-  progressBar.setAttribute('aria-valuenow', '100');
-  progressBar.setAttribute('style', 'width: 100%');
-  progressBar.setAttribute('class', 'progress-bar progress-bar-success');
-  progressBar.childNodes[1].innerHTML = "100% Complete (success)"
+  progressBar.parentElement.style.display = 'flex';
+  progressBar.parentElement.setAttribute('aria-valuenow', '100');
+  progressBar.setAttribute('style', 'width: 100%; display: flex;');
+  progressBar.setAttribute('class', 'progress-bar bg-success');
 
   // Alert --------------------------------------------------------------------
 
 }
 
 function resetState(inputField, progressBar, fileUpload, errorMessage) {
-  inputField.parentNode.parentNode.setAttribute('class', 'form-group');
   
   // Label --------------------------------------------------------------------
   
   // Input --------------------------------------------------------------------
   inputField.setAttribute('aria-invalid', 'false');
+  inputField.setAttribute('class', 'form-control inputbox');
 
   // Button -------------------------------------------------------------------
   fileUpload.value = ''
 
   // Progress -----------------------------------------------------------------
-  progressBar.parentNode.style.display = 'initial';
+  progressBar.parentElement.style.display = 'flex';
   progressBar.setAttribute('aria-hidden', 'false');
-  progressBar.setAttribute('aria-valuenow', '0');
-  progressBar.setAttribute('style', 'width: 0%');
-  progressBar.setAttribute('class', 'progress-bar progress-bar-info');
-  progressBar.childNodes[1].innerHTML = "0% Complete (pending)"
+  progressBar.parentElement.setAttribute('aria-valuenow', '0');
+  progressBar.setAttribute('style', 'width: 0%; display: flex;');
+  progressBar.setAttribute('class', 'progress-bar bg-info');
 
   // Alert --------------------------------------------------------------------
   errorMessage.style.display = 'none';

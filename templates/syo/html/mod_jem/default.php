@@ -20,7 +20,7 @@ defined('_JEXEC') or die;
     </tr>
   </thead>
   <tbody>
-    <?php if (count($list)): ?>
+    <?php if (count($list)) { ?>
     <?php foreach ($list as $item) : ?>
     <tr>
       <td>
@@ -37,15 +37,15 @@ defined('_JEXEC') or die;
         <?php else : echo $item->text; endif; ?>
       </td>
     </tr>
-  <?php endforeach; ?>
-  <?php else:
-    $eventType = "";
-    if($params->get('type') == 2) {
-      $eventType = "past";
-    } elseif ($params->get('type') == 0) {
-      $eventType = "future";
-    } ?>
-    <tr><td colspan="2">No <?php echo $eventType; ?> events found for this category</td></tr>
-  <?php endif; ?>
+    <?php endforeach; ?>
+    <?php } else {
+      $eventType = "";
+      if ($params->get('type') == 2) {
+        $eventType = "past";
+      } elseif ($params->get('type') == 0) {
+        $eventType = "future";
+      } ?>
+      <tr><td colspan="2">No <?php echo $eventType; ?> events found for this category</td></tr>
+    <?php } ?>
   </tbody>
 </table>

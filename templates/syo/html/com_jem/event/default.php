@@ -25,22 +25,22 @@ JHtml::_('behavior.modal', 'a.flyermodal');
 
 	<div class="clr"> </div>
 
-	<div class="col-sm-9">
+	<div class="col-md-9">
 		<?php if ($this->params->get('show_page_heading', 1)) : ?>
 			<div class="row">
-				<div class="col-sm-8">
+				<div class="col-md-8">
 					<h1>
 						<span itemprop="name"><?php echo $this->escape($this->params->get('page_heading')); ?> at <?php echo $this->escape($this->item->venue); ?></span>
 						<?php echo JemOutput::editbutton($this->item, $params, $attribs, $this->permissions->canEditEvent, 'editevent'); ?>
 					</h1>
 				</div>
-				<div class="col-sm-4 buttons">
-					<?php echo str_replace('class=" hasTooltip"', 'class="btn btn-primary btn-block pull-right" role="button"', JemOutput::createButtonBar($this->getName(), $this->permissions, $btn_params)); ?>
+				<div class="col-md-4 buttons">
+					<?php echo str_replace('class=" hasTooltip"', 'class="btn btn-primary btn-block float-end" role="button"', JemOutput::createButtonBar($this->getName(), $this->permissions, $btn_params)); ?>
 				</div>
 			</div>
 		<?php else : ?>
 			<div class="buttons">
-				<?php echo str_replace('class=" hasTooltip"', 'class="btn btn-primary btn-block pull-right" role="button"', JemOutput::createButtonBar($this->getName(), $this->permissions, $btn_params)); ?>
+				<?php echo str_replace('class=" hasTooltip"', 'class="btn btn-primary btn-block float-end" role="button"', JemOutput::createButtonBar($this->getName(), $this->permissions, $btn_params)); ?>
 			</div>
 		<?php endif; ?>
 		
@@ -186,7 +186,7 @@ JHtml::_('behavior.modal', 'a.flyermodal');
 	<?php echo $this->loadTemplate('attachments'); ?>
 
 	<!--  	Venue  -->
-	<div class="col-sm-3">
+	<div class="col-md-3">
 		<?php if ($this->item->locid != 0) : ?>
 
 		<div class="inner-events syo-module" itemprop="location" itemscope itemtype="http://schema.org/Place">

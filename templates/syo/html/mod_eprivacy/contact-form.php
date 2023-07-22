@@ -24,9 +24,9 @@ $target = $pluginparams->get('policytarget', '_blank');
             <p><a href="<?php echo $legallinks[1];?>" onclick="window.open(this.href);return false;" target="<?php echo $target;?>"><?php echo JText::_('PLG_SYS_EPRIVACY_GDPRLINK_TEXT'); ?></a></p>
         <?php endif; ?>
         <?php echo ePrivacyHelper::cookieTable($pluginparams); ?>
-        <div class="row" style="margin-top:10px">
-            <div class="col-xs-6"><button type="button" class="plg_system_eprivacy_agreed btn btn-success btn-block"><?php echo JText::_('PLG_SYS_EPRIVACY_AGREE');?></button></div>
-            <div class="col-xs-6"><button type="button" class="plg_system_eprivacy_declined btn btn-danger btn-block"><?php echo JText::_('PLG_SYS_EPRIVACY_DECLINE');?></button></div>
+        <div class="d-block gap-2" style="margin-top:10px">
+            <button type="button" class="plg_system_eprivacy_agreed btn btn-success btn-block"><?php echo JText::_('PLG_SYS_EPRIVACY_AGREE');?></button>
+            <button type="button" class="plg_system_eprivacy_declined btn btn-danger btn-block"><?php echo JText::_('PLG_SYS_EPRIVACY_DECLINE');?></button>
         </div>
     </div>
     <div class="plg_system_eprivacy_declined alert alert-danger" style="display:none; margin-bottom: 10px">

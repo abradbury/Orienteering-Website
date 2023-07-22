@@ -18,7 +18,7 @@ defined('_JEXEC') or die;
 </div>
 <?php endif; ?>
 <?php if (JFactory::getUser()->id == $this->data->id) : ?>
-<div class="pull-right">
+<div class="float-end">
 		<a class="btn btn-default" href="<?php echo JRoute::_('index.php?option=com_users&task=profile.edit&user_id=' . (int) $this->data->id);?>">
 			<i class="fa fa-user" aria-hidden="true"></i> <?php echo JText::_('COM_USERS_EDIT_PROFILE'); ?></a>
 </div>

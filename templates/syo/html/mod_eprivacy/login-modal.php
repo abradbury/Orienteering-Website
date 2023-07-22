@@ -9,12 +9,12 @@
 defined('_JEXEC') or die;
 ?>
 
-<div class="modal fade" id="login" tabindex="-1" role="dialog">
+<div class="modal fade" id="login" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
 	<div class="modal-dialog modal-sm">
 		<div class="modal-content">
 	  		<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-				<h1 class="modal-title" id="exampleModalLabel">SYO Login</h1>
+                  <h1 class="modal-title" id="loginModalLabel">SYO Login</h1>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 	  		</div>
 
             <div class="modal-body">
@@ -44,12 +44,12 @@ defined('_JEXEC') or die;
             <div class="modal-footer">
                 <?php if($pluginparams->get('displaytype','message') != "message") : ?>
                     <div class="plg_system_eprivacy_message" style="display:none">
-                        <button type="button" class="btn btn-default" data-dismiss="modal"><?php echo JText::_('TPL_SYO_LOGIN_CLOSE') ?></button>
+                        <button type="button" class="btn btn-default" data-bs-dismiss="modal"><?php echo JText::_('TPL_SYO_LOGIN_CLOSE') ?></button>
                         <button type="button" class="btn btn-danger plg_system_eprivacy_declined"><?php echo JText::_('PLG_SYS_EPRIVACY_DECLINE');?></button>
                         <button type="button" class="btn btn-success plg_system_eprivacy_agreed"><?php echo JText::_('PLG_SYS_EPRIVACY_AGREE');?></button>
                     </div>
                     <div class="plg_system_eprivacy_declined" style="display:none">
-                        <button type="button" class="btn btn-default" data-dismiss="modal"><?php echo JText::_('TPL_SYO_LOGIN_CLOSE') ?></button>
+                        <button type="button" class="btn btn-default" data-bs-dismiss="modal"><?php echo JText::_('TPL_SYO_LOGIN_CLOSE') ?></button>
                         <button type="button" class="btn btn-primary plg_system_eprivacy_reconsider"><?php echo JText::_('PLG_SYS_EPRIVACY_RECONSIDER');?></button> 
                     </div>
                 <?php endif; ?>

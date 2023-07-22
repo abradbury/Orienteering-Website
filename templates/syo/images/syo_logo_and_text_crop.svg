@@ -14,7 +14,7 @@
     <style type="text/css">
       @font-face {
         font-family: Mosk;
-        src: url('../fonts/Mosk_Bold_700.woff');
+        src: url('../webfonts/Mosk_Bold_700.woff');
       }
     </style>
   </defs>

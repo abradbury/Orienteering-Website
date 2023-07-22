@@ -11,6 +11,8 @@ defined('_JEXEC') or die;
 
 $attributes = array();
 
+$attributes['class'] = "nav-link";
+
 if ($item->anchor_title)
 {
 	$attributes['title'] = $item->anchor_title;
@@ -18,7 +20,7 @@ if ($item->anchor_title)
 
 if ($item->anchor_css)
 {
-	$attributes['class'] = $item->anchor_css;
+	$attributes['class'] = $attributes['class'] . " " . $item->anchor_css;
 }
 
 if ($item->anchor_rel)
@@ -59,18 +61,12 @@ elseif ($item->browserNav == 2)
 
 if ($item->parent) {
 
-	if (array_key_exists('class', $attributes)) {
-		$attributes['class'] = $attributes['class'] . " " . "dropdown-toggle";
-	} else {
-		$attributes['class'] = "dropdown-toggle";
-	}
+	$attributes['class'] = $attributes['class'] . " " . "dropdown-toggle";
 
-	$attributes['data-toggle'] = "dropdown";
+	$attributes['data-bs-toggle'] = "dropdown";
+	$attributes['data-bs-auto-close'] = "false";
 	$attributes['role'] = "button";
-	$attributes['aria-haspopup'] = "true";
 	$attributes['aria-expanded'] = "false";
-
-	$linktype = $item->title . '<span class="caret"></span>';
 }
 
 echo JHtml::_('link', JFilterOutput::ampReplace(htmlspecialchars($item->flink, ENT_COMPAT, 'UTF-8', false)), $linktype, $attributes);

@@ -17,11 +17,11 @@ JHtml::_('bootstrap.tooltip');
 	<?php
 	if ($params->get('showHere', 1))
 	{
-		echo '<li class="active">' . JText::_('MOD_BREADCRUMBS_HERE') . '&#160;</li>';
+		echo '<li class="breadcrumb-item active" aria-current="page">' . JText::_('MOD_BREADCRUMBS_HERE') . '&#160;</li>';
 	}
 	else
 	{
-		echo '<li class="active"><span class="divider icon-location"></span></li>';
+		echo '<li class="breadcrumb-item active" aria-current="page"><span class="divider icon-location"></span></li>';
 	}
 
 	// Get rid of duplicated entries on trail including home page when using multilanguage
@@ -47,7 +47,7 @@ JHtml::_('bootstrap.tooltip');
 	if ($key != $last_item_key)
 	{
 		// Render all but last item - along with separator
-		echo '<li>';
+		echo '<li class="breadcrumb-item">';
 		if (!empty($item->link))
 		{
 			echo '<a href="' . $item->link . '" class="pathway">' . $item->name . '</a>';
@@ -62,7 +62,7 @@ JHtml::_('bootstrap.tooltip');
 	elseif ($show_last)
 	{
 		// Render last item if reqd.
-		echo '<li class="active">';
+		echo '<li class="breadcrumb-item active">';
 		echo '<span>' . $item->name . '</span>';
 		echo '</li>';
 	}

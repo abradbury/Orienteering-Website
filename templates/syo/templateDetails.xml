@@ -4,8 +4,8 @@
 	<creationDate>2015-08-10</creationDate>
 	<author>A. Bradbury</author>
 	<authorUrl>https://www.southyorkshireorienteers.org.uk</authorUrl>
-	<copyright>South Yorkshire Orienteers 2017</copyright>
-	<version>1.0.10</version>
+	<copyright>South Yorkshire Orienteers 2023</copyright>
+	<version>2.0.0</version>
 	<description>A Joomla template created for the South Yorkshire Orienteers' website</description>
 
 	<files>
@@ -15,7 +15,7 @@
 		<folder>css</folder>
 		<folder>js</folder>
 		<folder>html</folder>
-		<folder>fonts</folder>
+		<folder>webfonts</folder>
 		<folder>language</folder>
 	</files>
 
@@ -32,7 +32,6 @@
 		<position>about_left</position>
 		<position>right</position>
 		<position>right_mobile</position>
-		<position>bottom_left</position>
 		<position>bottom_right</position>
 		<position>footer_left</position>
 		<position>footer_right</position>

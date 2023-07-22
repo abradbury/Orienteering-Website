@@ -17,11 +17,11 @@ JHtml::_('behavior.modal');
 				<h1><?php echo $this->escape($this->params->get('page_heading')); ?></h1>
 			</div>
 			<div class="col-sm-4 buttons">
-				<?php echo str_replace('class=" hasTooltip"', 'class="btn btn-primary btn-block pull-right" role="button"', JemOutput::submitbutton($this->dellink, $this->params)); ?>
+				<?php echo str_replace('class=" hasTooltip"', 'class="btn btn-primary btn-block float-end" role="button"', JemOutput::submitbutton($this->dellink, $this->params)); ?>
 			</div>
 		</div>
 	<?php else : ?>
-		<?php echo str_replace('class=" hasTooltip"', 'class="btn btn-primary btn-block pull-right" role="button"', JemOutput::submitbutton($this->dellink, $this->params)); ?>
+		<?php echo str_replace('class=" hasTooltip"', 'class="btn btn-primary btn-block float-end" role="button"', JemOutput::submitbutton($this->dellink, $this->params)); ?>
 	<?php endif; ?>
 
 	<div class="clr"></div>

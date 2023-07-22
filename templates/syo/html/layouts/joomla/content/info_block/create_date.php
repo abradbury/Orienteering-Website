@@ -11,7 +11,7 @@ defined('JPATH_BASE') or die;
 
 ?>
 			<dd class="create">
-					<span class="glyphicon glyphicon-time"></span>
+					<i class="fa-solid fa-clock"></i>
 					<time datetime="<?php echo JHtml::_('date', $displayData['item']->created, 'c'); ?>" itemprop="dateCreated">
 						<?php echo JText::sprintf('COM_CONTENT_CREATED_DATE_ON', JHtml::_('date', $displayData['item']->created, JText::_('DATE_FORMAT_LC3'))); ?>
 					</time>

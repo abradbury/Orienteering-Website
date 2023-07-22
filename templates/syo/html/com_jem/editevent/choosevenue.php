@@ -35,7 +35,7 @@ $doc->addStyleSheet($this->baseurl.'/templates/syo/css/template.min.css?v=452');
 
 	<form class="form-inline" action="<?php echo JRoute::_('index.php?option=com_jem&view=editevent&layout=choosevenue&tmpl=component&function='.$this->escape($function).'&'.JSession::getFormToken().'=1'); ?>" method="post" name="adminForm" id="adminForm">
 		<div id="jem_filter" class="floattext">
-			<div class="pull-left">
+			<div class="float-start">
 				<?php
 				echo '<label class="control-label" for="filter_type">'.JText::_('COM_JEM_FILTER').'</label>&nbsp;';
 				echo $this->searchfilter.'&nbsp;';
@@ -45,7 +45,7 @@ $doc->addStyleSheet($this->baseurl.'/templates/syo/css/template.min.css?v=452');
 				<button type="button" class="btn btn-default" onclick="document.id('filter_search').value='';this.form.submit();"><?php echo JText::_('JSEARCH_FILTER_CLEAR'); ?></button>
 				<button type="button" class="btn btn-default" onclick="if (window.parent) window.parent.<?php echo $this->escape($function);?>('', '<?php echo JText::_('COM_JEM_SELECT_VENUE') ?>');"><?php echo JText::_('COM_JEM_NOVENUE')?></button>
 			</div>
-			<div class="pull-right">
+			<div class="float-end">
 				<?php
 				echo '<label class="control-label" for="limit">'.JText::_('COM_JEM_DISPLAY_NUM').'</label>&nbsp;';
 				echo $this->pagination->getLimitBox();

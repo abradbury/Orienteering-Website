@@ -13,7 +13,7 @@ $cparams = JComponentHelper::getParams('com_media');
 
 jimport('joomla.html.html.bootstrap');
 ?>
-<div class="contact<?php echo $this->pageclass_sfx?>" itemscope itemtype="http://schema.org/Person">
+<div class="contact<?php echo $this->pageclass_sfx?>" itemscope itemtype="http://schema.org/Organization">
 	<?php if ($this->params->get('show_page_heading')) : ?>
 		<h1><?php echo $this->escape($this->params->get('page_heading')); ?></h1>
 	<?php endif; ?>
@@ -59,7 +59,7 @@ jimport('joomla.html.html.bootstrap');
 	<?php endif; ?>
 
 	<?php if ($this->contact->image && $this->params->get('show_image')) : ?>
-		<div class="pull-right">
+		<div class="float-end">
 			<?php echo JHtml::_('image', $this->contact->image, JText::_('COM_CONTACT_IMAGE_DETAILS'), array('align' => 'middle', 'itemprop' => 'image')); ?>
 		</div>
 	<?php endif; ?>
@@ -80,7 +80,7 @@ jimport('joomla.html.html.bootstrap');
 	<?php if ($this->contact->misc && $this->params->get('show_misc')) : ?>
 		<?php if ($this->params->get('show_email_form') && ($this->contact->email_to || $this->contact->user_id)) : ?>
 		<div class="row">
-		<div class="col-sm-4">
+		<div class="col-md-4">
 		<?php endif; ?>
 			<div class="contact-miscinfo">
 				<?php echo $this->contact->misc; ?>
@@ -92,7 +92,7 @@ jimport('joomla.html.html.bootstrap');
 
 	<?php if ($this->params->get('show_email_form') && ($this->contact->email_to || $this->contact->user_id)) : ?>
 		<?php if ($this->contact->misc && $this->params->get('show_misc')) : ?>
-		<div class="col-sm-8">
+		<div class="col-md-8">
 		<?php endif; ?>
 		<?php  echo $this->loadTemplate('form');  ?>
 
