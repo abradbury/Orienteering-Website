@@ -18,11 +18,6 @@ $app   = Factory::getApplication();
 $input = $app->getInput();
 $wa    = $this->getWebAssetManager();
 
-// Browsers support SVG favicons
-// $this->addHeadLink(HTMLHelper::_('image', 'joomla-favicon.svg', '', [], true, 1), 'icon', 'rel', ['type' => 'image/svg+xml']);
-$this->addHeadLink(HTMLHelper::_('image', 'favicon.ico', '', [], true, 1), 'icon', 'rel', ['type' => 'image/vnd.microsoft.icon']);
-// $this->addHeadLink(HTMLHelper::_('image', 'joomla-favicon-pinned.svg', '', [], true, 1), 'mask-icon', 'rel', ['color' => '#000']);
-
 // Detecting Active Variables
 $option   = $input->getCmd('option', '');
 $view     = $input->getCmd('view', '');
@@ -58,9 +53,8 @@ $randIndex  = array_rand($imageNames);
 // $this->setMetaData('charset', 'utf-8');
 $this->setMetaData('viewport', 'width=device-width, initial-scale=1');
 
-// // Remove Joomla generator text
+// Remove Joomla generator text
 $this->setMetaData('generator', '');
-
 
 // Add CSS
 JHtml::_('bootstrap.loadCss', true);
@@ -69,17 +63,21 @@ HTMLHelper::stylesheet(Uri::base().'media/templates/site/syo/css/fontawesome.min
 HTMLHelper::stylesheet(Uri::base().'media/templates/site/syo/css/brands.min.css?v=642');
 HTMLHelper::stylesheet(Uri::base().'media/templates/site/syo/css/solid.min.css?v=642');
 
-// // Add favicon stuff
-// $doc->addCustomTag('<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=sa5YTVdDS">');
-// $doc->addCustomTag('<link rel="icon" type="image/png" href="/favicon-32x32.png?v=sa5YTVdDS" sizes="32x32">');
-// $doc->addCustomTag('<link rel="icon" type="image/png" href="/favicon-16x16.png?v=sa5YTVdDS" sizes="16x16">');
-// $doc->addCustomTag('<link rel="manifest" href="/site.webmanifest">');
-// $doc->addCustomTag('<link rel="mask-icon" href="/safari-pinned-tab.svg?v=sa5YTVdDS" color="#5bbad5">');
-$this->setMetaData('application-name', 'content="SYO">');
-$this->setMetaData('msapplication-TileColor', 'content="#ffc40d">');
-$this->setMetaData('msapplication-TileImage', 'content="/mstile-144x144.png?v=sa5YTVdDS">');
-$this->setMetaData('theme-color', 'content="#ffffff">');
-$this->setMetaData("apple-mobile-web-app-title", "content='SYO'>");
+// Add favicon stuff
+$this->addHeadLink(Uri::base().'apple-touch-icon.png?v=12', 'apple-touch-icon', 'rel', ['sizes' => '180x180']);
+$this->addHeadLink(Uri::base().'favicon-32x32.png?v=12', 'icon', 'rel', ['sizes' => '32x32', 'type' => 'image/png']);
+$this->addHeadLink(Uri::base().'favicon-16x16.png?v=12', 'icon', 'rel', ['sizes' => '16x16', 'type' => 'image/png']);
+$this->addHeadLink(Uri::base().'site.webmanifest?v=12', 'manifest', 'rel', []);
+$this->addHeadLink(Uri::base().'safari-pinned-tab.svg?v=12', 'mask-icon', 'rel', ['color' => '#ffd300']);
+$this->addHeadLink(Uri::base().'favicon.ico?v=12', 'shortcut icon', 'rel', []);
+$this->setMetaData('msapplication-TileColor', 'content="#ffd300">');
+$this->setMetaData('msapplication-TileImage', 'content="/mstile-144x144.png?v=12">');
+$this->setMetaData('theme-color', 'content="#ffd300">');
+
+// Browsers support SVG favicons
+// $this->addHeadLink(HTMLHelper::_('image', 'joomla-favicon.svg', '', [], true, 1), 'icon', 'rel', ['type' => 'image/svg+xml']);
+$this->addHeadLink(HTMLHelper::_('image', 'favicon.ico', '', [], true, 1), 'icon', 'rel', ['type' => 'image/vnd.microsoft.icon']);
+// $this->addHeadLink(HTMLHelper::_('image', 'joomla-favicon-pinned.svg', '', [], true, 1), 'mask-icon', 'rel', ['color' => '#000']);
 
 // Add open graph details
 $this->setMetaData('og:image', Uri::root(false).'templates/'.$this->template.'/images/header/'.$imageNames[$randIndex]);
