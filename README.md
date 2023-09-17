@@ -7,7 +7,8 @@ The new site design is now in use and can be seen at <http://www.southyorkshireo
 The files included in this repository are primarily those needed to create a Joomla template following the new design. The output of many Joomla components needed to be overridden to follow the new design.
 
 ## Screenshots
-The image below shows a side-by-side comparison of the new and old designs for the orienteering website. The old site is shown on the right and the new site on the left. 
+Below is a comparison between the old design of the website (until 2015) and the current design (from 2015 onwards).
 
-![A screenshot comparing the new and old orienteering website designs](templates/syo/images/new_old_comparison.png)
-
+| Old design | Current design |
+| ---------- | -------------- |
+| ![The old site design](templates/syo/media/images/docs/old-site-design.jpg) | ![The current site design](templates/syo/media/images/docs/current-site-design.jpg) | 
