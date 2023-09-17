@@ -1,168 +1,203 @@
 <?php
+
 /**
  * @package     Joomla.Site
  * @subpackage  com_contact
  *
- * @copyright   Copyright (C) 2005 - 2015 Open Source Matters, Inc. All rights reserved.
+ * @copyright   (C) 2006 Open Source Matters, Inc. <https://www.joomla.org>
  * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
 defined('_JEXEC') or die;
 
-$cparams = JComponentHelper::getParams('com_media');
+use Joomla\CMS\Factory;
+use Joomla\CMS\Helper\ContentHelper;
+use Joomla\CMS\HTML\HTMLHelper;
+use Joomla\CMS\Language\Text;
+use Joomla\CMS\Layout\FileLayout;
+use Joomla\CMS\Layout\LayoutHelper;
+use Joomla\CMS\Plugin\PluginHelper;
+use Joomla\CMS\Router\Route;
+use Joomla\Component\Contact\Site\Helper\RouteHelper;
 
-jimport('joomla.html.html.bootstrap');
+$tparams = $this->item->params;
+$canDo   = ContentHelper::getActions('com_contact', 'category', $this->item->catid);
+$canEdit = $canDo->get('core.edit') || ($canDo->get('core.edit.own') && $this->item->created_by === Factory::getUser()->id);
+$htag    = $tparams->get('show_page_heading') ? 'h2' : 'h1';
 ?>
-<div class="contact<?php echo $this->pageclass_sfx?>" itemscope itemtype="http://schema.org/Organization">
-	<?php if ($this->params->get('show_page_heading')) : ?>
-		<h1><?php echo $this->escape($this->params->get('page_heading')); ?></h1>
-	<?php endif; ?>
 
-	<?php if ($this->contact->con_position && $this->params->get('show_position') && $this->contact->name && $this->params->get('show_name')): ?>
-		<h2><?php echo $this->contact->con_position; if ($this->item->published == 0) : ?><span class="label label-warning"><?php echo "(".JText::_('JUNPUBLISHED').")"; ?></span><?php endif; ?> <span class="contact-name" itemprop="name"><?php echo "(".$this->contact->name.")"; ?></span></h2>
-	
-	<?php elseif ($this->contact->con_position && $this->params->get('show_position')) : ?>
-		<h2><?php echo $this->contact->con_position; ?></h2>
-	<?php endif;  ?>
+<div class="com-contact contact" itemscope itemtype="http://schema.org/Organization">
+    <?php if ($tparams->get('show_page_heading')) : ?>
+        <h1>
+            <?php echo $this->escape($tparams->get('page_heading')); ?>
+        </h1>
+    <?php endif; ?>
 
-	<?php if ($this->params->get('show_contact_category') == 'show_no_link') : ?>
-		<h3><span class="contact-category"><?php echo $this->contact->category_title; ?></span></h3>
-	<?php endif; ?>
-	<?php if ($this->params->get('show_contact_category') == 'show_with_link') : ?>
-		<?php $contactLink = ContactHelperRoute::getCategoryRoute($this->contact->catid); ?>
-		<h3><span class="contact-category"><a href="<?php echo $contactLink; ?>"><?php echo $this->escape($this->contact->category_title); ?></a></span></h3>
-	<?php endif; ?>
-	<?php if ($this->params->get('show_contact_list') && count($this->contacts) > 1) : ?>
-		<form action="#" method="get" name="selectForm" id="selectForm">
-			<?php echo JText::_('COM_CONTACT_SELECT_CONTACT'); ?>
-			<?php echo JHtml::_('select.genericlist', $this->contacts, 'id', 'class="inputbox" onchange="document.location.href = this.value"', 'link', 'name', $this->contact->link);?>
-		</form>
-	<?php endif; ?>
+    <?php if ($this->item->name && $tparams->get('show_name')) : ?>
+        <div class="page-header">
+            <<?php echo $htag; ?>>
+                <?php if ($this->item->published == 0) : ?>
+                    <span class="badge bg-warning text-light"><?php echo Text::_('JUNPUBLISHED'); ?></span>
+                <?php endif; ?>
+                <span class="contact-name" itemprop="name"><?php echo $this->item->name; ?></span>
+            </<?php echo $htag; ?>>
+        </div>
+    <?php endif; ?>
 
-	<?php if ($this->params->get('show_tags', 1) && !empty($this->item->tags)) : ?>
-		<?php $this->item->tagLayout = new JLayoutFile('joomla.content.tags'); ?>
-		<?php echo $this->item->tagLayout->render($this->item->tags->itemTags); ?>
-	<?php endif; ?>
+    <?php if ($canEdit) : ?>
+        <div class="icons">
+            <div class="float-end">
+                <div>
+                    <?php echo HTMLHelper::_('contacticon.edit', $this->item, $tparams); ?>
+                </div>
+            </div>
+        </div>
+    <?php endif; ?>
 
- 	<?php if ($this->params->get('presentation_style') == 'sliders') : ?>
-		<?php echo JHtml::_('bootstrap.startAccordion', 'slide-contact', array('active' => 'basic-details')); ?>
-	<?php endif; ?>
-	<?php if ($this->params->get('presentation_style') == 'tabs') : ?>
-		<?php echo JHtml::_('bootstrap.startTabSet', 'myTab', array('active' => 'basic-details')); ?>
-	<?php endif; ?>
+    <?php $show_contact_category = $tparams->get('show_contact_category'); ?>
 
-	<?php if ($this->params->get('presentation_style') == 'sliders') : ?>
-		<?php echo JHtml::_('bootstrap.addSlide', 'slide-contact', JText::_('COM_CONTACT_DETAILS'), 'basic-details'); ?>
-	<?php endif; ?>
-	<?php if ($this->params->get('presentation_style') == 'tabs') : ?>
-		<?php echo JHtml::_('bootstrap.addTab', 'myTab', 'basic-details', JText::_('COM_CONTACT_DETAILS', true)); ?>
-	<?php endif; ?>
+    <?php if ($show_contact_category === 'show_no_link') : ?>
+        <h3>
+            <span class="contact-category"><?php echo $this->item->category_title; ?></span>
+        </h3>
+    <?php elseif ($show_contact_category === 'show_with_link') : ?>
+        <?php $contactLink = RouteHelper::getCategoryRoute($this->item->catid, $this->item->language); ?>
+        <h3>
+            <span class="contact-category"><a href="<?php echo $contactLink; ?>">
+                <?php echo $this->escape($this->item->category_title); ?></a>
+            </span>
+        </h3>
+    <?php endif; ?>
 
-	<?php if ($this->contact->image && $this->params->get('show_image')) : ?>
-		<div class="float-end">
-			<?php echo JHtml::_('image', $this->contact->image, JText::_('COM_CONTACT_IMAGE_DETAILS'), array('align' => 'middle', 'itemprop' => 'image')); ?>
-		</div>
-	<?php endif; ?>
+    <?php echo $this->item->event->afterDisplayTitle; ?>
 
-	<?php if ($this->params->get('allow_vcard')) :	?>
-		<?php echo JText::_('COM_CONTACT_DOWNLOAD_INFORMATION_AS');?>
-		<a href="<?php echo JRoute::_('index.php?option=com_contact&amp;view=contact&amp;id=' . $this->contact->id . '&amp;format=vcf'); ?>">
-		<?php echo JText::_('COM_CONTACT_VCARD');?></a>
-	<?php endif; ?>
+    <?php if ($tparams->get('show_contact_list') && count($this->contacts) > 1) : ?>
+        <form action="#" method="get" name="selectForm" id="selectForm">
+            <label for="select_contact"><?php echo Text::_('COM_CONTACT_SELECT_CONTACT'); ?></label>
+            <?php echo HTMLHelper::_(
+                'select.genericlist',
+                $this->contacts,
+                'select_contact',
+                'class="form-select" onchange="document.location.href = this.value"',
+                'link',
+                'name',
+                $this->item->link
+            );
+            ?>
+        </form>
+    <?php endif; ?>
 
-	<?php if ($this->params->get('presentation_style') == 'sliders') : ?>
-		<?php echo JHtml::_('bootstrap.endSlide'); ?>
-	<?php endif; ?>
-	<?php if ($this->params->get('presentation_style') == 'tabs') : ?>
-		<?php echo JHtml::_('bootstrap.endTab'); ?>
-	<?php endif; ?>
+    <?php if ($tparams->get('show_tags', 1) && !empty($this->item->tags->itemTags)) : ?>
+        <div class="com-contact__tags">
+            <?php $this->item->tagLayout = new FileLayout('joomla.content.tags'); ?>
+            <?php echo $this->item->tagLayout->render($this->item->tags->itemTags); ?>
+        </div>
+    <?php endif; ?>
 
-	<?php if ($this->contact->misc && $this->params->get('show_misc')) : ?>
-		<?php if ($this->params->get('show_email_form') && ($this->contact->email_to || $this->contact->user_id)) : ?>
-		<div class="row">
-		<div class="col-md-4">
-		<?php endif; ?>
-			<div class="contact-miscinfo">
-				<?php echo $this->contact->misc; ?>
-			</div>
-		<?php if ($this->params->get('show_email_form') && ($this->contact->email_to || $this->contact->user_id)) : ?>
-		</div>
-		<?php endif; ?>
-	<?php endif; ?>
+    <?php echo $this->item->event->beforeDisplayContent; ?>
 
-	<?php if ($this->params->get('show_email_form') && ($this->contact->email_to || $this->contact->user_id)) : ?>
-		<?php if ($this->contact->misc && $this->params->get('show_misc')) : ?>
-		<div class="col-md-8">
-		<?php endif; ?>
-		<?php  echo $this->loadTemplate('form');  ?>
+    <?php if ($this->params->get('show_info', 1)) : ?>
+        <div class="com-contact__container">
+            <?php echo '<h3>' . Text::_('COM_CONTACT_DETAILS') . '</h3>'; ?>
 
-		<?php if ($this->params->get('presentation_style') == 'sliders') : ?>
-			<?php echo JHtml::_('bootstrap.endSlide'); ?>
-		<?php endif; ?>
-			<?php if ($this->params->get('presentation_style') == 'tabs') : ?>
-		<?php echo JHtml::_('bootstrap.endTab'); ?>
-			<?php endif; ?>
-		
-		<?php if ($this->contact->misc && $this->params->get('show_misc')) : ?>
-		</div>
-		</div>
-		<?php endif; ?>
-	<?php endif; ?>
+            <?php if ($this->item->image && $tparams->get('show_image')) : ?>
+                <div class="com-contact__thumbnail thumbnail">
+                    <?php echo LayoutHelper::render(
+                        'joomla.html.image',
+                        [
+                            'src'      => $this->item->image,
+                            'alt'      => $this->item->name,
+                            'itemprop' => 'image',
+                        ]
+                    ); ?>
+                </div>
+            <?php endif; ?>
 
-	<?php if ($this->params->get('show_links')) : ?>
-		<?php echo $this->loadTemplate('links'); ?>
-	<?php endif; ?>
+            <?php if ($this->item->con_position && $tparams->get('show_position')) : ?>
+                <dl class="com-contact__position contact-position dl-horizontal">
+                    <dt><?php echo Text::_('COM_CONTACT_POSITION'); ?>:</dt>
+                    <dd itemprop="jobTitle">
+                        <?php echo $this->item->con_position; ?>
+                    </dd>
+                </dl>
+            <?php endif; ?>
 
-	<?php if ($this->params->get('show_articles') && $this->contact->user_id && $this->contact->articles) : ?>
+            <div class="com-contact__info">
+                <?php echo $this->loadTemplate('address'); ?>
 
-		<?php if ($this->params->get('presentation_style') == 'sliders') : ?>
-			<?php echo JHtml::_('bootstrap.addSlide', 'slide-contact', JText::_('JGLOBAL_ARTICLES'), 'display-articles'); ?>
-		<?php endif; ?>
-		<?php if ($this->params->get('presentation_style') == 'tabs') : ?>
-			<?php echo JHtml::_('bootstrap.addTab', 'myTab', 'display-articles', JText::_('JGLOBAL_ARTICLES', true)); ?>
-		<?php endif; ?>
-		<?php if ($this->params->get('presentation_style') == 'plain'):?>
-			<?php echo '<h3>' . JText::_('JGLOBAL_ARTICLES') . '</h3>';  ?>
-		<?php endif; ?>
+                <?php if ($tparams->get('allow_vcard')) : ?>
+                    <?php echo Text::_('COM_CONTACT_DOWNLOAD_INFORMATION_AS'); ?>
+                    <a href="<?php echo Route::_('index.php?option=com_contact&view=contact&catid=' . $this->item->catslug . '&id=' . $this->item->slug . '&format=vcf'); ?>">
+                    <?php echo Text::_('COM_CONTACT_VCARD'); ?></a>
+                <?php endif; ?>
+            </div>
+        </div>
 
-		<?php echo $this->loadTemplate('articles'); ?>
+    <?php endif; ?>
 
-		<?php if ($this->params->get('presentation_style') == 'sliders') : ?>
-			<?php echo JHtml::_('bootstrap.endSlide'); ?>
-		<?php endif; ?>
-		<?php if ($this->params->get('presentation_style') == 'tabs') : ?>
-			<?php echo JHtml::_('bootstrap.endTab'); ?>
-		<?php endif; ?>
+    <?php /* ----------------------------------------------------------------------------------------- */ ?>
 
-	<?php endif; ?>
+    <?php if ($this->item->misc && $tparams->get('show_misc')) : ?>
+        <?php if ($tparams->get('show_email_form') && ($this->item->email_to || $this->item->user_id)) : ?>
+        <div class="row">
+		    <div class="col-md-4">
+        <?php endif; ?>
+                <div class="com-contact__miscinfo contact-miscinfo">
+                    <dl class="dl-horizontal">
+                        <dt>
+                            <?php if (!$this->params->get('marker_misc')) : ?>
+                                <span class="icon-info-circle" aria-hidden="true"></span>
+                                <span class="visually-hidden"><?php echo Text::_('COM_CONTACT_OTHER_INFORMATION'); ?></span>
+                            <?php else : ?>
+                                <span class="<?php echo $this->params->get('marker_class'); ?>">
+                                    <?php echo $this->params->get('marker_misc'); ?>
+                                </span>
+                            <?php endif; ?>
+                        </dt>
+                        <dd>
+                            <span class="contact-misc">
+                                <?php echo $this->item->misc; ?>
+                            </span>
+                        </dd>
+                    </dl>
+                </div>
+            <?php if ($tparams->get('show_email_form') && ($this->item->email_to || $this->item->user_id)) : ?>
+            </div>
+            <?php endif; ?>
+    <?php endif; ?>
 
-	<?php if ($this->params->get('show_profile') && $this->contact->user_id && JPluginHelper::isEnabled('user', 'profile')) : ?>
+    <?php if ($tparams->get('show_email_form') && ($this->item->email_to || $this->item->user_id)) : ?>
+        <?php if ($this->item->misc && $tparams->get('show_misc')) : ?>
+            <div class="col-md-8">
+        <?php endif; ?>
+            <?php echo $this->loadTemplate('form'); ?>
+        <?php if ($this->item->misc && $tparams->get('show_misc')) : ?>
+            </div>
+        </div>
+        <?php endif; ?>
+    <?php endif; ?>
 
-		<?php if ($this->params->get('presentation_style') == 'sliders') : ?>
-			<?php echo JHtml::_('bootstrap.addSlide', 'slide-contact', JText::_('COM_CONTACT_PROFILE'), 'display-profile'); ?>
-		<?php endif; ?>
-		<?php if ($this->params->get('presentation_style') == 'tabs') : ?>
-			<?php echo JHtml::_('bootstrap.addTab', 'myTab', 'display-profile', JText::_('COM_CONTACT_PROFILE', true)); ?>
-		<?php endif; ?>
-		<?php if ($this->params->get('presentation_style') == 'plain'):?>
-			<?php echo '<h3>' . JText::_('COM_CONTACT_PROFILE') . '</h3>';  ?>
-		<?php endif; ?>
+    <?php /* ----------------------------------------------------------------------------------------- */ ?>
 
-		<?php echo $this->loadTemplate('profile'); ?>
+    <?php if ($tparams->get('show_links')) : ?>
+        <?php echo $this->loadTemplate('links'); ?>
+    <?php endif; ?>
 
-		<?php if ($this->params->get('presentation_style') == 'sliders') : ?>
-			<?php echo JHtml::_('bootstrap.endSlide'); ?>
-		<?php endif; ?>
-		<?php if ($this->params->get('presentation_style') == 'tabs') : ?>
-			<?php echo JHtml::_('bootstrap.endTab'); ?>
-		<?php endif; ?>
+    <?php if ($tparams->get('show_articles') && $this->item->user_id && $this->item->articles) : ?>
+        <?php echo '<h3>' . Text::_('JGLOBAL_ARTICLES') . '</h3>'; ?>
 
-	<?php endif; ?>
+        <?php echo $this->loadTemplate('articles'); ?>
+    <?php endif; ?>
 
-	<?php if ($this->params->get('presentation_style') == 'sliders') : ?>
-		<?php echo JHtml::_('bootstrap.endAccordion'); ?>
-	<?php endif; ?>
-	<?php if ($this->params->get('presentation_style') == 'tabs') : ?>
-		<?php echo JHtml::_('bootstrap.endTabSet'); ?>
-	<?php endif; ?>
+    <?php if ($tparams->get('show_profile') && $this->item->user_id && PluginHelper::isEnabled('user', 'profile')) : ?>
+        <?php echo '<h3>' . Text::_('COM_CONTACT_PROFILE') . '</h3>'; ?>
+
+        <?php echo $this->loadTemplate('profile'); ?>
+    <?php endif; ?>
+
+    <?php if ($tparams->get('show_user_custom_fields') && $this->contactUser) : ?>
+        <?php echo $this->loadTemplate('user_custom_fields'); ?>
+    <?php endif; ?>
+
+    <?php echo $this->item->event->afterDisplayContent; ?>
 </div>

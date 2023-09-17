@@ -1,170 +1,76 @@
 <?php
 /**
- * @version 2.1.4
+ * @version 4.0.0
  * @package JEM
- * @copyright (C) 2013-2015 joomlaeventmanager.net
+ * @copyright (C) 2013-2023 joomlaeventmanager.net
  * @copyright (C) 2005-2009 Christoph Lukes
- * @license http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL
+ * @license https://www.gnu.org/licenses/gpl-3.0 GNU/GPL
  */
-defined('_JEXEC') or die; ?>
 
-	
+defined('_JEXEC') or die;
 
-	<!-- IMAGE -->
-	<fieldset class="jem_fldst_image">
-	<legend><?php echo JText::_('COM_JEM_IMAGE'); ?></legend>
-		<?php
-		if ($this->item->datimage) :
-			echo JEMOutput::flyer($this->item, $this->dimage, 'event', 'datimage');
-		endif;
-		?>
-		<div class="form-group">
-			<label for="userfile" class="col-sm-2 col-xs-12 control-label">
-				<?php echo JText::_('COM_JEM_IMAGE'); ?>
-			</label>
-			<div class="col-sm-6 col-xs-9">
-				<input class="inputbox <?php echo $this->jemsettings->imageenabled == 2 ? 'required' : ''; ?> form-control" name="userfile" id="userfile" type="file" aria-describedby="pictureHelp" />
-			</div>
-			<div class="col-sm-2 col-xs-3">
-				<button type="button" class="btn btn-default btn-block" onclick="document.getElementById('userfile').value = ''"><?php echo JText::_('JSEARCH_FILTER_CLEAR') ?></button>
-				<?php
-				if ($this->item->datimage) :
-					echo JHtml::image('media/com_jem/images/publish_r.png', null, array('id' => 'userfile-remove', 'data-id' => $this->item->id, 'data-type' => 'events', 'title' => JText::_('COM_JEM_REMOVE_IMAGE')));
-				endif;
-				?>
-			</div>
-			<div class="col-sm-2 col-xs-12">
-				<span id="pictureHelp" class="help-block"><?php echo JText::_('COM_JEM_MAX_IMAGE_FILE_SIZE').' '.$this->jemsettings->sizelimit.' kb'?></span>
-			</div>
-		</div>
-		<input type="hidden" name="removeimage" id="removeimage" value="0" />
-	</fieldset>
+use Joomla\CMS\Language\Text;
 
-	<!-- Recurrence -->
+$max_custom_fields = $this->settings->get('global_editevent_maxnumcustomfields', -1); // default to All
+?>
+
+	<!-- CUSTOM FIELDS -->
+	<?php if ($max_custom_fields != 0) : ?>
 	<fieldset class="panelform">
-	<legend><?php echo JText::_('COM_JEM_RECURRENCE'); ?></legend>
-		<div class="form-group">
-			<div class="col-sm-2 cantAccessLabel">
-				<?php echo $this->form->getLabel('recurrence_type'); ?>
-			</div>
-			<div class="col-sm-4">
-				<?php echo $this->form->getInput('recurrence_type'); ?>
-			</div>
+		<legend><?php echo Text::_('COM_JEM_EVENT_CUSTOMFIELDS_LEGEND'); ?></legend>
+		<div class="adminformlist">
+			<?php
+				$custom_file_fields = array(1, 2, 3, 4, 8, 10);
+				$fields = $this->form->getFieldset('custom');
 
-			<div class="col-sm-2" id="recurrence_output">
-				<label></label>
-			</div>
-			<div id="counter_row" style="display: none;">
-				<?php echo $this->form->getLabel('recurrence_limit_date'); ?> <?php echo $this->form->getInput('recurrence_limit_date'); ?>
-			</div>
+				if ($max_custom_fields < 0) :
+					$max_custom_fields = count($fields);
+				endif;
+
+				$cnt = 0;
+				foreach($fields as $field) :
+					if (++$cnt <= $max_custom_fields) :
+						$isCustomFileInput = in_array($cnt, $custom_file_fields); ?>
+						
+						<div class="mb-3">
+							<?php echo $field->label; ?>
+
+							<?php if ($isCustomFileInput) : ?>
+								<div class="row">
+									<div class="col-10">
+										<?php echo $field->input; ?>
+									</div>
+
+									<div class="col-2">
+										<input 
+											type="file" 
+											name="file_upload" 
+											id="file_upload<?php echo $cnt; ?>" 
+											accept=".pdf,.jpg,.jpeg,.txt,.rtf,.doc,.docx,.xlsx,.xls,.htm,.html"
+											onchange="handleFiles(this);" 
+											class="file_upload_button"
+											data-event-date="<?php if(isset($this->item->dates)) : echo $this->item->dates; else: echo 'date'; endif; ?>"
+											data-event-venue="<?php if (isset($this->item->localias)) : echo $this->item->localias; else : echo 'location'; endif; ?>"
+										>
+										<label class="btn btn-outline-secondary w-100" for="file_upload<?php echo $cnt; ?>">Choose a file</label>
+									</div>
+									
+									<div class="col-10 progress" role="progressbar" aria-label="File upload progress bar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+										<div class="progress-bar bg-info progress-bar-striped progress-bar-animated" id="progressbar<?php echo $cnt; ?>" style="width: 100%"></div>
+									</div>
+
+									<div class="col-10">
+										<div id="helpBlock<?php echo $cnt; ?>" class="alert alert-danger errorMsg" role="alert"></div>
+									</div>
+								</div>
+							<?php else: ?>
+								<?php echo $field->input; ?>
+							<?php endif; ?>
+						</div>
+					<?php endif;
+				endforeach;
+			?>
 		</div>
-		<input type="hidden" name="recurrence_number" id="recurrence_number" value="<?php echo $this->item->recurrence_number;?>" />
-		<input type="hidden" name="recurrence_byday" id="recurrence_byday" value="<?php echo $this->item->recurrence_byday;?>" />
-
-		<script type="text/javascript">
-		<!--
-		var $select_output = new Array();
-			$select_output[1] = "<?php
-			echo JText::_('COM_JEM_OUTPUT_DAY');
-			?>";
-			$select_output[2] = "<?php
-			echo JText::_('COM_JEM_OUTPUT_WEEK');
-			?>";
-			$select_output[3] = "<?php
-			echo JText::_('COM_JEM_OUTPUT_MONTH');
-			?>";
-			$select_output[4] = "<?php
-			echo JText::_('COM_JEM_OUTPUT_WEEKDAY');
-			?>";
-
-		var $weekday = new Array();
-			$weekday[0] = new Array("MO", "<?php echo JText::_('COM_JEM_MONDAY'); ?>");
-			$weekday[1] = new Array("TU", "<?php echo JText::_('COM_JEM_TUESDAY'); ?>");
-			$weekday[2] = new Array("WE", "<?php echo JText::_('COM_JEM_WEDNESDAY'); ?>");
-			$weekday[3] = new Array("TH", "<?php echo JText::_('COM_JEM_THURSDAY'); ?>");
-			$weekday[4] = new Array("FR", "<?php echo JText::_('COM_JEM_FRIDAY'); ?>");
-			$weekday[5] = new Array("SA", "<?php echo JText::_('COM_JEM_SATURDAY'); ?>");
-			$weekday[6] = new Array("SU", "<?php echo JText::_('COM_JEM_SUNDAY'); ?>");
-
-		var $before_last = "<?php
-			echo JText::_('COM_JEM_BEFORE_LAST');
-			?>";
-		var $last = "<?php
-			echo JText::_('COM_JEM_LAST');
-			?>";
-			start_recurrencescript("jform_recurrence_type");
-		-->
-		</script>
-
-		<?php /* show "old" recurrence settings for information */
-		if (!empty($this->item->recurr_bak->recurrence_type)) {
-			$recurr_type = '';
-			$recurr_limit_date = str_ireplace('0000-00-00', JText::_('COM_JEM_UNLIMITED'),
-			                                  $this->item->recurr_bak->recurrence_limit_date);
-
-			switch ($this->item->recurr_bak->recurrence_type) {
-			case 1:
-				$recurr_type = JText::_('COM_JEM_DAYLY');
-				$recurr_info = str_ireplace('[placeholder]',
-				                            $this->item->recurr_bak->recurrence_number,
-				                            JText::_('COM_JEM_OUTPUT_DAY'));
-				break;
-			case 2:
-				$recurr_type = JText::_('COM_JEM_WEEKLY');
-				$recurr_info = str_ireplace('[placeholder]',
-				                            $this->item->recurr_bak->recurrence_number,
-				                            JText::_('COM_JEM_OUTPUT_WEEK'));
-				break;
-			case 3:
-				$recurr_type = JText::_('COM_JEM_MONTHLY');
-				$recurr_info = str_ireplace('[placeholder]',
-				                            $this->item->recurr_bak->recurrence_number,
-				                            JText::_('COM_JEM_OUTPUT_MONTH'));
-				break;
-			case 4:
-				$recurr_type = JText::_('COM_JEM_WEEKDAY');
-				$recurr_byday = preg_replace('/(,)([^ ,]+)/', '$1 $2', $this->item->recurr_bak->recurrence_byday);
-				$recurr_days = str_ireplace(array('MO', 'TU', 'WE', 'TH', 'FR', 'SA', 'SO'),
-				                            array(JText::_('COM_JEM_MONDAY'), JText::_('COM_JEM_TUESDAY'),
-				                                  JText::_('COM_JEM_WEDNESDAY'), JText::_('COM_JEM_THURSDAY'),
-				                                  JText::_('COM_JEM_FRIDAY'), JText::_('COM_JEM_SATURDAY'),
-				                                  JText::_('COM_JEM_SUNDAY')),
-				                            $recurr_byday);
-				$recurr_num  = str_ireplace(array('5', '6'),
-				                            array(JText::_('COM_JEM_LAST'), JText::_('COM_JEM_BEFORE_LAST')),
-				                            $this->item->recurr_bak->recurrence_number);
-				$recurr_info = str_ireplace(array('[placeholder]', '[placeholder_weekday]'),
-				                            array($recurr_num, $recurr_days),
-				                            JText::_('COM_JEM_OUTPUT_WEEKDAY'));
-				break;
-			default:
-				break;
-			}
-
-			if (!empty($recurr_type)) {
-		 ?>
-				<hr>
-				<p><strong><?php echo JText::_('COM_JEM_RECURRING_INFO_TITLE'); ?></strong></p>
-				<!-- <ul class="adminformlist">
-					<li> -->
-						<label class="col-sm-2 control-label"><?php echo JText::_('COM_JEM_RECURRENCE'); ?></label>
-						<div class="col-sm-4">
-							<input type="text" class="readonly form-control" readonly="readonly" value="<?php echo $recurr_type; ?>">
-						</div>
-					<!-- </li>
-					<li> -->
-						<div class="clear"></div>
-						<label class="col-sm-2 control-label"> </label>
-						<?php echo $recurr_info; ?>
-					<!-- </li>
-					<li> -->
-						<label class="col-sm-2 control-label"><?php echo JText::_('COM_JEM_RECURRENCE_COUNTER'); ?></label>
-						<div class="col-sm-4">
-							<input type="text" class="readonly form-control" readonly="readonly" value="<?php echo $recurr_limit_date; ?>">
-						</div>
-				<!-- 	</li>
-				</ul> -->
-		<?php
-			}
-		} ?>
 	</fieldset>
+	<?php endif; ?>
+

@@ -29,7 +29,9 @@ if (!$list) {
         </div>
         <?php endforeach; ?>
     <?php else : ?>
+		<div class="list-group">
         <?php $items = $list; ?>
         <?php require ModuleHelper::getLayoutPath('mod_articles_category', $params->get('layout', 'default') . '_items'); ?>
+		</div>
     <?php endif; ?>
 </div>

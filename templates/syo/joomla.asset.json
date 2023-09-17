@@ -1,0 +1,56 @@
+{
+  "$schema": "https://developer.joomla.org/schemas/json-schema/web_assets.json",
+  "name": "syo",
+  "version": "3.0.4",
+  "description": "This file contains details of the assets used by the SYO template.",
+  "assets": [
+    {
+      "name": "template.syo",
+      "description": "The css file to be used when the site is left to right (LTR).",
+      "type": "style",
+      "uri": "template.min.css",
+      "dependencies": [
+        "bootstrap",
+        "fontawesome"
+      ]
+    },
+    {
+      "name": "template.offline",
+      "description": "The css file to be used when the site is offline and offline.php is being used.",
+      "type": "style",
+      "uri": "offline.css"
+    },
+    {
+      "name": "template.syo",
+      "description": "The file containing the javascript for this template.",
+      "type": "script",
+      "uri": "syo.js"
+    },
+    {
+      "name": "bootstrap",
+      "type": "style",
+      "uri": "bootstrap.min.css"
+    },
+    {
+      "name": "fontawesome",
+      "type": "style",
+      "uri": "fontawesome.min.css"
+    },
+    {
+      "name": "fontawesome-brands",
+      "type": "style",
+      "uri": "brands.min.css",
+      "dependencies": [
+        "fontawesome"
+      ]
+    },
+    {
+      "name": "fontawesome-solid",
+      "type": "style",
+      "uri": "solid.min.css",
+      "dependencies": [
+        "fontawesome"
+      ]
+    }
+  ]
+}

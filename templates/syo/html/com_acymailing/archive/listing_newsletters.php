@@ -1,9 +1,9 @@
 <?php
 /**
  * @package	AcyMailing for Joomla!
- * @version	5.10.28
+ * @version	5.11.8
  * @author	acyba.com
- * @copyright	(C) 2009-2022 ACYBA S.A.R.L. All rights reserved.
+ * @copyright	(C) 2009-2023 ACYBA S.A.R.L. All rights reserved.
  * @license	GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
  */
 
@@ -25,8 +25,6 @@ while($category = current($grouped_rows)) {
 	echo "<h2>" . key($grouped_rows) . "</h2>";
 	$k = 1;
 	foreach($category as $row) {
-	// for($i = 0, $a = count($this->rows); $i < $a; $i++){
-		// $row =& $this->rows[$i];
 		$row->subject = acyEmoji::Decode($row->subject);
 		echo '<div class="archiveRow archiveRow'.$k.$this->values->suffix.'">';
 

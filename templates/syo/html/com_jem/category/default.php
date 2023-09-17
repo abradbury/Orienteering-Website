@@ -1,30 +1,35 @@
 <?php
 /**
- * @version 2.0.0
+ * @version 4.0.0
  * @package JEM
- * @copyright (C) 2013-2014 joomlaeventmanager.net
+ * @copyright (C) 2013-2023 joomlaeventmanager.net
  * @copyright (C) 2005-2009 Christoph Lukes
- * @license http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL
+ * @license https://www.gnu.org/licenses/gpl-3.0 GNU/GPL
  */
+
 defined('_JEXEC') or die;
 
-JHtml::_('behavior.modal');
+use Joomla\CMS\Language\Text;
+
+// JHtml::_('behavior.modal');
 ?>
 <div id="jem" class="jem_category<?php echo $this->pageclass_sfx;?>">
-	<?php if ($this->params->get('show_page_heading', 1)) : ?>
-		<div class="row">
-			<div class="col-sm-8">
-				<h1><?php echo $this->escape($this->params->get('page_heading')); ?></h1>
-			</div>
-			<div class="col-sm-4 buttons">
-				<?php echo str_replace('class=" hasTooltip"', 'class="btn btn-primary btn-block float-end" role="button"', JemOutput::submitbutton($this->dellink, $this->params)); ?>
-			</div>
+	<div class="row">
+		<div class="col-md-8">	
+			<?php if ($this->params->get('show_page_heading', 1)) : ?>
+			<h1 class='componentheading'>
+				<?php echo $this->escape($this->params->get('page_heading')); ?>
+			</h1>
+			<?php endif; ?>
 		</div>
-	<?php else : ?>
-		<?php echo str_replace('class=" hasTooltip"', 'class="btn btn-primary btn-block float-end" role="button"', JemOutput::submitbutton($this->dellink, $this->params)); ?>
-	<?php endif; ?>
 
-	<div class="clr"></div>
+		<div class="col-md-4 d-flex justify-content-between align-content-start mb-3 text-md-end d-md-grid justify-content-md-end">
+			<?php
+			$btn_params = array('id' => $this->category->slug, 'slug' => $this->category->slug, 'task' => $this->task, 'print_link' => $this->print_link);
+			echo JemOutput::createButtonBar($this->getName(), $this->permissions, $btn_params);
+			?>
+		</div>
+	</div>
 
 	<div class="floattext">
 		<?php if ($this->jemsettings->discatheader) : ?>
@@ -66,7 +71,7 @@ JHtml::_('behavior.modal');
 		<div class="cat-children">
 			<?php if ($this->params->get('show_category_heading_title_text', 1) == 1) : ?>
 			<h3>
-				<?php echo JTEXT::_('JGLOBAL_SUBCATEGORIES'); ?>
+				<?php echo TEXT::_('COM_JEM_SUBCATEGORIES'); ?>
 			</h3>
 			<?php endif; ?>
 			<?php echo $this->loadTemplate('subcategories'); ?>
@@ -75,7 +80,7 @@ JHtml::_('behavior.modal');
 	<?php endif; ?>
 
 
-	<form action="<?php echo $this->action; ?>" method="post" id="adminForm" class="form-inline">
+	<form action="<?php echo htmlspecialchars($this->action); ?>" method="post" id="adminForm">
 	<!--table-->
 		<?php echo $this->loadTemplate('events_table'); ?>
 		<input type="hidden" name="option" value="com_jem" />
@@ -90,10 +95,4 @@ JHtml::_('behavior.modal');
 	<div class="pagination">
 		<?php echo $this->pagination->getPagesLinks(); ?>
 	</div>
-
-	<!-- iCal -->
-	<div id="iCal" class="iCal">
-		<?php echo JemOutput::icalbutton($this->category->id, 'category'); ?>
-	</div>
-
 </div>

@@ -1,72 +1,73 @@
 <?php
 /**
- * @version 2.0.0
- * @package JEM
- * @copyright (C) 2013-2014 joomlaeventmanager.net
+ * @version       4.0.0
+ * @package       JEM
+ * @copyright (C) 2013-2023 joomlaeventmanager.net
  * @copyright (C) 2005-2009 Christoph Lukes
- * @license http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL
+ * @license       https://www.gnu.org/licenses/gpl-3.0 GNU/GPL
  */
+
 defined('_JEXEC') or die;
-
-$document = JFactory::getDocument();
 ?>
-<div id="jem" class="jem_eventslist<?php echo $this->pageclass_sfx;?>">
 
-	<?php if ($this->params->get('show_page_heading', 1)) : ?>
-		<div class="row">
-			<div class="col-sm-8">
-				<h1><?php echo $this->escape($this->params->get('page_heading')); ?></h1>
-			</div>
-			<div class="col-sm-4 buttons">
-				<?php echo str_replace('class=" hasTooltip"', 'class="btn btn-primary btn-block float-end" role="button"', JemOutput::submitbutton($this->dellink, $this->params)); ?>
-			</div>
-		</div>
-	<?php else : ?>
-		<div class="buttons">
-			<?php echo str_replace('class=" hasTooltip"', 'class="btn btn-primary btn-block float-end" role="button"', JemOutput::submitbutton($this->dellink, $this->params)); ?>
-		</div>
-	<?php endif; ?>
+<div id="jem" class="jem_eventslist<?php
+echo $this->pageclass_sfx; ?>">
+    <div class="buttons float-end d-grid">
+        <?php
+        $btn_params = array('task' => $this->task, 'print_link' => $this->print_link, 'hide' => ['ical']);
+        echo JemOutput::createButtonBar($this->getName(), $this->permissions, $btn_params);
+        ?>
+    </div>
 
-	<?php if ($document->countModules( 'right_mobile' )):
-  	// Include modules under page header
-  	$renderer = $document->loadRenderer('modules');
-	$position = "right_mobile";
-	$options = array('style' => 'module');
-	echo "<div class='d-block d-md-none'>";
-	echo $renderer->render($position, $options, null);
-	echo "</div>";
-	endif; ?>
+    <?php
+    if ($this->params->get('show_page_heading', 1)) : ?>
+        <h1 class="componentheading">
+            <?php
+            echo $this->escape($this->params->get('page_heading')); ?>
+        </h1>
+    <?php
+    endif; ?>
 
-	<?php if ($this->params->get('showintrotext')) : ?>
-		<div class="description no_space floattext">
-			<?php echo $this->params->get('introtext'); ?>
-		</div>
-	<?php endif; ?>
+    <div class="clr"></div>
 
-	<!--table-->
+    <?php
+    if ($this->params->get('showintrotext')) : ?>
+        <div class="description no_space floattext">
+            <?php
+            echo $this->params->get('introtext'); ?>
+        </div>
+    <?php
+    endif; ?>
 
-	<form action="<?php echo $this->action; ?>" method="post" name="adminForm" id="adminForm" class="form-inline">
-		<?php echo $this->loadTemplate('events_table'); ?>
+    <!--table-->
 
-		<input type="hidden" name="filter_order" value="<?php echo $this->lists['order']; ?>" />
-		<input type="hidden" name="filter_order_Dir" value="<?php echo $this->lists['order_Dir']; ?>" />
-		<input type="hidden" name="task" value="<?php echo $this->task; ?>" />
-		<input type="hidden" name="view" value="eventslist" />
-	</form>
+    <form action="<?php
+    echo htmlspecialchars($this->action); ?>" method="post" name="adminForm" id="adminForm">
+        <?php
+        echo $this->loadTemplate('events_table'); ?>
 
-	
-	
-	<?php if ($this->params->get('showfootertext')) : ?>
-		<div class="description no_space floattext">
-			<?php echo $this->params->get('footertext'); ?>
-		</div>
-	<?php endif; ?>
-	<!--footer-->
+        <input type="hidden" name="filter_order" value="<?php
+        echo $this->lists['order']; ?>"/>
+        <input type="hidden" name="filter_order_Dir" value="<?php
+        echo $this->lists['order_Dir']; ?>"/>
+        <input type="hidden" name="task" value="<?php
+        echo $this->task; ?>"/>
+        <input type="hidden" name="view" value="eventslist"/>
+    </form>
 
-	<div class="pagination">
-		<?php echo $this->pagination->getPagesLinks(); ?>
-	</div>
-	<!-- <div id="iCal" class="iCal">
-	<?php echo JemOutput::icalbutton('', 'eventslist'); ?>
-	</div> -->
+    <?php
+    if ($this->params->get('showfootertext')) : ?>
+        <div class="description no_space floattext">
+            <?php
+            echo $this->params->get('footertext'); ?>
+        </div>
+    <?php
+    endif; ?>
+
+    <!--footer-->
+
+    <div class="pagination">
+        <?php
+        echo $this->pagination->getPagesLinks(); ?>
+    </div>
 </div>
