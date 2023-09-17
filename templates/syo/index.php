@@ -65,9 +65,9 @@ $this->setMetaData('generator', '');
 // Add CSS
 JHtml::_('bootstrap.loadCss', true);
 HTMLHelper::stylesheet(Uri::base().'media/templates/site/syo/css/template.min.css?v=501');
-HTMLHelper::stylesheet(Uri::base().'media/templates/site/syo/css/fontawesome.min.css?v=640');
-HTMLHelper::stylesheet(Uri::base().'media/templates/site/syo/css/brands.min.css?v=640');
-HTMLHelper::stylesheet(Uri::base().'media/templates/site/syo/css/solid.min.css?v=640');
+HTMLHelper::stylesheet(Uri::base().'media/templates/site/syo/css/fontawesome.min.css?v=642');
+HTMLHelper::stylesheet(Uri::base().'media/templates/site/syo/css/brands.min.css?v=642');
+HTMLHelper::stylesheet(Uri::base().'media/templates/site/syo/css/solid.min.css?v=642');
 
 // // Add favicon stuff
 // $doc->addCustomTag('<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=sa5YTVdDS">');
@@ -131,7 +131,7 @@ $this->setMetaData('og:image', Uri::root(false).'templates/'.$this->template.'/i
                   <ul class='nav so-shall justify-content-end'>
                     <?php $params = $this->params; ?>
                     <?php if ($params->get( 'facebookURL' )) {  ?><li class='nav-item'><a class='nav-link no-external-link-icon fb' target='_blank' href='<?php echo $params->get('facebookURL');  ?>' title="View SYO's Facebook Page"><span class='sr-only'>View S.Y.O's Facebook Page</span><i class="fa-brands fa-facebook"></i></a></li><?php } ?>
-                    <?php if ($params->get( 'twitterURL' )) {   ?><li class='nav-item'><a class='nav-link no-external-link-icon tw' target='_blank' href='<?php echo $params->get('twitterURL');   ?>' title="View SYO's Twitter Feed"><span class='sr-only'>View S.Y.O's Twitter Feed</span><i class="fa-brands fa-twitter"></i></a></li><?php } ?>
+                    <?php if ($params->get( 'twitterURL' )) {   ?><li class='nav-item'><a class='nav-link no-external-link-icon tw' target='_blank' href='<?php echo $params->get('twitterURL');   ?>' title="View SYO's X (formally known as Twitter) Feed"><span class='sr-only'>View S.Y.O's X (formally known as Twitter) Feed</span><i class="fa-brands fa-x-twitter"></i></a></li><?php } ?>
                     <?php if ($params->get( 'flickrURL' )) {    ?><li class='nav-item'><a class='nav-link no-external-link-icon fl' target='_blank' href='<?php echo $params->get('flickrURL');    ?>' title="View SYO's Flickr Photo Pool"><span class='sr-only'>View S.Y.O's Flickr Photo Pool</span><i class="fa-brands fa-flickr"></i></a></li><?php } ?>
                     <?php if ($params->get( 'instagramURL' )) { ?><li class='nav-item'><a class='nav-link no-external-link-icon in' target='_blank' href='<?php echo $params->get('instagramURL'); ?>' title="View SYO's Instagram Page"><span class='sr-only'>View S.Y.O's Instagram Page</span><i class="fa-brands fa-instagram"></i></a></li><?php } ?>
                     <?php if ($params->get( 'stravaURL' )) {    ?><li class='nav-item'><a class='nav-link no-external-link-icon st' target='_blank' href='<?php echo $params->get('stravaURL');    ?>' title="View SYO's Strava Page"><span class='sr-only'>View S.Y.O's Strava Page</span><i class="fa-brands fa-strava"></i></a></li><?php } ?>
