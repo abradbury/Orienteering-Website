@@ -9,7 +9,6 @@ defined('_JEXEC') or die;
 
 use Joomla\CMS\Factory;
 use Joomla\CMS\HTML\HTMLHelper;
-use Joomla\CMS\Language\Text;
 use Joomla\CMS\Uri\Uri;
 
 /** @var Joomla\CMS\Document\HtmlDocument $this */
@@ -28,29 +27,12 @@ $sitename = htmlspecialchars($app->get('sitename'), ENT_QUOTES, 'UTF-8');
 $menu     = $app->getMenu()->getActive();
 $pageclass = $menu !== null ? $menu->getParams()->get('pageclass_sfx', '') : '';
 
-// // Variables
-// $doc = JFactory::getDocument();
-// $doc->setHtml5(true);
-// $user = JFactory::getUser();
-
-// // Get menu alias for different banners
-// // $app = JFactory::getApplication();
-// $menu = $app->getMenu()->getActive();
-// $menuAlias = '';
-
-// if (is_object($menu)) {
-//   $menuAlias = $menu->alias;
-// }
-
 // Get the image used for the banner
 $imageNames = array('CSC_2017_LG.jpg', 'P1020182.jpg', 'BOC_2015_RL.jpg', 'BRC_2012_MW.jpg', 'LOXLEY_2016_RB.jpg');
 $imageCapts = array('CompassSport Cup Final 2017 - Virtuous Lady, Devon (&copy; Louise Garnett)', 'World Orienteering Championships 2015 - Nairn, Scotland', 'British Sprint Orienteering Championships 2015 - Aldershot Garrison, Hampshire (&copy; Robert Lines)', 'British Relay Championships 2012 - Helsington Barrows, Cumbria (&copy; Martin Ward)', 'SYO Coaching Session - Loxely Common, Sheffield (&copy; Richard Baxter)');
 $randIndex  = array_rand($imageNames);
 
-// The 'jQuery Easy' plugin removes most scripts, where possible
-
 // New meta
-// $this->setMetaData('charset', 'utf-8');
 $this->setMetaData('viewport', 'width=device-width, initial-scale=1');
 
 // Remove Joomla generator text
@@ -68,16 +50,14 @@ $this->addHeadLink(Uri::base().'apple-touch-icon.png?v=12', 'apple-touch-icon', 
 $this->addHeadLink(Uri::base().'favicon-32x32.png?v=12', 'icon', 'rel', ['sizes' => '32x32', 'type' => 'image/png']);
 $this->addHeadLink(Uri::base().'favicon-16x16.png?v=12', 'icon', 'rel', ['sizes' => '16x16', 'type' => 'image/png']);
 $this->addHeadLink(Uri::base().'site.webmanifest?v=12', 'manifest', 'rel', []);
+// $this->addHeadLink(HTMLHelper::_('image', 'joomla-favicon.svg', '', [], true, 1), 'icon', 'rel', ['type' => 'image/svg+xml']);
+$this->addHeadLink(HTMLHelper::_('image', 'favicon.ico', '', [], true, 1), 'icon', 'rel', ['type' => 'image/vnd.microsoft.icon']);
 $this->addHeadLink(Uri::base().'safari-pinned-tab.svg?v=12', 'mask-icon', 'rel', ['color' => '#ffd300']);
+// $this->addHeadLink(HTMLHelper::_('image', 'favicon-pinned.svg', '', [], true, 1), 'mask-icon', 'rel', ['color' => '#333']);
 $this->addHeadLink(Uri::base().'favicon.ico?v=12', 'shortcut icon', 'rel', []);
 $this->setMetaData('msapplication-TileColor', 'content="#ffd300">');
 $this->setMetaData('msapplication-TileImage', 'content="/mstile-144x144.png?v=12">');
 $this->setMetaData('theme-color', 'content="#ffd300">');
-
-// Browsers support SVG favicons
-// $this->addHeadLink(HTMLHelper::_('image', 'joomla-favicon.svg', '', [], true, 1), 'icon', 'rel', ['type' => 'image/svg+xml']);
-$this->addHeadLink(HTMLHelper::_('image', 'favicon.ico', '', [], true, 1), 'icon', 'rel', ['type' => 'image/vnd.microsoft.icon']);
-// $this->addHeadLink(HTMLHelper::_('image', 'joomla-favicon-pinned.svg', '', [], true, 1), 'mask-icon', 'rel', ['color' => '#000']);
 
 // Add open graph details
 $this->setMetaData('og:image', Uri::root(false).'templates/'.$this->template.'/images/header/'.$imageNames[$randIndex]);
@@ -177,7 +157,7 @@ $this->setMetaData('og:image', Uri::root(false).'templates/'.$this->template.'/i
 
           <div class="row">
             <div class="col d-none d-sm-block">
-              <div class="banner" id="<?php echo $menuAlias; ?>" data-img-name="<?php echo $this->baseurl.'/media/templates/site/syo/images/header/'.$imageNames[$randIndex]; ?>">
+              <div class="banner" data-img-name="<?php echo $this->baseurl.'/media/templates/site/syo/images/header/'.$imageNames[$randIndex]; ?>">
                 <small class="caption" data-img-desc="<?php echo $imageCapts[$randIndex]; ?>"></small>
               </div>
             </div>
