@@ -1,7 +1,7 @@
 {
   "$schema": "https://developer.joomla.org/schemas/json-schema/web_assets.json",
   "name": "syo",
-  "version": "3.0.5",
+  "version": "3.0.6",
   "description": "This file contains details of the assets used by the SYO template.",
   "assets": [
     {

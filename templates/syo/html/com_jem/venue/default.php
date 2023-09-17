@@ -45,7 +45,7 @@ use Joomla\CMS\Language\Text;
 	<?php endif; ?>
 
 	<!--Venue-->
-	<?php echo JemOutput::flyer($this->venue, $this->limage, 'venue'); ?>
+	<?php //echo JemOutput::flyer($this->venue, $this->limage, 'venue'); ?>
 
 	<?php if (($this->settings->get('global_show_detlinkvenue', 1)) && (!empty($this->venue->url))) : ?>
 		<dl class="row location">
