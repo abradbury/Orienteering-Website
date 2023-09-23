@@ -23,41 +23,44 @@ $app = Factory::getApplication();
 $document = $app->getDocument();
 $wa = $document->getWebAssetManager();
 		$wa->useScript('keepalive')
-			->useScript('form.validate');
-			//->useScript('behavior.calendar');
+		   ->useScript('form.validate')
+		   ->addInlineScript('
+		   	function fixSelectInputs() {
+		   		["starthours", "startminutes", "endhours", "endminutes"].map((id) => {
+		   			const item = document.getElementById(id);
+		   			item.classList.add("form-select");
+		   			item.style.width = "auto";
+		   			item.style.display = "inline";
+		   		});
+		   	}
+
+			function fixVenueSelectInput() {
+				var venueName = document.getElementById("jform_locid_name");
+				venueName.classList.add("form-control");
+
+				var parent = venueName.parentNode;
+				var wrapper = document.createElement("div");
+				wrapper.classList.add("input-group");
+
+				var venueSelect = parent.getElementsByClassName("btn-link")[0] // Not the best way...
+				venueSelect.classList = ["btn btn-outline-secondary"];
+
+				parent.replaceChild(wrapper, venueName);
+				wrapper.appendChild(venueName);
+				wrapper.appendChild(venueSelect);
+			}
+		   
+		   	window.onload = (event) => {
+		   		fixSelectInputs();
+				fixVenueSelectInput();
+		   	}
+		   ', [], ['defer' => true], []);
 
 // Create shortcut to parameters.
 $params		= $this->params;
-// $settings	= json_decode($this->item->attribs);
 
 ?>
 
-<script type="text/javascript">
-	jQuery(document).ready(function($){
-		function checkmaxplaces(){
-			var maxplaces = $('jform_maxplaces');
-
-			if (maxplaces != null){
-				$('#jform_maxplaces').on('change', function(){
-					if ($('#event-available')) {
-						var val = parseInt($('#jform_maxplaces').val());
-						var booked = parseInt($('#event-booked').val());
-						$('event-available').val() = (val-booked);
-					}
-				});
-
-				$('#jform_maxplaces').on('keyup', function(){
-					if ($('event-available')) {
-						var val = parseInt($('jform_maxplaces').val());
-						var booked = parseInt($('event-booked').val());
-						$('event-available').val() = (val-booked);
-					}
-				});
-			}
-		}
-		checkmaxplaces();
-	});
-</script>
 <script type="text/javascript">
 	Joomla.submitbutton = function(task) {
 		if (task == 'event.cancel' || document.formvalidator.isValid(document.getElementById('adminForm'))) {
@@ -66,25 +69,6 @@ $params		= $this->params;
 			alert('<?php echo $this->escape(Text::_('JGLOBAL_VALIDATION_FORM_FAILED'));?>');
 		}
 	}
-</script>
-<script type="text/javascript">
-	jQuery(document).ready(function($){
-		var showUnregistraUntil = function(){
-			var unregistra = $("#jform_unregistra");
-			var unregistramode = unregistra.val();
-
-			if (unregistramode == 2) {
-				document.getElementById('jform_unregistra_until').style.display = '';
-				document.getElementById('jform_unregistra_until2').style.display = '';
-			} else {
-				document.getElementById('jform_unregistra_until').style.display = 'none';
-				document.getElementById('jform_unregistra_until2').style.display = 'none';
-			}
-		}
-
-		$("#jform_unregistra").on('change', showUnregistraUntil);
-		showUnregistraUntil();
-	})
 </script>
 
 <div id="jem" class="jem_editevent<?php echo $this->pageclass_sfx; ?>">
@@ -96,9 +80,9 @@ $params		= $this->params;
 		<?php endif; ?>
 
 		<form enctype="multipart/form-data" action="<?php echo Route::_('index.php?option=com_jem&a_id='.(int) $this->item->id); ?>" method="post" name="adminForm" id="adminForm" class="form-validate">
-			<div class="row event-buttons">
-				<button type="submit" class="btn btn-primary w-50" onclick="Joomla.submitbutton('event.save')"><?php echo Text::_('JSAVE') ?></button>
-				<button type="cancel" class="btn btn-secondary w-50" onclick="Joomla.submitbutton('event.cancel')"><?php echo Text::_('JCANCEL') ?></button>
+			<div class="mb-3">
+				<button type="submit" class="btn btn-primary" onclick="Joomla.submitbutton('event.save')"><?php echo Text::_('JSAVE') ?></button>
+				<button type="cancel" class="btn btn-secondary" onclick="Joomla.submitbutton('event.cancel')"><?php echo Text::_('JCANCEL') ?></button>
 			</div>
 
 			<?php if ($this->item->recurrence_type > 0) : ?>
@@ -127,7 +111,6 @@ $params		= $this->params;
 			<?php endif; ?>
 
 			<fieldset>
-				<legend><?php echo Text::_('COM_JEM_EDITEVENT_DETAILS_LEGEND'); ?></legend>
 				<div class="adminformlist">
 					<div class="mb-3">
 						<?php echo $this->form->getLabel('title'); ?>
@@ -139,21 +122,25 @@ $params		= $this->params;
 						<?php echo $this->form->getInput('alias'); ?>
 					</div>
 					<?php endif; ?>
-					<div class="mb-3">
-						<?php echo $this->form->getLabel('dates'); ?>
-						<?php echo $this->form->getInput('dates'); ?>
+					<div class="row mb-3">
+						<div class="col">
+							<?php echo $this->form->getLabel('dates'); ?>
+							<?php echo $this->form->getInput('dates'); ?>
+						</div>
+						<div class="col">
+							<?php echo $this->form->getLabel('times'); ?>
+							<div><?php echo $this->form->getInput('times'); ?></div>
+						</div>
 					</div>
-					<div class="mb-3">
-						<?php echo $this->form->getLabel('enddates'); ?>
-						<?php echo $this->form->getInput('enddates'); ?>
-					</div>
-					<div class="mb-3">
-						<?php echo $this->form->getLabel('times'); ?>
-						<div><?php echo $this->form->getInput('times'); ?></div>
-					</div>
-					<div class="mb-3">
-						<?php echo $this->form->getLabel('endtimes'); ?>
-						<div><?php echo $this->form->getInput('endtimes'); ?></div>
+					<div class="row mb-3">
+						<div class="col">
+							<?php echo $this->form->getLabel('enddates'); ?>
+							<?php echo $this->form->getInput('enddates'); ?>
+						</div>
+						<div class="col">
+							<?php echo $this->form->getLabel('endtimes'); ?>
+							<div><?php echo $this->form->getInput('endtimes'); ?></div>
+						</div>
 					</div>
 					<div class="mb-3">
 						<?php echo $this->form->getLabel('cats'); ?>
@@ -163,13 +150,11 @@ $params		= $this->params;
 						<?php echo $this->form->getLabel('locid'); ?>
                       	<div><?php echo $this->form->getInput('locid'); ?></div>
 					</div>
+					<div class="mb-3">
+						<?php echo $this->form->getLabel('articletext'); ?>
+						<?php echo $this->form->getInput('articletext'); ?>
+					</div>
 				</div>
-			</fieldset>
-
-			<fieldset class="mb-3">
-				<legend><?php echo Text::_('COM_JEM_EVENT_DESCRIPTION'); ?></legend>
-				<?php echo $this->form->getLabel('articletext'); ?>
-				<?php echo $this->form->getInput('articletext'); ?>
 			</fieldset>
 
 			<?php if ($this->item->datimage || $this->jemsettings->imageenabled != 0) : ?>
@@ -199,19 +184,15 @@ $params		= $this->params;
 			</fieldset>
 			<?php endif; ?>
 
-			<?php 
-			// Extended contains: recurrence, contact and registration
-            // Must be shown otherwise an error is thrown on submission due to an invalid recurrence value
-			echo $this->loadTemplate('extended');
-            // Must be shown otherwise events are unpublished by default...
-			echo $this->loadTemplate('publish'); 
-			?>
+			<?php echo $this->loadTemplate('other'); ?>
+			<div style="display:none;">
+				<?php echo $this->loadTemplate('extended'); ?>
+				<?php echo $this->loadTemplate('publish'); ?>
+			</div>
 			
 			<?php if (!empty($this->item->attachments) || ($this->jemsettings->attachmentenabled != 0)) : ?>
 				<?php echo $this->loadTemplate('attachments'); ?>
 			<?php endif; ?>
-
-			<?php echo $this->loadTemplate('other'); ?>
 
 			<input type="hidden" name="task" value="" />
 			<input type="hidden" name="return" value="<?php echo $this->return_page;?>" />
