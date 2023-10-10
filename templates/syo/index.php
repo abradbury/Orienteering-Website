@@ -284,6 +284,6 @@ $this->setMetaData('og:image', Uri::root(false).'templates/'.$this->template.'/i
         </div>
       </div>
     </footer>
-    <script src="<?php echo $this->baseurl; ?>/media/templates/site/syo/js/syo.js?v=4.1"></script>
+    <script src="<?php echo $this->baseurl; ?>/media/templates/site/syo/js/syo.js?v=4.2"></script>
   </body>
 </html>

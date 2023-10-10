@@ -37,7 +37,15 @@ jQuery("#login-form input").keypress(function(event) {
 // Add HTML content for image caption
 jQuery('img').not('.noCaption,[src*=darkmode],[src*=com_jem]').each(function(i, obj) {
   var image = jQuery(this);
-  image.wrap("<div class='imgWrap'></div>");
+
+  var classes = "imgWrap";
+  if (image.css('float') == 'right') {
+    classes = classes + " float-end ms-3";
+  } else if (image.css('float') == 'left') {
+    classes = classes + " float-start me-3";
+  }
+
+  image.wrap("<div class='" + classes + "'></div>");
   image.addClass('img-fluid');
   image.after("<small class='caption'>"+image.attr("alt")+"</small>");
 });
