@@ -45,9 +45,14 @@ jQuery('img').not('.noCaption,[src*=darkmode],[src*=com_jem]').each(function(i, 
     classes = classes + " float-start me-3";
   }
 
+  var imageAlt = image.attr("alt");
+  if (!imageAlt) {
+    imageAlt = "This image has no description"
+  }
+
   image.wrap("<div class='" + classes + "'></div>");
   image.addClass('img-fluid');
-  image.after("<small class='caption'>"+image.attr("alt")+"</small>");
+  image.after("<small class='caption'>"+imageAlt+"</small>");
 });
 
 // Header image
