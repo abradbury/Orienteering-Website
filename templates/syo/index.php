@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 /**
  * @package     Joomla.Site
@@ -88,7 +88,7 @@ $this->setMetaData('og:image', Uri::root(false).'templates/'.$this->template.'/i
               <!--[if IE ]>
               <div id="browser-warning" class="col">
                 <div class="alert alert-danger" role="alert">
-                  <jdoc:include type="modules" name="browser_warning" style="html5" /> 
+                  <jdoc:include type="modules" name="browser_warning" style="html5" />
                 </div>
               </div>
               <![endif]-->
@@ -104,7 +104,7 @@ $this->setMetaData('og:image', Uri::root(false).'templates/'.$this->template.'/i
 
             <div class="col-7 col-sm-8 col-md-9 col-lg-10">
               <div class="row nav-row-one flex-lg-row-reverse align-items-center">
-               
+
                 <div class="col-xl-4">
                   <ul class='nav so-shall justify-content-end'>
                     <?php $params = $this->params; ?>
@@ -121,7 +121,7 @@ $this->setMetaData('og:image', Uri::root(false).'templates/'.$this->template.'/i
                       <?php HTMLHelper::_('bootstrap.modal', '.model-login', []); ?>
                       <li class='nav-item'>
                         <a class='nav-link model-login' href='#' role='button' data-bs-toggle="modal" data-bs-target="#login" title='SYO Member Login'>
-                          <span class='sr-only'>S.Y.O Member Login</span>  
+                          <span class='sr-only'>S.Y.O Member Login</span>
                           <span class='fas fa-user' aria-hidden='true'></span>
                         </a>
                         <?php $user = Factory::getUser(); if ($user->guest) { ?>
@@ -166,7 +166,7 @@ $this->setMetaData('og:image', Uri::root(false).'templates/'.$this->template.'/i
           <?php if ($this->countModules( 'newsflash', true )): ?>
           <div class="row">
             <div class="col">
-              <jdoc:include type="modules" name="newsflash" style="html5" /> 
+              <jdoc:include type="modules" name="newsflash" style="html5" />
             </div>
           </div>
           <?php endif; ?>
@@ -182,7 +182,7 @@ $this->setMetaData('og:image', Uri::root(false).'templates/'.$this->template.'/i
           <?php if ($this->countModules( 'breadcrumb', true )): ?>
           <div class="row pt-2">
             <div class="col">
-              <jdoc:include type="modules" name="breadcrumb" style="html5" /> 
+              <jdoc:include type="modules" name="breadcrumb" style="html5" />
             </div>
           </div>
           <?php endif; ?>
@@ -192,13 +192,17 @@ $this->setMetaData('og:image', Uri::root(false).'templates/'.$this->template.'/i
           <div class="row">
             <?php if ($this->countModules( 'events', true )): ?>
             <div class="col-sm">
-              <jdoc:include type="modules" name="events" style="events" /> 
+              <div class="inner-events">
+                <jdoc:include type="modules" name="events" style="events" />
+              </div>
             </div>
             <?php endif; ?>
 
             <?php if ($this->countModules( 'results', true )): ?>
             <div class="col-sm">
-              <jdoc:include type="modules" name="results" style="events" /> 
+              <div class="inner-events">
+                <jdoc:include type="modules" name="results" style="events" />
+              </div>
             </div>
             <?php endif; ?>
           </div>
@@ -206,13 +210,13 @@ $this->setMetaData('og:image', Uri::root(false).'templates/'.$this->template.'/i
           <div class="row row-gap-3">
             <?php if ($this->countModules( 'about_left', true )): ?>
             <div class="col-md-4">
-              <jdoc:include type="modules" name="about_left" style="html5" /> 
+              <jdoc:include type="modules" name="about_left" style="html5" />
             </div>
             <div class="col-md-8 news">
               <jdoc:include type="component" />
 
               <?php if ($this->countModules( 'main_bottom', true )): ?>
-              <jdoc:include type="modules" name="main_bottom" style="html5" /> 
+              <jdoc:include type="modules" name="main_bottom" style="html5" />
               <?php endif; ?>
             </div>
 
@@ -221,19 +225,19 @@ $this->setMetaData('og:image', Uri::root(false).'templates/'.$this->template.'/i
               <jdoc:include type="component" />
 
               <?php if ($this->countModules( 'main_bottom', true )): ?>
-              <jdoc:include type="modules" name="main_bottom" style="html5" /> 
+              <jdoc:include type="modules" name="main_bottom" style="html5" />
               <?php endif; ?>
             </div>
             <div class="col-md-4">
-              <jdoc:include type="modules" name="right" style="module" /> 
-            </div>       
+              <jdoc:include type="modules" name="right" style="module" />
+            </div>
 
             <?php else : ?>
             <div class="col">
               <jdoc:include type="component" />
 
               <?php if ($this->countModules( 'main_bottom', true )): ?>
-              <jdoc:include type="modules" name="main_bottom" style="html5" /> 
+              <jdoc:include type="modules" name="main_bottom" style="html5" />
               <?php endif; ?>
             </div>
             <?php endif; ?>
@@ -268,7 +272,7 @@ $this->setMetaData('og:image', Uri::root(false).'templates/'.$this->template.'/i
 
             <?php if ($this->countModules( 'bottom_right', true )): ?>
             <div class="col-md">
-              <jdoc:include type="modules" name="bottom_right" style="footer" /> 
+              <jdoc:include type="modules" name="bottom_right" style="footer" />
             </div>
             <?php endif; ?>
           </div>
@@ -284,6 +288,6 @@ $this->setMetaData('og:image', Uri::root(false).'templates/'.$this->template.'/i
         </div>
       </div>
     </footer>
-    <script src="<?php echo $this->baseurl; ?>/media/templates/site/syo/js/syo.js?v=4.3"></script>
+    <script src="<?php echo $this->baseurl; ?>/media/templates/site/syo/js/syo.js?v=4.1"></script>
   </body>
 </html>
