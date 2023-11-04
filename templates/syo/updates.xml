@@ -1,0 +1,14 @@
+<updates>
+    <update>
+        <name>SYO Template</name>
+        <element>syo</element>
+        <type>template</type>
+        <tags>
+            <tag>stable</tag>
+        </tags>
+        <version>3.0.10</version>
+        <targetplatform name="joomla" version="4.[0123456789]" />
+        <client>site</client>
+        <php_minimum>8.1</php_minimum>
+    </update>
+</updates>
