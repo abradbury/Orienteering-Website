@@ -88,8 +88,8 @@ $wa = $document->getWebAssetManager();
 
 		marker.addListener("drag", (event) => {
 			const position = marker.position;
-			document.getElementById("jform_latitude").value = parseFloat(position.h).toFixed(5);
-			document.getElementById("jform_longitude").value = parseFloat(position.j).toFixed(5);
+			document.getElementById("jform_latitude").value = parseFloat(position.lat).toFixed(5);
+			document.getElementById("jform_longitude").value = parseFloat(position.lng).toFixed(5);
 		});
 
 		autocomplete = new Autocomplete(document.getElementById("geo-search"), {
