@@ -9,7 +9,7 @@
 	<description>A Joomla template created for the South Yorkshire Orienteers' website</description>
 
 	<updateservers>
-		<server type="extension" name="SYO">https://raw.githubusercontent.com/abradbury/Orienteering-Website/master/updates.xml</server>
+		<server type="extension" name="SYO">https://raw.githubusercontent.com/abradbury/Orienteering-Website/master/templates/syo/updates.xml</server>
 	</updateservers>
 
 	<files>
