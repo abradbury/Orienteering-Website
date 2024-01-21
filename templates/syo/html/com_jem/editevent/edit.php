@@ -185,9 +185,9 @@ $params		= $this->params;
 			<?php endif; ?>
 
 			<?php echo $this->loadTemplate('other'); ?>
+			<?php echo $this->loadTemplate('publish'); ?>
 			<div style="display:none;">
 				<?php echo $this->loadTemplate('extended'); ?>
-				<?php echo $this->loadTemplate('publish'); ?>
 			</div>
 			
 			<?php if (!empty($this->item->attachments) || ($this->jemsettings->attachmentenabled != 0)) : ?>
