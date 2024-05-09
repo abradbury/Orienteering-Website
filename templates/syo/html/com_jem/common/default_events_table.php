@@ -29,7 +29,6 @@ use Joomla\CMS\Language\Text;
 $hasManyEvents = (count($this->rows) > 15); // Hack so filter does not show on What's On page
 $hasFilterApplied = !empty($this->lists['search']);
 ?>
-<div style="display:none;"><?php var_dump($this->lists); ?></div>
 
 <?php if (($hasFilterApplied || $hasManyEvents) && ($this->settings->get('global_show_filter',1) || $this->settings->get('global_display',1))) : ?>
 <form id="jem_filter" class="floattext">
@@ -130,7 +129,7 @@ $hasFilterApplied = !empty($this->lists['search']);
 
 						<td headers="jem_date" align="left">
 							<?php
-							echo JemOutput::formatShortDateTime($row->dates, $row->times, $row->enddates, $row->endtimes, $this->jemsettings->showtime);
+							echo JemOutput::formatLongDateTime($row->dates, $row->times, $row->enddates, $row->endtimes, $this->jemsettings->showtime);
 							echo JemOutput::formatSchemaOrgDateTime($row->dates, $row->times, $row->enddates, $row->endtimes);
 							?>
 						</td>
