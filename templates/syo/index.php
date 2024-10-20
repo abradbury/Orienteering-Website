@@ -41,7 +41,7 @@ $this->setMetaData('generator', '');
 // Add CSS
 JHtml::_('bootstrap.loadCss', true);
 HTMLHelper::stylesheet(Uri::base().'media/templates/site/syo/css/template.min.css?v=501');
-HTMLHelper::stylesheet(Uri::base().'media/templates/site/syo/css/fontawesome.min.css?v=642');
+HTMLHelper::stylesheet(Uri::base().'media/templates/site/syo/css/fontawesome.min.css?v=660');
 HTMLHelper::stylesheet(Uri::base().'media/templates/site/syo/css/brands.min.css?v=642');
 HTMLHelper::stylesheet(Uri::base().'media/templates/site/syo/css/solid.min.css?v=642');
 
