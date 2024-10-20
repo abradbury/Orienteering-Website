@@ -5,25 +5,25 @@
 jQuery('#login').on('show.bs.modal', function (event) {
   "use strict";
   var modal = jQuery(this);
-  modal.find('#login-form-submit-button').on('click', function() {
+  modal.find('#login-form-submit-button').on('click', function () {
     var form = document.getElementById('login-form')
-    
+
     if (form.reportValidity()) {
       form.submit();
     }
   });
 });
 
-  // Submit the login form on enter key press
-jQuery("#login-form input").keypress(function(event) {
-    if (event.which == 13) {
-        event.preventDefault();
-        var form = document.getElementById('login-form')
+// Submit the login form on enter key press
+jQuery("#login-form input").keypress(function (event) {
+  if (event.which == 13) {
+    event.preventDefault();
+    var form = document.getElementById('login-form')
 
-        if (form.reportValidity()) {
-          form.submit();
-        }
+    if (form.reportValidity()) {
+      form.submit();
     }
+  }
 });
 
 // FIXME: The below does not work because of the ordering of when content is rendered in Joomla
@@ -35,7 +35,7 @@ jQuery("#login-form input").keypress(function(event) {
 // }
 
 // Add HTML content for image caption
-jQuery('img').not('.noCaption,[src*=darkmode],[src*=com_jem]').each(function(i, obj) {
+jQuery('img').not('.noCaption,[src*=darkmode],[src*=com_jem]').each(function (i, obj) {
   var image = jQuery(this);
 
   var classes = "imgWrap";
@@ -93,18 +93,18 @@ function handleFiles(input) {
     return;
   }
 
-  xhr.upload.addEventListener("progress", function(e) {
+  xhr.upload.addEventListener("progress", function (e) {
     var pc = parseInt(e.loaded / e.total * 100);
     progressBar.parentElement.style.display = 'flex';
     progressBar.setAttribute('style', 'width: ' + pc + '%; display: flex;');
     progressBar.parentElement.setAttribute('aria-valuenow', pc);
   }, false);
 
-  xhr.onloadstart = function() {
+  xhr.onloadstart = function () {
     resetState(inputField, progressBar, fileUpload, errorMessage)
   };
 
-  xhr.onreadystatechange = function() {
+  xhr.onreadystatechange = function () {
     if (xhr.readyState == 4) {
       if ((xhr.status == 200) && !((xhr.responseText).toLowerCase().includes("error"))) {
         // The file uploaded ok
@@ -124,14 +124,14 @@ function errorState(inputField, progressBar, errorMessage, fileUpload, response)
   console.error('The file did not upload successfully. If this problem persists please contact the website administrator.');
 
   // Label --------------------------------------------------------------------
-  
+
   // Input --------------------------------------------------------------------
   inputField.setAttribute('aria-invalid', 'true');
   inputField.setAttribute('class', 'form-control inputbox is-invalid');
 
   // Button -------------------------------------------------------------------
   fileUpload.value = ''
-  
+
   // Progress -----------------------------------------------------------------
   progressBar.parentElement.style.display = 'flex';
   progressBar.parentElement.setAttribute('aria-valuenow', '100');
@@ -148,7 +148,7 @@ function successState(inputField, progressBar, fileUpload, response) {
   console.log('The file was successfully uploaded with a response of: ' + response);
 
   // Label --------------------------------------------------------------------
-  
+
   // Input --------------------------------------------------------------------
   inputField.value = response;
   inputField.setAttribute('aria-invalid', 'false');
@@ -168,9 +168,9 @@ function successState(inputField, progressBar, fileUpload, response) {
 }
 
 function resetState(inputField, progressBar, fileUpload, errorMessage) {
-  
+
   // Label --------------------------------------------------------------------
-  
+
   // Input --------------------------------------------------------------------
   inputField.setAttribute('aria-invalid', 'false');
   inputField.setAttribute('class', 'form-control inputbox');
@@ -191,7 +191,7 @@ function resetState(inputField, progressBar, fileUpload, errorMessage) {
 
 // From http://stackoverflow.com/a/2970667/1433614
 function camelise(str) {
-  return str.replace(/(?:^\w|[A-Z]|\b\w)/g, function(letter, index) {
+  return str.replace(/(?:^\w|[A-Z]|\b\w)/g, function (letter, index) {
     return index == 0 ? letter.toLowerCase() : letter.toUpperCase();
   }).replace(/\s+/g, '');
 }
