@@ -26,14 +26,6 @@ jQuery("#login-form input").keypress(function (event) {
   }
 });
 
-// FIXME: The below does not work because of the ordering of when content is rendered in Joomla
-// // Disable the contact form if the user has not accepted cookies
-// var cookiesAccepted = jQuery(".plg_system_eprivacy_accepted").is(":visible")
-// if (!cookiesAccepted) {
-//   jQuery("#contact-form :input").each(function(i, o) { o.disabled = true })
-//   jQuery(".form-actions :button").prop('disabled', true)
-// }
-
 // Add HTML content for image caption
 jQuery('img').not('.noCaption,[src*=darkmode],[src*=com_jem]').each(function (i, obj) {
   var image = jQuery(this);
@@ -52,14 +44,34 @@ jQuery('img').not('.noCaption,[src*=darkmode],[src*=com_jem]').each(function (i,
 
   image.wrap("<div class='" + classes + "'></div>");
   image.addClass('img-fluid');
-  image.after("<small class='caption'>"+imageAlt+"</small>");
+  image.after("<small class='caption'>" + imageAlt + "</small>");
 });
 
 // Header image
-jQuery('.banner').each(function(i, obj) {
+jQuery('.banner').each(function (i, obj) {
   var banner = jQuery(this);
   banner.css('background-image', 'url(' + banner.attr('data-img-name') + ')');
 });
+
+// Hover effect on sponsor logo
+function footerHover(elementID) {
+  var svgObject = document.getElementById(elementID);
+  var svgParent = svgObject.parentElement;
+
+  // How to access SVG innards via JS: https://stackoverflow.com/a/6794343/1433614
+  // jQuery bug in add/remove class functions on SVGs: https://stackoverflow.com/a/10257755/1433614
+  svgObject.addEventListener("load", function () {
+    jQuery(svgParent).on("focusin mouseenter", function () {
+      jQuery(svgParent).attr("style", "");
+    })
+
+    jQuery(svgParent).on("focusout mouseleave", function () {
+      jQuery(svgParent).attr("style", "filter: grayscale(1);");
+    })
+  }, false);
+}
+
+footerHover("aclo");
 
 function handleFiles(input) {
   "use strict";

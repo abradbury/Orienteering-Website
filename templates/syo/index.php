@@ -260,7 +260,7 @@ $this->setMetaData('og:image', Uri::root(false).'templates/'.$this->template.'/i
                 <h1 class="footerHeader">Sponsors</h1>
                 <div class="row footerSponsors">
                   <div id="acl" class="col-sm-10">
-                    <a class="mainNavLogo no-external-link-icon" title="Visit the website of our sponsor, CompassSport" href="http://www.compasssport.co.uk/">
+                    <a class="mainNavLogo no-external-link-icon" style="filter: grayscale(1);" title="Visit the website of our sponsor, CompassSport" href="https://www.compasssport.co.uk/">
                       <object id="aclo" class="img-responsive footerLogo" type="image/svg+xml" data="<?php echo $this->baseurl; ?>/media/templates/site/syo/svg/compasssport.svg?v=3">
                           Sorry, your browser does not support SVGs, so we can't show you this image.
                       </object>
