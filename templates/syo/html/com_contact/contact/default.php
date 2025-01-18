@@ -139,39 +139,42 @@ $htag    = $tparams->get('show_page_heading') ? 'h2' : 'h1';
 
     <?php if ($this->item->misc && $tparams->get('show_misc')) : ?>
         <?php if ($tparams->get('show_email_form') && ($this->item->email_to || $this->item->user_id)) : ?>
-        <div class="row">
-		    <div class="col-md-4">
-        <?php endif; ?>
-                <div class="com-contact__miscinfo contact-miscinfo">
-                    <dl class="dl-horizontal">
-                        <dt>
-                            <?php if (!$this->params->get('marker_misc')) : ?>
-                                <span class="icon-info-circle" aria-hidden="true"></span>
-                                <span class="visually-hidden"><?php echo Text::_('COM_CONTACT_OTHER_INFORMATION'); ?></span>
-                            <?php else : ?>
-                                <span class="<?php echo $this->params->get('marker_class'); ?>">
-                                    <?php echo $this->params->get('marker_misc'); ?>
-                                </span>
-                            <?php endif; ?>
-                        </dt>
-                        <dd>
-                            <span class="contact-misc">
-                                <?php echo $this->item->misc; ?>
-                            </span>
-                        </dd>
-                    </dl>
-                </div>
-            <?php if ($tparams->get('show_email_form') && ($this->item->email_to || $this->item->user_id)) : ?>
-            </div>
+        <div>
+            <div class="row">
+                <div class="col-md-4">
             <?php endif; ?>
-    <?php endif; ?>
-
-    <?php if ($tparams->get('show_email_form') && ($this->item->email_to || $this->item->user_id)) : ?>
-        <?php if ($this->item->misc && $tparams->get('show_misc')) : ?>
-            <div class="col-md-8">
+                    <div class="com-contact__miscinfo contact-miscinfo">
+                        <dl class="dl-horizontal">
+                            <dt>
+                                <?php if (!$this->params->get('marker_misc')) : ?>
+                                    <span class="icon-info-circle" aria-hidden="true"></span>
+                                    <span class="visually-hidden"><?php echo Text::_('COM_CONTACT_OTHER_INFORMATION'); ?></span>
+                                <?php else : ?>
+                                    <span class="<?php echo $this->params->get('marker_class'); ?>">
+                                        <?php echo $this->params->get('marker_misc'); ?>
+                                    </span>
+                                <?php endif; ?>
+                            </dt>
+                            <dd>
+                                <span class="contact-misc">
+                                    <?php echo $this->item->misc; ?>
+                                </span>
+                            </dd>
+                        </dl>
+                    </div>
+                <?php if ($tparams->get('show_email_form') && ($this->item->email_to || $this->item->user_id)) : ?>
+                </div>
+            
+            <?php endif; ?>
         <?php endif; ?>
-            <?php echo $this->loadTemplate('form'); ?>
-        <?php if ($this->item->misc && $tparams->get('show_misc')) : ?>
+
+        <?php if ($tparams->get('show_email_form') && ($this->item->email_to || $this->item->user_id)) : ?>
+            <?php if ($this->item->misc && $tparams->get('show_misc')) : ?>
+                <div class="col-md-8">
+            <?php endif; ?>
+                <?php echo $this->loadTemplate('form'); ?>
+            <?php if ($this->item->misc && $tparams->get('show_misc')) : ?>
+                </div>
             </div>
         </div>
         <?php endif; ?>
