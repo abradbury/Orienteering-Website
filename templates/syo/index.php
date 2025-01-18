@@ -29,7 +29,13 @@ $pageclass = $menu !== null ? $menu->getParams()->get('pageclass_sfx', '') : '';
 
 // Get the image used for the banner
 $imageNames = array('CSC_2017_LG.jpg', 'P1020182.jpg', 'BOC_2015_RL.jpg', 'BRC_2012_MW.jpg', 'LOXLEY_2016_RB.jpg');
-$imageCapts = array('CompassSport Cup Final 2017 - Virtuous Lady, Devon (&copy; Louise Garnett)', 'World Orienteering Championships 2015 - Nairn, Scotland', 'British Sprint Orienteering Championships 2015 - Aldershot Garrison, Hampshire (&copy; Robert Lines)', 'British Relay Championships 2012 - Helsington Barrows, Cumbria (&copy; Martin Ward)', 'SYO Coaching Session - Loxely Common, Sheffield (&copy; Richard Baxter)');
+$imageCapts = array(
+  'CompassSport Cup Final 2017 - Virtuous Lady, Devon (&copy; Louise Garnett)',
+  'World Orienteering Championships 2015 - Nairn, Scotland',
+  'British Sprint Orienteering Championships 2015 - Aldershot Garrison, Hampshire (&copy; Robert Lines)',
+  'British Relay Championships 2012 - Helsington Barrows, Cumbria (&copy; Martin Ward)',
+  'SYO Coaching Session - Loxely Common, Sheffield (&copy; Richard Baxter)'
+);
 $randIndex  = array_rand($imageNames);
 
 // New meta
@@ -42,18 +48,16 @@ $this->setMetaData('generator', '');
 JHtml::_('bootstrap.loadCss', true);
 HTMLHelper::stylesheet(Uri::base().'media/templates/site/syo/css/template.min.css?v=501');
 HTMLHelper::stylesheet(Uri::base().'media/templates/site/syo/css/fontawesome.min.css?v=660');
-HTMLHelper::stylesheet(Uri::base().'media/templates/site/syo/css/brands.min.css?v=642');
-HTMLHelper::stylesheet(Uri::base().'media/templates/site/syo/css/solid.min.css?v=642');
+HTMLHelper::stylesheet(Uri::base().'media/templates/site/syo/css/brands.min.css?v=660');
+HTMLHelper::stylesheet(Uri::base().'media/templates/site/syo/css/solid.min.css?v=660');
 
 // Add favicon stuff
 $this->addHeadLink(Uri::base().'apple-touch-icon.png?v=12', 'apple-touch-icon', 'rel', ['sizes' => '180x180']);
 $this->addHeadLink(Uri::base().'favicon-32x32.png?v=12', 'icon', 'rel', ['sizes' => '32x32', 'type' => 'image/png']);
 $this->addHeadLink(Uri::base().'favicon-16x16.png?v=12', 'icon', 'rel', ['sizes' => '16x16', 'type' => 'image/png']);
 $this->addHeadLink(Uri::base().'site.webmanifest?v=12', 'manifest', 'rel', []);
-// $this->addHeadLink(HTMLHelper::_('image', 'joomla-favicon.svg', '', [], true, 1), 'icon', 'rel', ['type' => 'image/svg+xml']);
 $this->addHeadLink(HTMLHelper::_('image', 'favicon.ico', '', [], true, 1), 'icon', 'rel', ['type' => 'image/vnd.microsoft.icon']);
 $this->addHeadLink(Uri::base().'safari-pinned-tab.svg?v=12', 'mask-icon', 'rel', ['color' => '#ffd300']);
-// $this->addHeadLink(HTMLHelper::_('image', 'favicon-pinned.svg', '', [], true, 1), 'mask-icon', 'rel', ['color' => '#333']);
 $this->addHeadLink(Uri::base().'favicon.ico?v=12', 'shortcut icon', 'rel', []);
 $this->setMetaData('msapplication-TileColor', 'content="#ffd300">');
 $this->setMetaData('msapplication-TileImage', 'content="/mstile-144x144.png?v=12">');
