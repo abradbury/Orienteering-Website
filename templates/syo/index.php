@@ -112,11 +112,11 @@ $this->setMetaData('og:image', Uri::root(false).'templates/'.$this->template.'/i
                 <div class="col-xl-4">
                   <ul class='nav so-shall justify-content-end'>
                     <?php $params = $this->params; ?>
-                    <?php if ($params->get( 'facebookURL' )) {  ?><li class='nav-item'><a class='nav-link no-external-link-icon fb' target='_blank' href='<?php echo $params->get('facebookURL');  ?>'><span class='fab fa-facebook' aria-hidden='true'></span></a></li><?php } ?>
-                    <?php if ($params->get( 'twitterURL' )) {   ?><li class='nav-item'><a class='nav-link no-external-link-icon tw' target='_blank' href='<?php echo $params->get('twitterURL');   ?>'><span class='fab fa-twitter' aria-hidden='true'></span></a></li><?php } ?>
-                    <?php if ($params->get( 'flickrURL' )) {    ?><li class='nav-item'><a class='nav-link no-external-link-icon fl' target='_blank' href='<?php echo $params->get('flickrURL');    ?>'><span class='fab fa-flickr' aria-hidden='true'></span></a></li><?php } ?>
-                    <?php if ($params->get( 'instagramURL' )) { ?><li class='nav-item'><a class='nav-link no-external-link-icon in' target='_blank' href='<?php echo $params->get('instagramURL'); ?>'><span class='fab fa-instagram' aria-hidden='true'></span></a></li><?php } ?>
-                    <?php if ($params->get( 'stravaURL' )) {    ?><li class='nav-item'><a class='nav-link no-external-link-icon st' target='_blank' href='<?php echo $params->get('stravaURL');    ?>'><span class='fab fa-strava' aria-hidden='true'></span></a></li><?php } ?>
+                    <?php if ($params->get( 'facebookURL' )) {  ?><li class='nav-item'><a class='nav-link no-external-link-icon fb' target='_blank' href='<?php echo $params->get('facebookURL');  ?>'></a></li><?php } ?>
+                    <?php if ($params->get( 'twitterURL' )) {   ?><li class='nav-item'><a class='nav-link no-external-link-icon tw' target='_blank' href='<?php echo $params->get('twitterURL');   ?>'></a></li><?php } ?>
+                    <?php if ($params->get( 'flickrURL' )) {    ?><li class='nav-item'><a class='nav-link no-external-link-icon fl' target='_blank' href='<?php echo $params->get('flickrURL');    ?>'></a></li><?php } ?>
+                    <?php if ($params->get( 'instagramURL' )) { ?><li class='nav-item'><a class='nav-link no-external-link-icon in' target='_blank' href='<?php echo $params->get('instagramURL'); ?>'></a></li><?php } ?>
+                    <?php if ($params->get( 'stravaURL' )) {    ?><li class='nav-item'><a class='nav-link no-external-link-icon st' target='_blank' href='<?php echo $params->get('stravaURL');    ?>'></a></li><?php } ?>
 
                     <li class='so-shall-divider'></li>
                     <?php if ($this->countModules( 'logout', true )): ?>
