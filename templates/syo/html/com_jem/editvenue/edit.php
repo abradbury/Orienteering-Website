@@ -235,6 +235,11 @@ $wa = $document->getWebAssetManager();
 					<?php echo $this->form->getLabel('map'); ?>
 					<?php echo $this->form->getInput('map'); ?>
 				</div>
+
+				<div class="mb-3" style="display: none">
+					<?php echo $this->form->getLabel('color'); ?>
+					<?php echo $this->form->getInput('color'); ?>
+				</div>
 			</div>
 
 			<input type="hidden" name="country" id="country" geo-data="country_short" value="">
