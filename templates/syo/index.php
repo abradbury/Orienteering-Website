@@ -45,7 +45,7 @@ $this->setMetaData('viewport', 'width=device-width, initial-scale=1');
 $this->setMetaData('generator', '');
 
 // Add CSS
-$wa->useStyle('bootstrap');
+$wa->useStyle('bootstrap.css');
 HTMLHelper::stylesheet(Uri::base().'media/templates/site/syo/css/template.min.css?v=501');
 HTMLHelper::stylesheet(Uri::base().'media/templates/site/syo/css/fontawesome.min.css?v=660');
 HTMLHelper::stylesheet(Uri::base().'media/templates/site/syo/css/brands.min.css?v=660');
@@ -144,6 +144,7 @@ $this->setMetaData('og:image', Uri::root(false).'templates/'.$this->template.'/i
               <div class="row nav-row-two">
                 <nav class="navbar navbar-expand-md">
                   <div class="container-fluid justify-content-end justify-content-md-start">
+                    <?php $wa->useScript('bootstrap.collapse'); ?>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                       <span class="navbar-toggler-icon"></span>
                       <span>Menu</span>

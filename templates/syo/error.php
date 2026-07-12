@@ -38,10 +38,10 @@ $this->direction = $doc->direction;
 			"error5"];
 
 		function get_random_404_image() {
-			var img = '<img src="<?php echo $this->baseurl; ?>/media/templates/site/syo/images/errors/';
+			var img = '<img src=\"<?php echo $this->baseurl; ?>/media/templates/site/syo/images/errors/';
 			var randomIndex = Math.floor(Math.random() * imageNames.length);
 			img += imageNames[randomIndex];
-			img += '.jpg" />';
+			img += '.jpg\" />';
 			return img;
 		}
 	</script>
