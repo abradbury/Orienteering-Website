@@ -10,7 +10,7 @@
 	<targetplatform name="joomla" version="(6\.)" />
 
 	<updateservers>
-		<server type="extension" name="SYO">https://raw.githubusercontent.com/abradbury/Orienteering-Website/master/templates/syo/updates.xml</server>
+		<server type="extension" name="SYO Template">https://raw.githubusercontent.com/abradbury/Orienteering-Website/refs/heads/master/templates/syo/updates.xml</server>
 	</updateservers>
 
 	<files>
@@ -79,8 +79,4 @@
 			</fieldset>
 		</fields>
 	</config>
-
-	<updateservers>
-		<server type="extension" name="SYO Template">https://raw.githubusercontent.com/abradbury/Orienteering-Website/master/templates/syo/updates.xml</server>
-	</updateservers>
 </extension>
