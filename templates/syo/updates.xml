@@ -6,6 +6,17 @@
         <tags>
             <tag>stable</tag>
         </tags>
+        <version>6.0.0</version>
+        <targetplatform name="joomla" version="(6\.)" />
+        <client>site</client>
+    </update>
+    <update>
+        <name>SYO Template</name>
+        <element>syo</element>
+        <type>template</type>
+        <tags>
+            <tag>stable</tag>
+        </tags>
         <version>3.0.11</version>
         <targetplatform name="joomla" version="4.[0123456789]" />
         <client>site</client>

@@ -7,7 +7,7 @@
 	<copyright>South Yorkshire Orienteers 2023</copyright>
 	<version>6.0.0</version>
 	<description>A Joomla template created for the South Yorkshire Orienteers' website</description>
-	<targetplatform name="joomla" version="6" />
+	<targetplatform name="joomla" version="(6\.)" />
 
 	<updateservers>
 		<server type="extension" name="SYO">https://raw.githubusercontent.com/abradbury/Orienteering-Website/master/templates/syo/updates.xml</server>
@@ -79,4 +79,8 @@
 			</fieldset>
 		</fields>
 	</config>
+
+	<updateservers>
+		<server type="extension" name="SYO Template">https://raw.githubusercontent.com/abradbury/Orienteering-Website/master/templates/syo/updates.xml</server>
+	</updateservers>
 </extension>
