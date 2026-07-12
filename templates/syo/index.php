@@ -45,7 +45,7 @@ $this->setMetaData('viewport', 'width=device-width, initial-scale=1');
 $this->setMetaData('generator', '');
 
 // Add CSS
-JHtml::_('bootstrap.loadCss', true);
+$wa->useStyle('bootstrap.css');
 HTMLHelper::stylesheet(Uri::base().'media/templates/site/syo/css/template.min.css?v=501');
 HTMLHelper::stylesheet(Uri::base().'media/templates/site/syo/css/fontawesome.min.css?v=660');
 HTMLHelper::stylesheet(Uri::base().'media/templates/site/syo/css/brands.min.css?v=660');
@@ -122,7 +122,7 @@ $this->setMetaData('og:image', Uri::root(false).'templates/'.$this->template.'/i
                     <?php if ($this->countModules( 'logout', true )): ?>
                       <li class='nav-item'><jdoc:include type="modules" name="logout" style="html5" /></li>
                     <?php else: ?>
-                      <?php HTMLHelper::_('bootstrap.modal', '.model-login', []); ?>
+                      <?php $wa->useScript('bootstrap.modal'); ?>
                       <li class='nav-item'>
                         <a class='nav-link model-login' href='#' role='button' data-bs-toggle="modal" data-bs-target="#login" title='SYO Member Login'>
                           <span class='sr-only'>S.Y.O Member Login</span>
@@ -144,7 +144,7 @@ $this->setMetaData('og:image', Uri::root(false).'templates/'.$this->template.'/i
               <div class="row nav-row-two">
                 <nav class="navbar navbar-expand-md">
                   <div class="container-fluid justify-content-end justify-content-md-start">
-                    <?php HTMLHelper::_('bootstrap.collapse', '.navbar-toggler', []); ?>
+                    <?php $wa->useScript('bootstrap.collapse'); ?>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                       <span class="navbar-toggler-icon"></span>
                       <span>Menu</span>
