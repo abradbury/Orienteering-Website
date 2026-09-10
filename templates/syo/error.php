@@ -2,21 +2,13 @@
 
 defined('_JEXEC') or die;
 
-use Joomla\CMS\Error\Exception as JoomlaException;
-use Joomla\CMS\Factory;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Uri\Uri;
 
 if (!isset($this->error)) {
-	$this->error = new JoomlaException(Text::_('JERROR_ALERTNOAUTHOR'), 404);
+	$this->error = new \Exception(Text::_('JERROR_ALERTNOAUTHOR'), 404);
 	$this->debug = false;
 }
-
-// Get language and direction
-$doc             = Factory::getDocument();
-$app             = Factory::getApplication();
-$this->language  = $doc->language;
-$this->direction = $doc->direction;
 ?>
 
 <!doctype html>

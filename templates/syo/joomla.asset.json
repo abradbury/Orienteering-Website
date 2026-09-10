@@ -1,55 +1,61 @@
 {
   "$schema": "https://developer.joomla.org/schemas/json-schema/web_assets.json",
   "name": "syo",
-  "version": "3.0.7",
-  "description": "This file contains details of the assets used by the SYO template.",
+  "version": "6.2.0",
+  "description": "Assets used by the SYO template. URIs are root-relative because the template is not inheritable, so Joomla would look for a bare filename under templates/syo/ rather than media/templates/site/syo/ and silently find nothing. Each asset has its own cache-busting version: bump it whenever that file changes.",
   "assets": [
     {
       "name": "template.syo",
-      "description": "The css file to be used when the site is left to right (LTR).",
+      "description": "The main template stylesheet. Its dependencies load first so that it can override them.",
       "type": "style",
-      "uri": "template.min.css",
+      "uri": "media/templates/site/syo/css/template.min.css",
+      "version": "501",
       "dependencies": [
-        "bootstrap",
-        "fontawesome"
+        "bootstrap.css",
+        "template.syo.fontawesome-brands",
+        "template.syo.fontawesome-solid"
       ]
-    },
-    {
-      "name": "template.offline",
-      "description": "The css file to be used when the site is offline and offline.php is being used.",
-      "type": "style",
-      "uri": "offline.css"
     },
     {
       "name": "template.syo",
-      "description": "The file containing the javascript for this template.",
+      "description": "The template JavaScript.",
       "type": "script",
-      "uri": "syo.js"
+      "uri": "media/templates/site/syo/js/syo.js",
+      "version": "4.1",
+      "attributes": {
+        "defer": true
+      }
     },
     {
-      "name": "bootstrap",
+      "name": "template.offline",
+      "description": "The stylesheet for offline.php.",
       "type": "style",
-      "uri": "bootstrap.min.css"
+      "uri": "media/templates/site/syo/css/offline.css",
+      "version": "1"
     },
     {
-      "name": "fontawesome",
+      "name": "template.syo.fontawesome",
+      "description": "The template's own copy of Font Awesome. Not named \"fontawesome\": that would replace Joomla's core asset of the same name for every extension on the site.",
       "type": "style",
-      "uri": "fontawesome.min.css"
+      "uri": "media/templates/site/syo/css/fontawesome.min.css",
+      "version": "660"
     },
     {
-      "name": "fontawesome-brands",
+      "name": "template.syo.fontawesome-brands",
       "type": "style",
-      "uri": "brands.min.css",
+      "uri": "media/templates/site/syo/css/brands.min.css",
+      "version": "660",
       "dependencies": [
-        "fontawesome"
+        "template.syo.fontawesome"
       ]
     },
     {
-      "name": "fontawesome-solid",
+      "name": "template.syo.fontawesome-solid",
       "type": "style",
-      "uri": "solid.min.css",
+      "uri": "media/templates/site/syo/css/solid.min.css",
+      "version": "660",
       "dependencies": [
-        "fontawesome"
+        "template.syo.fontawesome"
       ]
     }
   ]

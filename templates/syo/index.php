@@ -44,27 +44,24 @@ $this->setMetaData('viewport', 'width=device-width, initial-scale=1');
 // Remove Joomla generator text
 $this->setMetaData('generator', '');
 
-// Add CSS
-$wa->useStyle('bootstrap.css');
-HTMLHelper::stylesheet(Uri::base().'media/templates/site/syo/css/template.min.css?v=501');
-HTMLHelper::stylesheet(Uri::base().'media/templates/site/syo/css/fontawesome.min.css?v=660');
-HTMLHelper::stylesheet(Uri::base().'media/templates/site/syo/css/brands.min.css?v=660');
-HTMLHelper::stylesheet(Uri::base().'media/templates/site/syo/css/solid.min.css?v=660');
+$wa->useStyle('template.syo')
+   ->useScript('template.syo');
 
 // Add favicon stuff
 $this->addHeadLink(Uri::base().'apple-touch-icon.png?v=12', 'apple-touch-icon', 'rel', ['sizes' => '180x180']);
-$this->addHeadLink(Uri::base().'favicon-32x32.png?v=12', 'icon', 'rel', ['sizes' => '32x32', 'type' => 'image/png']);
-$this->addHeadLink(Uri::base().'favicon-16x16.png?v=12', 'icon', 'rel', ['sizes' => '16x16', 'type' => 'image/png']);
 $this->addHeadLink(Uri::base().'site.webmanifest?v=12', 'manifest', 'rel', []);
 $this->addHeadLink(HTMLHelper::_('image', 'favicon.ico', '', [], true, 1), 'icon', 'rel', ['type' => 'image/vnd.microsoft.icon']);
-$this->addHeadLink(Uri::base().'safari-pinned-tab.svg?v=12', 'mask-icon', 'rel', ['color' => '#ffd300']);
 $this->addHeadLink(Uri::base().'favicon.ico?v=12', 'shortcut icon', 'rel', []);
-$this->setMetaData('msapplication-TileColor', 'content="#ffd300">');
-$this->setMetaData('msapplication-TileImage', 'content="/mstile-144x144.png?v=12">');
-$this->setMetaData('theme-color', 'content="#ffd300">');
+$this->setMetaData('theme-color', '#ffd300');
 
-// Add open graph details
-$this->setMetaData('og:image', Uri::root(false).'templates/'.$this->template.'/images/header/'.$imageNames[$randIndex]);
+$this->setMetaData('og:type', 'website', 'property');
+$this->setMetaData('og:site_name', $app->get('sitename'), 'property');
+$this->setMetaData('og:title', $this->getTitle(), 'property');
+$this->setMetaData('og:description', $this->getDescription(), 'property');
+$this->setMetaData('og:url', Uri::getInstance()->toString(['scheme', 'host', 'port', 'path', 'query']), 'property');
+$this->setMetaData('og:image', Uri::root().'media/templates/site/syo/images/header/CSC_2017_LG.jpg', 'property');
+$this->setMetaData('og:image:alt', 'A large group of South Yorkshire Orienteers members, many in the club\'s yellow and black kit, on moorland at the CompassSport Cup Final 2017', 'property');
+$this->setMetaData('twitter:card', 'summary_large_image');
 ?>
 
 <!doctype html>
@@ -128,7 +125,7 @@ $this->setMetaData('og:image', Uri::root(false).'templates/'.$this->template.'/i
                           <span class='sr-only'>S.Y.O Member Login</span>
                           <span class='fas fa-user' aria-hidden='true'></span>
                         </a>
-                        <?php $user = Factory::getUser(); if ($user->guest) { ?>
+                        <?php $user = $app->getIdentity(); if ($user === null || $user->guest) { ?>
                           <jdoc:include type="modules" name="login" style="html5" />
                         <?php } ?>
                       </li>
@@ -292,6 +289,5 @@ $this->setMetaData('og:image', Uri::root(false).'templates/'.$this->template.'/i
         </div>
       </div>
     </footer>
-    <script src="<?php echo $this->baseurl; ?>/media/templates/site/syo/js/syo.js?v=4.1"></script>
   </body>
 </html>

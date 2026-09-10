@@ -10,13 +10,11 @@
 
 defined('_JEXEC') or die;
 
-use Joomla\CMS\Factory;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
 
-$params    = $displayData['params'];
-$item      = $displayData['item'];
-$direction = Factory::getLanguage()->isRtl() ? 'left' : 'right';
+$params = $displayData['params'];
+$item   = $displayData['item'];
 ?>
 
 <p class="readmore" style="margin-bottom: 0;">
