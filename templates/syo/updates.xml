@@ -6,6 +6,20 @@
         <tags>
             <tag>stable</tag>
         </tags>
+        <version>6.3.0</version>
+        <downloads>
+            <downloadurl type="full" format="zip">https://example.com/syo-6.3.0.zip</downloadurl>
+        </downloads>
+        <targetplatform name="joomla" version="(6\.)" />
+        <client>site</client>
+    </update>
+    <update>
+        <name>SYO Template</name>
+        <element>syo</element>
+        <type>template</type>
+        <tags>
+            <tag>stable</tag>
+        </tags>
         <version>6.2.0</version>
         <downloads>
             <downloadurl type="full" format="zip">https://example.com/syo-6.2.0.zip</downloadurl>

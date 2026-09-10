@@ -25,11 +25,13 @@ legend {
     color: #353839;
 }
 
-p>span[style],
-p>span[style]>*:not(sup),
-ul>li>span[style],
-article>p {
-    font-size: 14px !important;
+.com-content-article__body p,
+.com-content-article__body ul,
+.com-content-article__body ol,
+.blog-item p,
+.blog-item ul,
+.blog-item ol {
+    max-width: 70ch;
 }
 
 #mainNavLinks .dropdown-menu .nav-item {
@@ -131,9 +133,15 @@ button .plg_system_eprivacy_accepted {
    margin-left: 0.5em;
 }
 
-/* To prevent drop-down menus disappearing on click https://stackoverflow.com/a/32984728/1433614 */
-.dropdown {
-    display: initial !important;
+#mainMenu {
+    --bs-offcanvas-width: min(20rem, 85vw);
+}
+
+@media (max-width: 991.98px) {
+    #mainMenu .dropdown-menu {
+        border: 0;
+        padding: 0 0 0.5em 1em;
+    }
 }
 
 .dropdown-menu {
@@ -149,16 +157,15 @@ button .plg_system_eprivacy_accepted {
     border-color: #ddd;
 }
 
-body,
-html {
-    height: 100%;
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    min-height: 100dvh;
 }
 
 #wrap {
-    min-height: 100%;
-    height: auto;
-    margin: 0 auto -300px;
-    padding: 0 0 300px;
+    flex: 1 0 auto;
 }
 
 footer.footer {
@@ -166,7 +173,6 @@ footer.footer {
     padding-right: 0;
     padding-left: 0;
     margin-top: 50px;
-    height: 300px;
 }
 
 footer a {
@@ -224,6 +230,10 @@ a.mainNavLogo:after{
 
 .sitemap {
     column-count: 2;
+}
+
+.sitemap>li {
+    break-inside: avoid;
 }
 
 .finalFooterRow {
@@ -486,12 +496,6 @@ select#filter_type {
 
 .alert {
     border-radius: 0;
-}
-
-#browser-warning .alert {
-    display: none;
-    margin-top: 1em;
-    margin-bottom: 0px;
 }
 
 .file_upload_button {

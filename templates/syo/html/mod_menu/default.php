@@ -12,11 +12,6 @@ defined('_JEXEC') or die;
 
 use Joomla\CMS\Helper\ModuleHelper;
 
-/** @var Joomla\CMS\WebAsset\WebAssetManager $wa */
-$wa = $app->getDocument()->getWebAssetManager();
-$wa->registerAndUseScript('mod_menu', 'mod_menu/menu.min.js', [], ['type' => 'module']);
-$wa->registerAndUseScript('mod_menu', 'mod_menu/menu-es5.min.js', [], ['nomodule' => true, 'defer' => true]);
-
 $id = '';
 
 if ($tagId = $params->get('tag_id', '')) {
@@ -25,7 +20,7 @@ if ($tagId = $params->get('tag_id', '')) {
 
 // The menu class is deprecated. Use mod-menu instead
 ?>
-<ul<?php echo $id; ?> class="mod-menu mod-list nav navbar-nav me-auto mb-2 mb-lg-0 flex-nowrap flex-md-wrap <?php echo $class_sfx; ?>">
+<ul<?php echo $id; ?> class="mod-menu mod-list nav navbar-nav <?php echo $class_sfx; ?>">
 <?php foreach ($list as $i => &$item) {
     $itemParams = $item->getParams();
     $class      = 'nav-item item-' . $item->id;

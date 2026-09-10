@@ -84,18 +84,6 @@ $this->setMetaData('twitter:card', 'summary_large_image');
     <div id="wrap">
       <div class="container">
         <header>
-          <?php if ($this->countModules( 'browser_warning', true )): ?>
-            <div class="row">
-              <!--[if IE ]>
-              <div id="browser-warning" class="col">
-                <div class="alert alert-danger" role="alert">
-                  <jdoc:include type="modules" name="browser_warning" style="html5" />
-                </div>
-              </div>
-              <![endif]-->
-            </div>
-          <?php endif; ?>
-
           <div class="row align-items-center">
             <div class="col-5 col-sm-4 col-md-3 col-lg-2 align-self-start align-self-md-center">
               <a href="<?php echo $this->baseurl; ?>">
@@ -139,16 +127,22 @@ $this->setMetaData('twitter:card', 'summary_large_image');
               </div>
 
               <div class="row nav-row-two">
-                <nav class="navbar navbar-expand-md">
-                  <div class="container-fluid justify-content-end justify-content-md-start">
-                    <?php $wa->useScript('bootstrap.collapse'); ?>
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                      <span class="navbar-toggler-icon"></span>
+                <nav class="navbar navbar-expand-lg" aria-label="Main">
+                  <div class="container-fluid justify-content-end justify-content-lg-start">
+                    <?php $wa->useScript('bootstrap.offcanvas')->useScript('bootstrap.collapse'); ?>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#mainMenu" aria-controls="mainMenu">
+                      <span class="navbar-toggler-icon" aria-hidden="true"></span>
                       <span>Menu</span>
                     </button>
 
-                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                      <jdoc:include type="modules" name="menu" />
+                    <div class="offcanvas offcanvas-end" tabindex="-1" id="mainMenu" aria-labelledby="mainMenuLabel">
+                      <div class="offcanvas-header">
+                        <h2 class="offcanvas-title h5" id="mainMenuLabel">Menu</h2>
+                        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close menu"></button>
+                      </div>
+                      <div class="offcanvas-body">
+                        <jdoc:include type="modules" name="menu" />
+                      </div>
                     </div>
                   </div>
                 </nav>
