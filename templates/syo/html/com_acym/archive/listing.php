@@ -1,17 +1,28 @@
-<div class="acym_front_page <?php echo $data['paramsCMS']['suffix']; ?>">
+<?php
+
+/**
+ * @package     Joomla.Site
+ * @subpackage  Templates.syo
+ */
+
+defined('_JEXEC') or die;
+
+?>
+<div class="acym_front_page <?php echo htmlspecialchars($data['paramsCMS']['suffix'], ENT_QUOTES, 'UTF-8'); ?>">
     <?php
     if (!empty($data['paramsCMS']['show_page_heading'])) {
-        echo '<h1 class="contentheading '.$data['paramsCMS']['suffix'].'"> '.$data['paramsCMS']['page_heading'].'</h1>';
+        echo '<h1 class="contentheading '.htmlspecialchars($data['paramsCMS']['suffix'], ENT_QUOTES, 'UTF-8').'"> '.htmlspecialchars($data['paramsCMS']['page_heading'], ENT_QUOTES, 'UTF-8').'</h1>';
     }
     ?>
 	<div class="acym__front__archive ">
 		<form method="post" action="<?php
-        echo $data['actionUrl']; ?>" id="acym_form" class="acym__archive__form">
+        echo htmlspecialchars($data['actionUrl'], ENT_QUOTES, 'UTF-8'); ?>" id="acym_form" class="acym__archive__form">
 			<h1><?php echo acym_translation('ACYM_NEWSLETTERS'); ?></h1>
-            
+
             <?php
             echo '{module 280}';
-            
+
+            $grouped_newsletters = [];
             foreach($data['newsletters'] as $newsletter):
                 $grouped_newsletters[date_parse($newsletter->sending_date)['year']][] = $newsletter;
             endforeach;
@@ -28,7 +39,7 @@
                             if (empty($data['userId'])) $iframeClass .= ' acym__front__not_connected_user';
                             echo acym_frontModal($archiveURL, $oneNewsletter->subject, false, $oneNewsletter->id, $iframeClass);
                         } else {
-                            echo '<p class="acym__front__archive__raw"><a href="'.$archiveURL.'" target="_blank">'.$oneNewsletter->subject.'</a></p>';
+                            echo '<p class="acym__front__archive__raw"><a href="'.htmlspecialchars($archiveURL, ENT_QUOTES, 'UTF-8').'" target="_blank" rel="noopener noreferrer">'.htmlspecialchars($oneNewsletter->subject, ENT_QUOTES, 'UTF-8').'</a></p>';
                         }
                         echo '<p class="acym__front__archive__newsletter_sending-date">';
                         echo acym_translation('ACYM_SENDING_DATE').' : '.acym_date($oneNewsletter->sending_date, 'd M Y');

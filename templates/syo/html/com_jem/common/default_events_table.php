@@ -36,7 +36,7 @@ $hasFilterApplied = !empty($this->lists['search']);
 	<?php if ($this->settings->get('global_show_filter',1)) : ?>
 		<div class="col-1 col-xl-1"><label class="col-form-label" for="filter"><?php echo Text::_('COM_JEM_FILTER'); ?></label></div>
 		<div class="col-2 col-xl-2"><?php echo $this->lists['filter']; ?></div>
-		<div class="col-5 col-xl-4"><input type="text" name="filter_search" id="filter_search" value="<?php echo $this->lists['search'];?>" class="form-control" onchange="document.adminForm.submit();" /></div>
+		<div class="col-5 col-xl-4"><input type="text" name="filter_search" id="filter_search" value="<?php echo $this->escape($this->lists['search']);?>" class="form-control" onchange="document.adminForm.submit();" /></div>
 		<div class="col-2 col-xl-1"><button class="btn btn-primary w-100" type="submit"><?php echo Text::_('JSEARCH_FILTER_SUBMIT'); ?></button></div>
 		<div class="col-2 col-xl-1"><button class="btn btn-secondary w-100" type="button" onclick="document.getElementById('filter_search').value='';this.form.submit();"><?php echo Text::_('JSEARCH_FILTER_CLEAR'); ?></button></div>
 	<?php endif; ?>

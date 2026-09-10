@@ -51,7 +51,11 @@ use Joomla\CMS\Language\Text;
 		<dl class="row location">
 			<dt class="col-sm-3 venue"><?php echo Text::_('COM_JEM_WEBSITE'); ?>:</dt>
 			<dd class="col-sm-9 venue">
-				<a href="<?php echo $this->venue->url; ?>" target="_blank"><?php echo $this->venue->urlclean; ?></a>
+				<?php if (preg_match('%^http(s)?://%', $this->venue->url)) : ?>
+					<a href="<?php echo $this->escape($this->venue->url); ?>" target="_blank" rel="noopener noreferrer"><?php echo $this->escape($this->venue->urlclean); ?></a>
+				<?php else : ?>
+					<?php echo $this->escape($this->venue->urlclean); ?>
+				<?php endif; ?>
 			</dd>
 		</dl>
 	<?php endif; ?>
@@ -111,7 +115,7 @@ use Joomla\CMS\Language\Text;
 			for ($cr = 1; $cr <= 10; $cr++) {
 				$currentRow = $this->venue->{'custom'.$cr};
 				if (preg_match('%^http(s)?://%', $currentRow)) {
-					$currentRow = '<a href="' . $this->escape($currentRow) . '" target="_blank">' . $this->escape($currentRow) . '</a>';
+					$currentRow = '<a href="' . $this->escape($currentRow) . '" target="_blank" rel="noopener noreferrer">' . $this->escape($currentRow) . '</a>';
 				}
 				if ($currentRow) {
 				?>

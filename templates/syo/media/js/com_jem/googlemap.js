@@ -1,3 +1,26 @@
+/*
+ * Build the InfoBox content for a venue.
+ *
+ * These values come from user-entered venue records. They are read back out of hidden
+ * inputs with .value, which returns them HTML-decoded, so escaping them in the PHP
+ * template does not make innerHTML safe here - the nodes are built explicitly instead.
+ */
+function createInfoBoxContent(title, street, postalCode, city) {
+	var boxText = document.createElement("div");
+	boxText.style.cssText = "border: 1px solid black; margin-top: 8px; background: yellow; padding: 5px;";
+
+	var boxTitle = document.createElement("b");
+	boxTitle.textContent = title;
+	boxText.appendChild(boxTitle);
+
+	[street, postalCode, city].forEach(function (line) {
+		boxText.appendChild(document.createElement("br"));
+		boxText.appendChild(document.createTextNode(line));
+	});
+
+	return boxText;
+}
+
 function initialize() {
  
 	/* coordinates */
@@ -42,9 +65,7 @@ function initialize() {
 		      icon: "https://www.southyorkshireorienteers.org.uk/media/templates/site/syo/images/map_icon.png"
 		  });
 		
-		var boxText = document.createElement("div");
-	    boxText.style.cssText = "border: 1px solid black; margin-top: 8px; background: yellow; padding: 5px;";
-	    boxText.innerHTML = "<b>"+title+"</b><br>"+street+"<br>"+postalCode+"<br>"+city;
+		var boxText = createInfoBoxContent(title, street, postalCode, city);
 		
 		var myOptions = {
 				content: boxText
@@ -93,9 +114,7 @@ function initialize() {
 				            icon: "https://chart.apis.google.com/chart?chst=d_map_pin_letter_withshadow&chld=•|3491FF|000000"
 				        });
 				        
-				        var boxText = document.createElement("div");
-				        boxText.style.cssText = "border: 1px solid black; margin-top: 8px; background: yellow; padding: 5px;";
-				        boxText.innerHTML = "<b>"+title+"</b><br>"+street+"<br>"+postalCode+"<br>"+city;
+				        var boxText = createInfoBoxContent(title, street, postalCode, city);
 				    	
 				    	var myOptions = {
 				    			content: boxText

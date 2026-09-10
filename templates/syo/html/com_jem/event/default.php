@@ -80,10 +80,10 @@ if ($jemsettings->oldevent > 0) {
 			<?php if ($this->item->locid != 0) : ?>
 			<dt class="col-sm-3 where"><?php echo Text::_('COM_JEM_WHERE'); ?>:</dt>
 			<dd class="col-sm-9 where"><?php
-				if (($params->get('event_show_detlinkvenue') == 1) && (!empty($this->item->url))) :
-					?><a target="_blank" href="<?php echo $this->item->url; ?>"><?php echo $this->escape($this->item->venue); ?></a><?php
+				if (($params->get('event_show_detlinkvenue') == 1) && (!empty($this->item->url)) && preg_match('%^http(s)?://%', $this->item->url)) :
+					?><a target="_blank" rel="noopener noreferrer" href="<?php echo $this->escape($this->item->url); ?>"><?php echo $this->escape($this->item->venue); ?></a><?php
 				elseif (($params->get('event_show_detlinkvenue') == 2) && (!empty($this->item->venueslug))) :
-					?><a href="<?php echo JRoute::_(JemHelperRoute::getVenueRoute($this->item->venueslug)); ?>"><?php echo $this->item->venue; ?></a><?php
+					?><a href="<?php echo JRoute::_(JemHelperRoute::getVenueRoute($this->item->venueslug)); ?>"><?php echo $this->escape($this->item->venue); ?></a><?php
 				else/*if ($params->get('event_show_detlinkvenue') == 0)*/ :
 					echo $this->escape($this->item->venue);
 				endif;
@@ -118,7 +118,11 @@ if ($jemsettings->oldevent > 0) {
 			for ($cr = 1; $cr <= 10; $cr++) {
 				$currentRow = $this->item->{'custom'.$cr};
 				if ($currentRow) {
-					$currentRow = '<a href="'.$this->escape($currentRow).'" target="_blank">'.Text::_('TPL_SYO_JEM_EVENT_LINK_TEXT') . Text::_('COM_JEM_EVENT_CUSTOM_FIELD'.$cr).'</a>';
+					if (preg_match('%^http(s)?://%', $currentRow)) {
+						$currentRow = '<a href="'.$this->escape($currentRow).'" target="_blank" rel="noopener noreferrer">'.Text::_('TPL_SYO_JEM_EVENT_LINK_TEXT') . Text::_('COM_JEM_EVENT_CUSTOM_FIELD'.$cr).'</a>';
+					} else {
+						$currentRow = $this->escape($currentRow);
+					}
 				?>
 					<dt class="col-sm-3 custom<?php echo $cr; ?>"><?php echo Text::_('COM_JEM_EVENT_CUSTOM_FIELD'.$cr); ?>:</dt>
 					<dd class="col-sm-9 custom<?php echo $cr; ?>"><?php echo $currentRow; ?></dd>
@@ -198,13 +202,13 @@ if ($jemsettings->oldevent > 0) {
 				<?php endif; ?>
 
 				<?php if ($params->get('event_show_mapserv') == 3) : ?>
-					<input type="hidden" id="latitude" value="<?php echo $this->item->latitude; ?>">
-					<input type="hidden" id="longitude" value="<?php echo $this->item->longitude; ?>">
-					<input type="hidden" id="venue" value="<?php echo $this->item->venue; ?>">
-					<input type="hidden" id="street" value="<?php echo $this->item->street; ?>">
-					<input type="hidden" id="city" value="<?php echo $this->item->city; ?>">
-					<input type="hidden" id="state" value="<?php echo $this->item->state; ?>">
-					<input type="hidden" id="postalCode" value="<?php echo $this->item->postalCode; ?>">
+					<input type="hidden" id="latitude" value="<?php echo $this->escape($this->item->latitude); ?>">
+					<input type="hidden" id="longitude" value="<?php echo $this->escape($this->item->longitude); ?>">
+					<input type="hidden" id="venue" value="<?php echo $this->escape($this->item->venue); ?>">
+					<input type="hidden" id="street" value="<?php echo $this->escape($this->item->street); ?>">
+					<input type="hidden" id="city" value="<?php echo $this->escape($this->item->city); ?>">
+					<input type="hidden" id="state" value="<?php echo $this->escape($this->item->state); ?>">
+					<input type="hidden" id="postalCode" value="<?php echo $this->escape($this->item->postalCode); ?>">
 
 					<?php echo JemOutput::mapicon($this->item, 'event', $params); ?>
 				<?php endif; ?>
