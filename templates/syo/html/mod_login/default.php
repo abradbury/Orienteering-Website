@@ -18,7 +18,6 @@ use Joomla\CMS\Router\Route;
 
 $app->getDocument()->getWebAssetManager()
     ->useScript('core')
-    ->useScript('keepalive')
     ->useScript('field.passwordview');
 
 Text::script('JSHOWPASSWORD');

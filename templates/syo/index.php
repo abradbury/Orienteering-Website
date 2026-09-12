@@ -34,7 +34,7 @@ $imageCapts = array(
   'World Orienteering Championships 2015 - Nairn, Scotland',
   'British Sprint Orienteering Championships 2015 - Aldershot Garrison, Hampshire (&copy; Robert Lines)',
   'British Relay Championships 2012 - Helsington Barrows, Cumbria (&copy; Martin Ward)',
-  'SYO Coaching Session - Loxely Common, Sheffield (&copy; Richard Baxter)'
+  'SYO Coaching Session - Loxley Common, Sheffield (&copy; Richard Baxter)'
 );
 $randIndex  = array_rand($imageNames);
 
@@ -152,7 +152,8 @@ $this->setMetaData('twitter:card', 'summary_large_image');
 
           <div class="row">
             <div class="col d-none d-sm-block">
-              <div class="banner" data-img-name="<?php echo $this->baseurl.'/media/templates/site/syo/images/header/'.$imageNames[$randIndex]; ?>">
+              <div class="banner">
+                <img class="noCaption" src="<?php echo $this->baseurl.'/media/templates/site/syo/images/header/'.$imageNames[$randIndex]; ?>?v=2" alt="" fetchpriority="high">
                 <small class="caption" data-img-desc="<?php echo $imageCapts[$randIndex]; ?>"></small>
               </div>
             </div>

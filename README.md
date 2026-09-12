@@ -11,4 +11,4 @@ Below is a comparison between the old design of the website (until 2015) and the
 
 | Old design | Current design |
 | ---------- | -------------- |
-| ![The old site design](templates/syo/media/images/docs/old-site-design.jpg) | ![The current site design](templates/syo/media/images/docs/current-site-design.jpg) | 
+| ![The old site design](docs/old-site-design.jpg) | ![The current site design](docs/current-site-design.jpg) | 

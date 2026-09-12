@@ -1,16 +1,8 @@
 /* Minify using https://www.toptal.com/developers/cssminifier */
 @font-face {
     font-family: 'Mosk Bold 700';
-    src: url('../webfonts/Mosk_Bold_700.eot');
-    /* IE9 Compat Modes */
-    src: url('../webfonts/Mosk_Bold_700.eot?#iefix') format('embedded-opentype'),
-        /* IE6-IE8 */
-        url('../webfonts/Mosk_Bold_700.woff2') format('woff2'),
-        /* Super Modern Browsers */
-        url('../webfonts/Mosk_Bold_700.woff') format('woff'),
-        /* Pretty Modern Browsers */
-        url('../webfonts/Mosk_Bold_700.ttf') format('truetype');
-    /* Safari, Android, iOS */
+    src: url('../webfonts/Mosk_Bold_700.woff2') format('woff2');
+    font-display: swap;
 }
 
 h1,
@@ -534,10 +526,15 @@ table>tbody>tr.year:hover {
 .banner {
     width: 100%;
     height: 250px;
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
     position: relative;
+}
+
+.banner img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
 }
 
 .banner>.caption:after {
