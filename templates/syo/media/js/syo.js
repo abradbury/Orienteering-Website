@@ -2,53 +2,6 @@
 
 document.addEventListener('DOMContentLoaded', function () {
 
-    /* --- Login modal -----------------------------------------------------
-     * Workaround for the button element's form attribute. Bootstrap 5 fires
-     * show.bs.modal as a native event, so no jQuery needed.
-     *
-     * The old version re-bound the click handler every time the modal opened,
-     * stacking duplicate handlers. The `bound` flag fixes that.
-     */
-    var loginModal = document.getElementById('login');
-
-    if (loginModal) {
-        var bound = false;
-
-        loginModal.addEventListener('show.bs.modal', function () {
-            if (bound) {
-                return;
-            }
-            var submitButton = loginModal.querySelector('#login-form-submit-button');
-
-            if (submitButton) {
-                submitButton.addEventListener('click', function () {
-                    var form = document.getElementById('login-form');
-                    if (form && form.reportValidity()) {
-                        form.submit();
-                    }
-                });
-                bound = true;
-            }
-        });
-    }
-
-    /* --- Submit the login form on Enter ----------------------------------
-     * keypress is deprecated; keydown with event.key is the modern
-     * equivalent and behaves identically here.
-     */
-    document.querySelectorAll('#login-form input').forEach(function (input) {
-        input.addEventListener('keydown', function (event) {
-            if (event.key !== 'Enter') {
-                return;
-            }
-            event.preventDefault();
-            var form = document.getElementById('login-form');
-            if (form && form.reportValidity()) {
-                form.submit();
-            }
-        });
-    });
-
     /* --- Image captions --------------------------------------------------
      * Wrap each content image and append its alt text as a caption.
      *
@@ -87,47 +40,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         wrapper.appendChild(caption);
     });
-
-    /* --- Sponsor logo hover ----------------------------------------------- */
-    footerHover('aclo');
 });
-
-
-/* --------------------------------------------------------------------------
- * Sponsor logo: full colour on hover/focus, greyscale otherwise.
- *
- * The markup is:
- *     <a class="mainNavLogo" style="filter: grayscale(1);" href="...">
- *       <object id="aclo" type="image/svg+xml" data="compasssport.svg"> … </object>
- *     </a>
- *
- * So the handlers toggle the style attribute on the PARENT <a>. They never
- * touch the SVG's contents.
- *
- * -------------------------------------------------------------------------- */
-function footerHover(elementID) {
-    var svgObject = document.getElementById(elementID);
-
-    if (!svgObject || !svgObject.parentElement) {
-        return;
-    }
-    var svgParent = svgObject.parentElement;
-
-    var showColour = function () {
-        svgParent.setAttribute('style', '');
-    };
-    var showGreyscale = function () {
-        svgParent.setAttribute('style', 'filter: grayscale(1);');
-    };
-
-    ['focusin', 'mouseenter'].forEach(function (evt) {
-        svgParent.addEventListener(evt, showColour);
-    });
-
-    ['focusout', 'mouseleave'].forEach(function (evt) {
-        svgParent.addEventListener(evt, showGreyscale);
-    });
-}
 
 
 /* ==========================================================================

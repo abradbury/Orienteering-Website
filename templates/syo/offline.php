@@ -17,7 +17,7 @@ use Joomla\CMS\Uri\Uri;
 <html lang="<?php echo $this->language; ?>" dir="<?php echo $this->direction; ?>">
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+        <link href="/media/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     </head>
     <body>
         <div class="container">
@@ -35,8 +35,6 @@ use Joomla\CMS\Uri\Uri;
                         <li>See results for some of our recent events, also on <a href="https://www.britishorienteering.org.uk/index.php?pg=results&bAdvanced=&evt_name=&evt_postcode=&evt_radius=0&evt_assoc=0&event_club=28&evt_level=0&evt_type=0&event_start=&evt_start_y=&evt_start_m=&evt_start_d=&event_end=&evt_end_y=&evt_end_m=&evt_end_d=&perpage=25&bSearch=Search&pg=results">the British Orienteering website</a></li>
                         <li>Keep up-to-date on club happenings through <a href="https://www.facebook.com/pages/South-Yorkshire-Orienteers/191524707575660">Facebook</a> and <a href="https://twitter.com/SYOrienteers">Twitter</a></li>
                     </ul>
-
-                    <small>Last updated: 09:45 Sunday 17th September 2023</small>
                 </div>
             </div>
             <form style="display: none;" action="<?php echo Route::_('index.php', true); ?>" method="post" id="form-login">

@@ -8,7 +8,6 @@
 defined('_JEXEC') or die;
 
 use Joomla\CMS\Factory;
-use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Uri\Uri;
 
 /** @var Joomla\CMS\Document\HtmlDocument $this */
@@ -50,7 +49,6 @@ $wa->useStyle('template.syo')
 // Add favicon stuff
 $this->addHeadLink(Uri::base().'apple-touch-icon.png?v=12', 'apple-touch-icon', 'rel', ['sizes' => '180x180']);
 $this->addHeadLink(Uri::base().'site.webmanifest?v=12', 'manifest', 'rel', []);
-$this->addHeadLink(HTMLHelper::_('image', 'favicon.ico', '', [], true, 1), 'icon', 'rel', ['type' => 'image/vnd.microsoft.icon']);
 $this->addHeadLink(Uri::base().'favicon.ico?v=12', 'shortcut icon', 'rel', []);
 $this->setMetaData('theme-color', '#ffd300');
 
@@ -256,10 +254,8 @@ $this->setMetaData('twitter:card', 'summary_large_image');
                 <h1 class="footerHeader">Sponsors</h1>
                 <div class="row footerSponsors">
                   <div id="acl" class="col-sm-10">
-                    <a class="mainNavLogo no-external-link-icon" style="filter: grayscale(1);" title="Visit the website of our sponsor, CompassSport" href="https://www.compasssport.co.uk/">
-                      <object id="aclo" class="img-responsive footerLogo" type="image/svg+xml" data="<?php echo $this->baseurl; ?>/media/templates/site/syo/svg/compasssport.svg?v=3">
-                          Sorry, your browser does not support SVGs, so we can't show you this image.
-                      </object>
+                    <a class="mainNavLogo no-external-link-icon" title="Visit the website of our sponsor, CompassSport" href="https://www.compasssport.co.uk/">
+                      <img class="footerLogo noCaption" src="<?php echo $this->baseurl; ?>/media/templates/site/syo/svg/compasssport.svg?v=3" alt="CompassSport">
                     </a>
                   </div>
                 </div>

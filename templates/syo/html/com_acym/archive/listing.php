@@ -17,7 +17,11 @@ defined('_JEXEC') or die;
 	<div class="acym__front__archive ">
 		<form method="post" action="<?php
         echo htmlspecialchars($data['actionUrl'], ENT_QUOTES, 'UTF-8'); ?>" id="acym_form" class="acym__archive__form">
-			<h1><?php echo acym_translation('ACYM_NEWSLETTERS'); ?></h1>
+			<?php if (!empty($data['paramsCMS']['show_page_heading'])) : ?>
+				<h2><?php echo acym_translation('ACYM_NEWSLETTERS'); ?></h2>
+			<?php else : ?>
+				<h1><?php echo acym_translation('ACYM_NEWSLETTERS'); ?></h1>
+			<?php endif; ?>
 
             <?php
             echo '{module 280}';
